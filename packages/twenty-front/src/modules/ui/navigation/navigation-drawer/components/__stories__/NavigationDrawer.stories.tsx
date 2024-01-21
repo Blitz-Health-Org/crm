@@ -3,7 +3,6 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Favorites } from '@/favorites/components/Favorites';
 import {
   IconAt,
-  IconBell,
   IconBuildingSkyscraper,
   IconCalendarEvent,
   IconCheckbox,
@@ -44,12 +43,12 @@ export const Default: Story = {
       <>
         <NavigationDrawerSection>
           <NavigationDrawerItem label="Search" Icon={IconSearch} active />
-          <NavigationDrawerItem
+          {/* <NavigationDrawerItem
             label="Notifications"
             to="/inbox"
             Icon={IconBell}
             soon={true}
-          />
+          /> */}
           <NavigationDrawerItem
             label="Settings"
             to="/settings/profile"
