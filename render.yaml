@@ -4,7 +4,7 @@ services:
   runtime: image
   plan: free
   image:
-    url: twentycrm/twenty-front:latest
+    url: ethanhou1117/crm-frontend:latest
   autoDeploy: false
   envVars:
     - key: REACT_APP_SERVER_BASE_URL
@@ -16,7 +16,7 @@ services:
   name: server
   runtime: image
   image:
-    url: twentycrm/twenty-server:latest
+    url: ethanhou1117/crm-backend:latest
   dockerCommand: "sh -c ./scripts/render-run.sh"
   autoDeploy: false
   plan: standard
@@ -51,7 +51,7 @@ services:
   plan: starter
   runtime: image
   image:
-    url: twentycrm/twenty-postgres:latest
+    url: ethanhou1117/blitz:latest
   autoDeploy: false
   disk:
     name: data
