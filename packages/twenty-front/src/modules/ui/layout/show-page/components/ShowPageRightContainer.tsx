@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
-import { Threads } from '@/activities/emails/components/Threads';
 import { Attachments } from '@/activities/files/components/Attachments';
 import { Notes } from '@/activities/notes/components/Notes';
 import { ObjectTasks } from '@/activities/tasks/components/ObjectTasks';
@@ -67,22 +66,16 @@ export const ShowPageRightContainer = ({
 
   const TASK_TABS = [
     {
-      id: 'timeline',
-      title: 'Timeline',
-      Icon: IconTimelineEvent,
-      hide: !timeline,
+      id: 'notes',
+      title: 'Notes',
+      Icon: IconNotes,
+      hide: !notes,
     },
     {
       id: 'tasks',
       title: 'Tasks',
       Icon: IconCheckbox,
       hide: !tasks,
-    },
-    {
-      id: 'notes',
-      title: 'Notes',
-      Icon: IconNotes,
-      hide: !notes,
     },
     {
       id: 'files',
@@ -98,6 +91,12 @@ export const ShowPageRightContainer = ({
       hide: !emails,
       disabled: !isMessagingEnabled || targetableObjectMetadataItem.isCustom,
     },
+    {
+      id: 'timeline',
+      title: 'Timeline',
+      Icon: IconTimelineEvent,
+      hide: !timeline,
+    },
   ];
 
   return (
@@ -105,17 +104,16 @@ export const ShowPageRightContainer = ({
       <StyledTabListContainer>
         <TabList tabListId={TAB_LIST_COMPONENT_ID} tabs={TASK_TABS} />
       </StyledTabListContainer>
-      {activeTabId === 'timeline' && (
-        <Timeline targetableObject={targetableObject} />
-      )}
+      {activeTabId === 'notes' && <Notes targetableObject={targetableObject} />}
       {activeTabId === 'tasks' && (
         <ObjectTasks targetableObject={targetableObject} />
       )}
-      {activeTabId === 'notes' && <Notes targetableObject={targetableObject} />}
       {activeTabId === 'files' && (
         <Attachments targetableObject={targetableObject} />
       )}
-      {activeTabId === 'emails' && <Threads entity={targetableObject} />}
+      {activeTabId === 'timeline' && (
+        <Timeline targetableObject={targetableObject} />
+      )}
     </StyledShowPageRightContainer>
   );
 };

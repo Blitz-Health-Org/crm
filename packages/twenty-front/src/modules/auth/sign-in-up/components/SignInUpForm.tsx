@@ -94,8 +94,8 @@ export const SignInUpForm = () => {
     }
 
     return signInUpMode === SignInUpMode.SignIn
-      ? 'Sign in to Twenty'
-      : 'Sign up to Twenty';
+      ? 'Sign in to Blume'
+      : 'Sign up for Blume';
   }, [signInUpMode, workspace?.displayName]);
 
   const theme = useTheme();
