@@ -23,9 +23,9 @@ export const workspaceLogoUrl =
 
 export const mockDefaultWorkspace: Workspace = {
   id: '7dfbc3f7-6e5e-4128-957e-8d86808cdf6w',
-  displayName: 'Twenty',
-  domainName: 'twenty.com',
-  inviteHash: 'twenty.com-invite-hash',
+  displayName: 'Blume',
+  domainName: 'blumebenefits.com',
+  inviteHash: 'blumebenefits.com-invite-hash',
   logo: workspaceLogoUrl,
   allowImpersonation: true,
   subscriptionStatus: 'active',

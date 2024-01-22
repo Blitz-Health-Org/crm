@@ -7,6 +7,7 @@ import {
   IconAt,
   IconCalendarEvent,
   IconColorSwatch,
+  IconHierarchy2,
   IconLogout,
   IconMail,
   IconSettings,
@@ -113,8 +114,8 @@ export const SettingsNavigationDrawerItems = () => {
             })
           }
         />
-        {/* <NavigationDrawerItem
-          label="Data model"
+        <NavigationDrawerItem
+          label="Edit View"
           to="/settings/objects"
           Icon={IconHierarchy2}
           active={
@@ -124,6 +125,7 @@ export const SettingsNavigationDrawerItems = () => {
             })
           }
         />
+        {/* 
         <NavigationDrawerItem
           label="Developers"
           to="/settings/developers/api-keys"

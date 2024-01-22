@@ -50,7 +50,7 @@ export const AppNavigationDrawer = ({
         logo:
           (currentWorkspace?.logo &&
             getImageAbsoluteURIOrBase64(currentWorkspace.logo)) ??
-          undefined,
+          '/icons/favicono.jpg',
         title: currentWorkspace?.displayName ?? undefined,
         children: <MainNavigationDrawerItems />,
         footer: <SupportChat />,

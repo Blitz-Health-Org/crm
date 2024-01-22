@@ -227,7 +227,7 @@ export const SignInUpForm = () => {
         </StyledForm>
       </StyledContentContainer>
       <StyledFooterNote>
-        By using Twenty, you agree to the Terms of Service and Data Processing
+        By using Blume, you agree to the Terms of Service and Data Processing
         Agreement.
       </StyledFooterNote>
     </>
