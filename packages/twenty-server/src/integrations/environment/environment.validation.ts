@@ -63,8 +63,8 @@ export class EnvironmentVariables {
   @IsOptional()
   PORT: number;
 
-  // Database
-  @IsUrl({ protocols: ['postgres'], require_tld: false })
+  // // Database
+  // @IsUrl({ protocols: ['postgres'], require_tld: false })
   PG_DATABASE_URL: string;
 
   // Frontend URL
