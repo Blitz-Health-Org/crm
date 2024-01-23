@@ -10,7 +10,6 @@ import {
   IconHierarchy2,
   IconLogout,
   IconMail,
-  IconRobot,
   IconSettings,
   IconUserCircle,
   IconUsers,
@@ -116,7 +115,7 @@ export const SettingsNavigationDrawerItems = () => {
           }
         />
         <NavigationDrawerItem
-          label="Data model"
+          label="Edit View"
           to="/settings/objects"
           Icon={IconHierarchy2}
           active={
@@ -126,6 +125,7 @@ export const SettingsNavigationDrawerItems = () => {
             })
           }
         />
+        {/* 
         <NavigationDrawerItem
           label="Developers"
           to="/settings/developers/api-keys"
@@ -136,7 +136,7 @@ export const SettingsNavigationDrawerItems = () => {
               end: true,
             })
           }
-        />
+        /> */}
       </NavigationDrawerSection>
 
       <NavigationDrawerSection>

@@ -5,12 +5,7 @@ import { useCurrentUserTaskCount } from '@/activities/tasks/hooks/useCurrentUser
 import { useCommandMenu } from '@/command-menu/hooks/useCommandMenu';
 import { Favorites } from '@/favorites/components/Favorites';
 import { ObjectMetadataNavItems } from '@/object-metadata/components/ObjectMetadataNavItems';
-import {
-  IconBell,
-  IconCheckbox,
-  IconSearch,
-  IconSettings,
-} from '@/ui/display/icon';
+import { IconCheckbox, IconSearch, IconSettings } from '@/ui/display/icon';
 import { NavigationDrawerItem } from '@/ui/navigation/navigation-drawer/components/NavigationDrawerItem';
 import { NavigationDrawerSection } from '@/ui/navigation/navigation-drawer/components/NavigationDrawerSection';
 import { NavigationDrawerSectionTitle } from '@/ui/navigation/navigation-drawer/components/NavigationDrawerSectionTitle';
@@ -40,12 +35,12 @@ export const MainNavigationDrawerItems = () => {
             onClick={toggleCommandMenu}
             keyboard={['⌘', 'K']}
           />
-          <NavigationDrawerItem
+          {/* <NavigationDrawerItem
             label="Notifications"
             to="/inbox"
             Icon={IconBell}
             soon
-          />
+          /> */}
           <NavigationDrawerItem
             label="Settings"
             onClick={() => {
