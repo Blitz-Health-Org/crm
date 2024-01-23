@@ -1,0 +1,37 @@
+import { Repository } from 'typeorm';
+import { Workspace } from 'src/core/workspace/workspace.entity';
+import { User } from 'src/core/user/user.entity';
+import { ApiKeyTokenInput } from 'src/core/auth/dto/api-key-token.input';
+import { TransientToken } from 'src/core/auth/dto/transient-token.entity';
+import { UserService } from 'src/core/user/services/user.service';
+import { ApiKeyToken, AuthTokens } from './dto/token.entity';
+import { TokenService } from './services/token.service';
+import { RefreshTokenInput } from './dto/refresh-token.input';
+import { Verify } from './dto/verify.entity';
+import { VerifyInput } from './dto/verify.input';
+import { AuthService } from './services/auth.service';
+import { LoginToken } from './dto/login-token.entity';
+import { ChallengeInput } from './dto/challenge.input';
+import { UserExists } from './dto/user-exists.entity';
+import { CheckUserExistsInput } from './dto/user-exists.input';
+import { WorkspaceInviteHashValid } from './dto/workspace-invite-hash-valid.entity';
+import { WorkspaceInviteHashValidInput } from './dto/workspace-invite-hash.input';
+import { SignUpInput } from './dto/sign-up.input';
+import { ImpersonateInput } from './dto/impersonate.input';
+export declare class AuthResolver {
+    private readonly workspaceRepository;
+    private authService;
+    private tokenService;
+    private userService;
+    constructor(workspaceRepository: Repository<Workspace>, authService: AuthService, tokenService: TokenService, userService: UserService);
+    checkUserExists(checkUserExistsInput: CheckUserExistsInput): Promise<UserExists>;
+    checkWorkspaceInviteHashIsValid(workspaceInviteHashValidInput: WorkspaceInviteHashValidInput): Promise<WorkspaceInviteHashValid>;
+    findWorkspaceFromInviteHash(workspaceInviteHashValidInput: WorkspaceInviteHashValidInput): Promise<Workspace | null>;
+    challenge(challengeInput: ChallengeInput): Promise<LoginToken>;
+    signUp(signUpInput: SignUpInput): Promise<LoginToken>;
+    generateTransientToken(user: User): Promise<TransientToken | void>;
+    verify(verifyInput: VerifyInput): Promise<Verify>;
+    renewToken(args: RefreshTokenInput): Promise<AuthTokens>;
+    impersonate(impersonateInput: ImpersonateInput, user: User): Promise<Verify>;
+    generateApiKeyToken(args: ApiKeyTokenInput, { id: workspaceId }: Workspace): Promise<ApiKeyToken | undefined>;
+}

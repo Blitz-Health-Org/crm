@@ -1,0 +1,30 @@
+import { Repository } from 'typeorm';
+import { MessageQueueJob } from 'src/integrations/message-queue/interfaces/message-queue-job.interface';
+import { ObjectMetadataService } from 'src/metadata/object-metadata/object-metadata.service';
+import { DataSourceService } from 'src/metadata/data-source/data-source.service';
+import { TypeORMService } from 'src/database/typeorm/typeorm.service';
+import { DataSourceEntity } from 'src/metadata/data-source/data-source.entity';
+import { UserService } from 'src/core/user/services/user.service';
+import { EmailService } from 'src/integrations/email/email.service';
+import { EnvironmentService } from 'src/integrations/environment/environment.service';
+import { FeatureFlagEntity } from 'src/core/feature-flag/feature-flag.entity';
+import { ObjectMetadataEntity } from 'src/metadata/object-metadata/object-metadata.entity';
+export declare class CleanInactiveWorkspaceJob implements MessageQueueJob<undefined> {
+    private readonly dataSourceService;
+    private readonly objectMetadataService;
+    private readonly typeORMService;
+    private readonly userService;
+    private readonly emailService;
+    private readonly environmentService;
+    private readonly featureFlagRepository;
+    private readonly logger;
+    private readonly inactiveDaysBeforeDelete;
+    private readonly inactiveDaysBeforeEmail;
+    constructor(dataSourceService: DataSourceService, objectMetadataService: ObjectMetadataService, typeORMService: TypeORMService, userService: UserService, emailService: EmailService, environmentService: EnvironmentService, featureFlagRepository: Repository<FeatureFlagEntity>);
+    getmostRecentUpdatedAt(dataSource: DataSourceEntity, objectsMetadata: ObjectMetadataEntity[]): Promise<Date>;
+    warnWorkspaceUsers(dataSource: DataSourceEntity, daysSinceInactive: number): Promise<void>;
+    deleteWorkspace(dataSource: DataSourceEntity, daysSinceInactive: number): Promise<void>;
+    processWorkspace(dataSource: DataSourceEntity, objectsMetadata: ObjectMetadataEntity[]): Promise<void>;
+    isWorkspaceCleanable(dataSource: DataSourceEntity): Promise<boolean>;
+    handle(): Promise<void>;
+}

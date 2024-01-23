@@ -1,0 +1,1 @@
+{"version":3,"file":"json.serializer.js","sourceRoot":"","sources":["../../../../../src/integrations/memory-storage/serializers/json.serializer.ts"],"names":[],"mappings":";;;AAEA,MAAa,2BAA2B;IAGtC,SAAS,CAAC,IAAO;QACf,OAAO,IAAI,CAAC,SAAS,CAAC,IAAI,CAAC,CAAC;IAC9B,CAAC;IAED,WAAW,CAAC,IAAY;QACtB,OAAO,IAAI,CAAC,KAAK,CAAC,IAAI,CAAM,CAAC;IAC/B,CAAC;CACF;AAVD,kEAUC"}

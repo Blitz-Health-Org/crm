@@ -1,0 +1,30 @@
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { TypeOrmQueryService } from '@ptc-org/nestjs-query-typeorm';
+import { Query, QueryOptions } from '@ptc-org/nestjs-query-core';
+import { WorkspaceMigrationService } from 'src/metadata/workspace-migration/workspace-migration.service';
+import { WorkspaceMigrationRunnerService } from 'src/workspace/workspace-migration-runner/workspace-migration-runner.service';
+import { FieldMetadataEntity } from 'src/metadata/field-metadata/field-metadata.entity';
+import { TypeORMService } from 'src/database/typeorm/typeorm.service';
+import { DataSourceService } from 'src/metadata/data-source/data-source.service';
+import { RelationMetadataEntity } from 'src/metadata/relation-metadata/relation-metadata.entity';
+import { ObjectMetadataEntity } from './object-metadata.entity';
+import { CreateObjectInput } from './dtos/create-object.input';
+export declare class ObjectMetadataService extends TypeOrmQueryService<ObjectMetadataEntity> {
+    private readonly objectMetadataRepository;
+    private readonly fieldMetadataRepository;
+    private readonly relationMetadataRepository;
+    private readonly dataSourceService;
+    private readonly typeORMService;
+    private readonly workspaceMigrationService;
+    private readonly workspaceMigrationRunnerService;
+    constructor(objectMetadataRepository: Repository<ObjectMetadataEntity>, fieldMetadataRepository: Repository<FieldMetadataEntity>, relationMetadataRepository: Repository<RelationMetadataEntity>, dataSourceService: DataSourceService, typeORMService: TypeORMService, workspaceMigrationService: WorkspaceMigrationService, workspaceMigrationRunnerService: WorkspaceMigrationRunnerService);
+    query(query: Query<ObjectMetadataEntity>, opts?: QueryOptions<ObjectMetadataEntity> | undefined): Promise<ObjectMetadataEntity[]>;
+    createOne(objectMetadataInput: CreateObjectInput): Promise<ObjectMetadataEntity>;
+    findOneWithinWorkspace(workspaceId: string, options: FindOneOptions<ObjectMetadataEntity>): Promise<ObjectMetadataEntity | null>;
+    findOneOrFailWithinWorkspace(workspaceId: string, options: FindOneOptions<ObjectMetadataEntity>): Promise<ObjectMetadataEntity>;
+    findManyWithinWorkspace(workspaceId: string, options?: FindManyOptions<ObjectMetadataEntity>): Promise<ObjectMetadataEntity[]>;
+    findMany(options?: FindManyOptions<ObjectMetadataEntity>): Promise<ObjectMetadataEntity[]>;
+    deleteObjectsMetadata(workspaceId: string): Promise<void>;
+    private createActivityTargetRelation;
+    private createFavoriteRelation;
+}

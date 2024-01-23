@@ -1,0 +1,2 @@
+import { FileStorageModuleOptions } from './interfaces';
+export declare const ConfigurableModuleClass: import("@nestjs/common").ConfigurableModuleCls<FileStorageModuleOptions, "forRoot", "create", {}>, MODULE_OPTIONS_TOKEN: string | symbol, OPTIONS_TYPE: FileStorageModuleOptions & Partial<{}>, ASYNC_OPTIONS_TYPE: import("@nestjs/common").ConfigurableModuleAsyncOptions<FileStorageModuleOptions, "create"> & Partial<{}>;

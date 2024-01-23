@@ -1,0 +1,31 @@
+import { IConnection } from 'src/utils/pagination/interfaces/connection.interface';
+import { Record as IRecord, RecordFilter, RecordOrderBy } from 'src/workspace/workspace-query-builder/interfaces/record.interface';
+import { CreateManyResolverArgs, CreateOneResolverArgs, DeleteManyResolverArgs, DeleteOneResolverArgs, FindManyResolverArgs, FindOneResolverArgs, UpdateManyResolverArgs, UpdateOneResolverArgs } from 'src/workspace/workspace-resolver-builder/interfaces/workspace-resolvers-builder.interface';
+import { ObjectMetadataInterface } from 'src/metadata/field-metadata/interfaces/object-metadata.interface';
+import { WorkspaceQueryBuilderFactory } from 'src/workspace/workspace-query-builder/workspace-query-builder.factory';
+import { WorkspaceDataSourceService } from 'src/workspace/workspace-datasource/workspace-datasource.service';
+import { MessageQueueService } from 'src/integrations/message-queue/services/message-queue.service';
+import { CallWebhookJobsJobOperation } from 'src/workspace/workspace-query-runner/jobs/call-webhook-jobs.job';
+import { ExceptionHandlerService } from 'src/integrations/exception-handler/exception-handler.service';
+import { WorkspaceQueryRunnerOptions } from './interfaces/query-runner-optionts.interface';
+import { PGGraphQLResult } from './interfaces/pg-graphql.interface';
+export declare class WorkspaceQueryRunnerService {
+    private readonly workspaceQueryBuilderFactory;
+    private readonly workspaceDataSourceService;
+    private readonly messageQueueService;
+    private readonly exceptionHandlerService;
+    private readonly logger;
+    constructor(workspaceQueryBuilderFactory: WorkspaceQueryBuilderFactory, workspaceDataSourceService: WorkspaceDataSourceService, messageQueueService: MessageQueueService, exceptionHandlerService: ExceptionHandlerService);
+    findMany<Record extends IRecord = IRecord, Filter extends RecordFilter = RecordFilter, OrderBy extends RecordOrderBy = RecordOrderBy>(args: FindManyResolverArgs<Filter, OrderBy>, options: WorkspaceQueryRunnerOptions): Promise<IConnection<Record> | undefined>;
+    findOne<Record extends IRecord = IRecord, Filter extends RecordFilter = RecordFilter>(args: FindOneResolverArgs<Filter>, options: WorkspaceQueryRunnerOptions): Promise<Record | undefined>;
+    createMany<Record extends IRecord = IRecord>(args: CreateManyResolverArgs<Record>, options: WorkspaceQueryRunnerOptions): Promise<Record[] | undefined>;
+    createOne<Record extends IRecord = IRecord>(args: CreateOneResolverArgs<Record>, options: WorkspaceQueryRunnerOptions): Promise<Record | undefined>;
+    updateOne<Record extends IRecord = IRecord>(args: UpdateOneResolverArgs<Record>, options: WorkspaceQueryRunnerOptions): Promise<Record | undefined>;
+    deleteOne<Record extends IRecord = IRecord>(args: DeleteOneResolverArgs, options: WorkspaceQueryRunnerOptions): Promise<Record | undefined>;
+    updateMany<Record extends IRecord = IRecord>(args: UpdateManyResolverArgs<Record>, options: WorkspaceQueryRunnerOptions): Promise<Record[] | undefined>;
+    deleteMany<Record extends IRecord = IRecord, Filter extends RecordFilter = RecordFilter>(args: DeleteManyResolverArgs<Filter>, options: WorkspaceQueryRunnerOptions): Promise<Record[] | undefined>;
+    execute(query: string, workspaceId: string): Promise<PGGraphQLResult | undefined>;
+    private parseResult;
+    executeAndParse<Result>(query: string, objectMetadataItem: ObjectMetadataInterface, command: string, workspaceId: string): Promise<Result>;
+    triggerWebhooks<Record>(jobsData: Record[] | undefined, operation: CallWebhookJobsJobOperation, options: WorkspaceQueryRunnerOptions): Promise<void>;
+}

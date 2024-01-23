@@ -1,0 +1,21 @@
+import { FieldMetadataDefaultValue } from 'src/metadata/field-metadata/interfaces/field-metadata-default-value.interface';
+import { FieldMetadataType } from 'src/metadata/field-metadata/field-metadata.entity';
+import { FieldMetadataDefaultValueBoolean, FieldMetadataDefaultValueCurrency, FieldMetadataDefaultValueDateTime, FieldMetadataDefaultValueFullName, FieldMetadataDefaultValueLink, FieldMetadataDefaultValueNumber, FieldMetadataDefaultValueString, FieldMetadataDefaultValueStringArray, FieldMetadataDynamicDefaultValueNow, FieldMetadataDynamicDefaultValueUuid } from 'src/metadata/field-metadata/dtos/default-value.input';
+export declare const defaultValueValidatorsMap: {
+    UUID: (typeof FieldMetadataDefaultValueString | typeof FieldMetadataDynamicDefaultValueUuid)[];
+    TEXT: (typeof FieldMetadataDefaultValueString)[];
+    PHONE: (typeof FieldMetadataDefaultValueString)[];
+    EMAIL: (typeof FieldMetadataDefaultValueString)[];
+    DATE_TIME: (typeof FieldMetadataDefaultValueDateTime | typeof FieldMetadataDynamicDefaultValueNow)[];
+    BOOLEAN: (typeof FieldMetadataDefaultValueBoolean)[];
+    NUMBER: (typeof FieldMetadataDefaultValueNumber)[];
+    NUMERIC: (typeof FieldMetadataDefaultValueString)[];
+    PROBABILITY: (typeof FieldMetadataDefaultValueNumber)[];
+    LINK: (typeof FieldMetadataDefaultValueLink)[];
+    CURRENCY: (typeof FieldMetadataDefaultValueCurrency)[];
+    FULL_NAME: (typeof FieldMetadataDefaultValueFullName)[];
+    RATING: (typeof FieldMetadataDefaultValueString)[];
+    SELECT: (typeof FieldMetadataDefaultValueString)[];
+    MULTI_SELECT: (typeof FieldMetadataDefaultValueStringArray)[];
+};
+export declare const validateDefaultValueForType: (type: FieldMetadataType, defaultValue: FieldMetadataDefaultValue) => boolean;

@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx start twenty-front",
+    "startTime": "2024-01-22T00:51:25.226Z",
+    "endTime": "2024-01-23T03:52:10.014Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "twenty-front:start",
+      "target": "start",
+      "projectName": "twenty-front",
+      "hash": "17244015526433327549",
+      "startTime": "2024-01-22T00:51:25.233Z",
+      "endTime": "2024-01-23T03:52:10.012Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

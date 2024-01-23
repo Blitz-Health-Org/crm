@@ -1,0 +1,33 @@
+import { ObjectMetadataInterface } from 'src/metadata/field-metadata/interfaces/object-metadata.interface';
+import { EnumTypeDefinitionFactory } from 'src/workspace/workspace-schema-builder/factories/enum-type-definition.factory';
+import { TypeDefinitionsStorage } from './storages/type-definitions.storage';
+import { ObjectTypeDefinitionFactory } from './factories/object-type-definition.factory';
+import { InputTypeDefinitionFactory } from './factories/input-type-definition.factory';
+import { WorkspaceBuildSchemaOptions } from './interfaces/workspace-build-schema-optionts.interface';
+import { FilterTypeDefinitionFactory } from './factories/filter-type-definition.factory';
+import { ConnectionTypeDefinitionFactory } from './factories/connection-type-definition.factory';
+import { EdgeTypeDefinitionFactory } from './factories/edge-type-definition.factory';
+import { OrderByTypeDefinitionFactory } from './factories/order-by-type-definition.factory';
+import { ExtendObjectTypeDefinitionFactory } from './factories/extend-object-type-definition.factory';
+export declare class TypeDefinitionsGenerator {
+    private readonly typeDefinitionsStorage;
+    private readonly objectTypeDefinitionFactory;
+    private readonly enumTypeDefinitionFactory;
+    private readonly inputTypeDefinitionFactory;
+    private readonly filterTypeDefintionFactory;
+    private readonly orderByTypeDefinitionFactory;
+    private readonly edgeTypeDefinitionFactory;
+    private readonly connectionTypeDefinitionFactory;
+    private readonly extendObjectTypeDefinitionFactory;
+    private readonly logger;
+    constructor(typeDefinitionsStorage: TypeDefinitionsStorage, objectTypeDefinitionFactory: ObjectTypeDefinitionFactory, enumTypeDefinitionFactory: EnumTypeDefinitionFactory, inputTypeDefinitionFactory: InputTypeDefinitionFactory, filterTypeDefintionFactory: FilterTypeDefinitionFactory, orderByTypeDefinitionFactory: OrderByTypeDefinitionFactory, edgeTypeDefinitionFactory: EdgeTypeDefinitionFactory, connectionTypeDefinitionFactory: ConnectionTypeDefinitionFactory, extendObjectTypeDefinitionFactory: ExtendObjectTypeDefinitionFactory);
+    generate(objectMetadataCollection: ObjectMetadataInterface[], options: WorkspaceBuildSchemaOptions): void;
+    private generateStaticObjectTypeDefs;
+    private generateDynamicObjectTypeDefs;
+    private generateObjectTypeDefs;
+    private generatePaginationTypeDefs;
+    private generateInputTypeDefs;
+    private generateEnumTypeDefs;
+    private generateExtendedObjectTypeDefs;
+    private mergeFieldsWithDefaults;
+}
