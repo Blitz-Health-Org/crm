@@ -3,8 +3,7 @@ services:
   name: front
   runtime: image
   plan: free
-  image:
-    url: ethanhou1117/crm-frontend:latest
+  dockerfilePath: ./packages/twenty-docker/prod/twenty-front/Dockerfile
   autoDeploy: false
   envVars:
     - key: REACT_APP_SERVER_BASE_URL
@@ -15,8 +14,7 @@ services:
 - type: web
   name: server
   runtime: image
-  image:
-    url: ethanhou1117/crm-backend:latest
+    dockerfilePath: ./packages/twenty-docker/prod/twenty-server/Dockerfile
   dockerCommand: "sh -c ./scripts/render-run.sh"
   autoDeploy: false
   plan: standard
@@ -50,8 +48,7 @@ services:
   name: twenty_postgres
   plan: starter
   runtime: image
-  image:
-    url: ethanhou1117/blitz:latest
+    dockerfilePath: ./packages/twenty-docker/prod/twenty-postgres/Dockerfile
   autoDeploy: false
   disk:
     name: data
