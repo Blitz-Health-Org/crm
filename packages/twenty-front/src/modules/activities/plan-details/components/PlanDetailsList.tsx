@@ -8,7 +8,6 @@ import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadata
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
-import { RecordItemDropdownSections } from '@/object-record/components/record-item-dropdown/constants/RecordItemDropdownSections';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -38,7 +37,6 @@ const StyledContainer = styled.div`
 const StyledDropdownContainer = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.spacing(4)};
-  grid-auto-rows: 1fr;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   width: 100%;
 `;
@@ -165,45 +163,155 @@ export const PlanDetailsList = () => {
         parseFieldRelationType(fieldMetadataItem) === 'TO_ONE_OBJECT'),
   );
 
-  const medicalPlanMetadataItems = availableFieldMetadataItems
-    .filter((fieldMetadataItem) =>
-      fieldMetadataItem.description?.includes('medical_plan'),
-    )
-    .slice(0, 5);
+  const medicalPlanMetadataItems = availableFieldMetadataItems.filter(
+    (fieldMetadataItem) =>
+      fieldMetadataItem.description?.includes('medical_plan') &&
+      !fieldMetadataItem.description?.includes('plan_name') &&
+      !fieldMetadataItem.description?.includes('group_plan'),
+  );
 
-  console.log('medical', medicalPlanMetadataItems);
+  const getPlanNameItems = availableFieldMetadataItems.filter(
+    (fieldMetadataItem) => {
+      return fieldMetadataItem.label === 'Plan Name';
+    },
+  );
+
+  const getPlanGroupSpecificItems = (plan: any, group: any) => {
+    return availableFieldMetadataItems.filter((fieldMetadataItem) => {
+      return (
+        fieldMetadataItem.description?.includes(`plan_name_${plan + 1}`) &&
+        fieldMetadataItem.description?.includes(`${group}_group_plan`)
+      );
+    });
+  };
+
+  const getCategorySpecificItems = (category: any) => {
+    return availableFieldMetadataItems.filter((fieldMetadataItem) => {
+      return (
+        fieldMetadataItem.description?.includes(
+          `${category.toLowerCase()}_plan`,
+        ) &&
+        !fieldMetadataItem.description?.includes(`group_plan`) &&
+        !fieldMetadataItem.description?.includes(`plan_name`)
+      );
+    });
+  };
+
+  //   const getSpecificItemsPlan = (index: any) => {
+  //     return availableFieldMetadataItems.filter((fieldMetadataItem) => {
+  //       return (
+  //         fieldMetadataItem.description?.includes(`plan_name_${index + 1}`) &&
+  //         !fieldMetadataItem.description?.includes(`group_plan`)
+  //       );
+  //     });
+  //   };
 
   return (
     <StyledContainer>
       <StyledDropdownContainer>
-        {RecordItemDropdownSections.map((section) => (
-          <RecordItemDropdown dropdownTitle={section} defaultOpen>
-            <PropertyBox extraPadding={true}>
-              {medicalPlanMetadataItems.map((fieldMetadataItem, index) => (
-                <FieldContext.Provider
-                  key={record?.id + fieldMetadataItem.id}
-                  value={{
-                    entityId: record?.id ?? '',
-                    maxWidth: 272,
-                    recoilScopeId: record?.id + fieldMetadataItem.id,
-                    isLabelIdentifier: false,
-                    fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                      field: fieldMetadataItem,
-                      position: index,
-                      objectMetadataItem,
-                      showLabel: true,
-                      labelWidth: 90,
-                    }),
-                    useUpdateRecord: useUpdateOneObjectRecordMutation,
-                    hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                  }}
-                >
-                  <RecordInlineCell />
-                </FieldContext.Provider>
-              ))}
-            </PropertyBox>
-          </RecordItemDropdown>
-        ))}
+        <>
+          {['Medical', 'Dental', 'Vision'].map((category) => (
+            <RecordItemDropdown dropdownTitle={<>{category}</>} defaultOpen>
+              <PropertyBox extraPadding={true}>
+                {getCategorySpecificItems(category).map(
+                  (fieldMetadataItem, index) => (
+                    <FieldContext.Provider
+                      key={record?.id + fieldMetadataItem.id}
+                      value={{
+                        entityId: record?.id ?? '',
+                        maxWidth: 272,
+                        recoilScopeId: record?.id + fieldMetadataItem.id,
+                        isLabelIdentifier: false,
+                        fieldDefinition:
+                          formatFieldMetadataItemAsColumnDefinition({
+                            field: fieldMetadataItem,
+                            position: index,
+                            objectMetadataItem,
+                            showLabel: true,
+                            labelWidth: 90,
+                          }),
+                        useUpdateRecord: useUpdateOneObjectRecordMutation,
+                        hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                      }}
+                    >
+                      <RecordInlineCell />
+                    </FieldContext.Provider>
+                  ),
+                )}
+                {getPlanNameItems.map((section, index) => (
+                  <RecordItemDropdown
+                    dropdownTitle={
+                      <FieldContext.Provider
+                        key={record?.id + section.id}
+                        value={{
+                          entityId: record?.id ?? '',
+                          maxWidth: 272,
+                          recoilScopeId: record?.id + section.id,
+                          isLabelIdentifier: false,
+                          fieldDefinition:
+                            formatFieldMetadataItemAsColumnDefinition({
+                              field: section,
+                              position: index,
+                              objectMetadataItem,
+                              showLabel: true,
+                              labelWidth: 90,
+                            }),
+                          useUpdateRecord: useUpdateOneObjectRecordMutation,
+                          hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                        }}
+                      >
+                        <RecordInlineCell />
+                      </FieldContext.Provider>
+                    }
+                    defaultOpen
+                  >
+                    <PropertyBox extraPadding={true}>
+                      {['EE', 'ES', 'EF', 'EC'].map((group) => (
+                        <RecordItemDropdown
+                          dropdownTitle={<>{group}</>}
+                          defaultOpen
+                        >
+                          <PropertyBox extraPadding={true}>
+                            {getPlanGroupSpecificItems(index, group).map(
+                              (fieldMetadataItem, index) => (
+                                <FieldContext.Provider
+                                  key={record?.id + fieldMetadataItem.id}
+                                  value={{
+                                    entityId: record?.id ?? '',
+                                    maxWidth: 272,
+                                    recoilScopeId:
+                                      record?.id + fieldMetadataItem.id,
+                                    isLabelIdentifier: false,
+                                    fieldDefinition:
+                                      formatFieldMetadataItemAsColumnDefinition(
+                                        {
+                                          field: fieldMetadataItem,
+                                          position: index,
+                                          objectMetadataItem,
+                                          showLabel: true,
+                                          labelWidth: 90,
+                                        },
+                                      ),
+                                    useUpdateRecord:
+                                      useUpdateOneObjectRecordMutation,
+                                    hotkeyScope:
+                                      InlineCellHotkeyScope.InlineCell,
+                                  }}
+                                >
+                                  <RecordInlineCell />
+                                </FieldContext.Provider>
+                              ),
+                            )}
+                          </PropertyBox>
+                        </RecordItemDropdown>
+                      ))}
+                    </PropertyBox>
+                  </RecordItemDropdown>
+                ))}
+              </PropertyBox>
+            </RecordItemDropdown>
+          ))}
+        </>
       </StyledDropdownContainer>
     </StyledContainer>
   );

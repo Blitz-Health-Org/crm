@@ -147,6 +147,8 @@ export const RecordShowPage = () => {
     });
   };
 
+  console.log(record);
+
   const isRelationFieldCardEnabled = useIsFeatureEnabled(
     'IS_RELATION_FIELD_CARD_ENABLED',
   );
@@ -263,7 +265,7 @@ export const RecordShowPage = () => {
                     }
                   />
                   <PropertyBox extraPadding={true}>
-                    {inlineFieldMetadataItems.map(
+                    {topLevelFieldMetadataItems.map(
                       (fieldMetadataItem, index) => (
                         <FieldContext.Provider
                           key={record.id + fieldMetadataItem.id}
