@@ -12,13 +12,13 @@ const StyledContainer = styled.div`
   margin-top: ${({ theme }) => theme.spacing(4)};
 
   position: relative;
-  width: 48px;
+  width: 180px;
 `;
 
 const StyledTwentyLogo = styled.img`
   border-radius: ${({ theme }) => theme.border.radius.xs};
   height: 24px;
-  width: 24px;
+  width: 180px;
 `;
 
 const StyledTwentyLogoContainer = styled.div`
@@ -32,7 +32,7 @@ const StyledTwentyLogoContainer = styled.div`
 
   position: absolute;
   right: ${({ theme }) => `-${theme.spacing(3)}`};
-  width: 28px;
+  width: 128px;
 `;
 
 type StyledMainLogoProps = {
@@ -51,7 +51,7 @@ export const Logo = ({ workspaceLogo }: LogoProps) => {
   if (!workspaceLogo) {
     return (
       <StyledContainer>
-        <StyledMainLogo logo="/icons/android/android-launchericon-192-192.png" />
+        <StyledMainLogo logo="/icons/BlumeFlower.png" />
       </StyledContainer>
     );
   }
@@ -60,7 +60,7 @@ export const Logo = ({ workspaceLogo }: LogoProps) => {
     <StyledContainer>
       <StyledMainLogo logo={getImageAbsoluteURIOrBase64(workspaceLogo)} />
       <StyledTwentyLogoContainer>
-        <StyledTwentyLogo src="/icons/android/android-launchericon-192-192.png" />
+        <StyledTwentyLogo src="/icons/BlumeFlower.png" />
       </StyledTwentyLogoContainer>
     </StyledContainer>
   );

@@ -15,10 +15,10 @@ export const ObjectMetadataNavItems = () => {
       {[
         ...activeObjectMetadataItems
           .filter((item) =>
-            ['person', 'company', 'opportunity'].includes(item.nameSingular),
+            ['company', 'opportunity', 'person'].includes(item.nameSingular),
           )
           .sort((objectMetadataItemA, objectMetadataItemB) => {
-            const order = ['person', 'company', 'opportunity'];
+            const order = ['company', 'opportunity', 'person'];
             const indexA = order.indexOf(objectMetadataItemA.nameSingular);
             const indexB = order.indexOf(objectMetadataItemB.nameSingular);
             if (indexA === -1 || indexB === -1) {

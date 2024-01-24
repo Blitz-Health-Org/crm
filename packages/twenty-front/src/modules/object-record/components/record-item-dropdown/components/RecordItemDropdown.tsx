@@ -19,6 +19,7 @@ export const RecordItemDropdown = ({
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
     useState(false);
 
+  // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const { getIcon } = useIcons();
 
   return (

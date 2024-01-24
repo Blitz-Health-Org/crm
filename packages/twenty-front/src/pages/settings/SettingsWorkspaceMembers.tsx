@@ -59,7 +59,7 @@ export const SettingsWorkspaceMembers = () => {
           <Section>
             <H2Title
               title="Invite"
-              description="Send an invitation to use Twenty"
+              description="Send an invitation to use Blume"
             />
             <WorkspaceInviteLink
               inviteLink={`${window.location.origin}/invite/${currentWorkspace?.inviteHash}`}
