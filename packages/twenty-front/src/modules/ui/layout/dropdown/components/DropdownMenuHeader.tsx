@@ -5,14 +5,13 @@ import { IconComponent } from '@/ui/display/icon/types/IconComponent';
 import { LightIconButton } from '@/ui/input/button/components/LightIconButton';
 
 const StyledHeader = styled.li`
-  align-items: center;
+  align-items: start;
   color: ${({ theme }) => theme.font.color.primary};
   display: flex;
   font-size: ${({ theme }) => theme.font.size.sm};
   font-weight: ${({ theme }) => theme.font.weight.medium};
-
+  width: 100%;
   padding: ${({ theme }) => theme.spacing(1)};
-
   user-select: none;
 `;
 

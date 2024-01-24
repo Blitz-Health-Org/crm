@@ -8,8 +8,6 @@ import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/uti
 import { isObjectMetadataAvailableForRelation } from '@/object-metadata/utils/isObjectMetadataAvailableForRelation';
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { parseFieldType } from '@/object-metadata/utils/parseFieldType';
-import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
-import { RecordItemDropdownSections } from '@/object-record/components/record-item-dropdown/constants/RecordItemDropdownSections';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -291,72 +289,7 @@ export const RecordShowPage = () => {
                       ),
                     )}
                   </PropertyBox>
-                  {RecordItemDropdownSections.map((section) => {
-                    return (
-                      <PropertyBox extraPadding={true}>
-                        <RecordItemDropdown dropdownTitle={section}>
-                          <PropertyBox extraPadding={true}>
-                            {inlineFieldMetadataItems.map(
-                              (fieldMetadataItem, index) => (
-                                <FieldContext.Provider
-                                  key={record.id + fieldMetadataItem.id}
-                                  value={{
-                                    entityId: record.id,
-                                    maxWidth: 272,
-                                    recoilScopeId:
-                                      record.id + fieldMetadataItem.id,
-                                    isLabelIdentifier: false,
-                                    fieldDefinition:
-                                      formatFieldMetadataItemAsColumnDefinition(
-                                        {
-                                          field: fieldMetadataItem,
-                                          position: index,
-                                          objectMetadataItem,
-                                          showLabel: true,
-                                          labelWidth: 90,
-                                        },
-                                      ),
-                                    useUpdateRecord:
-                                      useUpdateOneObjectRecordMutation,
-                                    hotkeyScope:
-                                      InlineCellHotkeyScope.InlineCell,
-                                  }}
-                                >
-                                  <RecordInlineCell />
-                                </FieldContext.Provider>
-                              ),
-                            )}
-                          </PropertyBox>
-                        </RecordItemDropdown>
 
-                        {/* {inlineFieldMetadataItems.map(
-                      (fieldMetadataItem, index) => (
-                        <FieldContext.Provider
-                          key={record.id + fieldMetadataItem.id}
-                          value={{
-                            entityId: record.id,
-                            maxWidth: 272,
-                            recoilScopeId: record.id + fieldMetadataItem.id,
-                            isLabelIdentifier: false,
-                            fieldDefinition:
-                              formatFieldMetadataItemAsColumnDefinition({
-                                field: fieldMetadataItem,
-                                position: index,
-                                objectMetadataItem,
-                                showLabel: true,
-                                labelWidth: 90,
-                              }),
-                            useUpdateRecord: useUpdateOneObjectRecordMutation,
-                            hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                          }}
-                        >
-                          <RecordInlineCell />
-                        </FieldContext.Provider>
-                      ),
-                    )} */}
-                      </PropertyBox>
-                    );
-                  })}
                   {isRelationFieldCardEnabled &&
                     relationFieldMetadataItems
                       .filter((item) => {
