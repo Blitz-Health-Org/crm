@@ -70,12 +70,6 @@ export const ShowPageRightContainer = ({
 
   const TASK_TABS = [
     {
-      id: 'planDetails',
-      title: 'Plan Details',
-      Icon: IconTimelineEvent, //fix
-      hide: !planDetails,
-    },
-    {
       id: 'notes',
       title: 'Notes',
       Icon: IconNotes,
@@ -106,6 +100,12 @@ export const ShowPageRightContainer = ({
       title: 'Timeline',
       Icon: IconTimelineEvent,
       hide: !timeline,
+    },
+    {
+      id: 'planDetails',
+      title: 'Plan Details',
+      Icon: IconTimelineEvent, //fix
+      hide: !planDetails,
     },
   ];
 

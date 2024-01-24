@@ -145,8 +145,6 @@ export const RecordShowPage = () => {
     });
   };
 
-  console.log(record);
-
   const isRelationFieldCardEnabled = useIsFeatureEnabled(
     'IS_RELATION_FIELD_CARD_ENABLED',
   );
@@ -171,6 +169,8 @@ export const RecordShowPage = () => {
   const topLevelFieldMetadataItems = inlineFieldMetadataItems.filter(
     (fieldMetadataItem) =>
       !fieldMetadataItem.description?.includes('medical_plan') &&
+      !fieldMetadataItem.description?.includes('dental_plan') &&
+      !fieldMetadataItem.description?.includes('vision_plan') &&
       !fieldMetadataItem.description?.includes('group_plan') &&
       !fieldMetadataItem.description?.includes('plan_name'),
   );
@@ -179,6 +179,8 @@ export const RecordShowPage = () => {
     (fieldMetadataItem) =>
       fieldMetadataItem.type === FieldMetadataType.Relation,
   );
+
+  console.log('toplevel', topLevelFieldMetadataItems);
 
   return (
     <PageContainer>

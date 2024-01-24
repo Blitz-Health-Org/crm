@@ -81,6 +81,8 @@ export const SettingsObjectDetail = () => {
     });
   };
 
+  console.log('active', activeMetadataFields);
+
   return (
     <SubMenuTopBarContainer Icon={IconSettings} title="Settings">
       <SettingsPageContainer>
