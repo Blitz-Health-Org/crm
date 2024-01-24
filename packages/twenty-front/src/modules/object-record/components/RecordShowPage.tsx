@@ -9,6 +9,7 @@ import { isObjectMetadataAvailableForRelation } from '@/object-metadata/utils/is
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { parseFieldType } from '@/object-metadata/utils/parseFieldType';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
+import { RecordItemDropdownSections } from '@/object-record/components/record-item-dropdown/constants/RecordItemDropdownSections';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -146,6 +147,7 @@ export const RecordShowPage = () => {
     });
   };
 
+  // eslint-disable-next-line no-console
   console.log('record', record);
 
   const isRelationFieldCardEnabled = useIsFeatureEnabled(
@@ -283,37 +285,45 @@ export const RecordShowPage = () => {
                       ),
                     )}
                   </PropertyBox>
-                  <PropertyBox extraPadding={true}>
-                    <RecordItemDropdown>
+                  {RecordItemDropdownSections.map((section) => {
+                    return (
                       <PropertyBox extraPadding={true}>
-                      {inlineFieldMetadataItems.map(
-                        (fieldMetadataItem, index) => (
-                          <FieldContext.Provider
-                            key={record.id + fieldMetadataItem.id}
-                            value={{
-                              entityId: record.id,
-                              maxWidth: 272,
-                              recoilScopeId: record.id + fieldMetadataItem.id,
-                              isLabelIdentifier: false,
-                              fieldDefinition:
-                                formatFieldMetadataItemAsColumnDefinition({
-                                  field: fieldMetadataItem,
-                                  position: index,
-                                  objectMetadataItem,
-                                  showLabel: true,
-                                  labelWidth: 90,
-                                }),
-                              useUpdateRecord: useUpdateOneObjectRecordMutation,
-                              hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                            }}
-                          >
-                            <RecordInlineCell />
-                          </FieldContext.Provider>
-                        ),
-                      )}
-                    </PropertyBox>
-                    </RecordItemDropdown>
-                    {/* {inlineFieldMetadataItems.map(
+                        <RecordItemDropdown dropdownTitle={section}>
+                          <PropertyBox extraPadding={true}>
+                            {inlineFieldMetadataItems.map(
+                              (fieldMetadataItem, index) => (
+                                <FieldContext.Provider
+                                  key={record.id + fieldMetadataItem.id}
+                                  value={{
+                                    entityId: record.id,
+                                    maxWidth: 272,
+                                    recoilScopeId:
+                                      record.id + fieldMetadataItem.id,
+                                    isLabelIdentifier: false,
+                                    fieldDefinition:
+                                      formatFieldMetadataItemAsColumnDefinition(
+                                        {
+                                          field: fieldMetadataItem,
+                                          position: index,
+                                          objectMetadataItem,
+                                          showLabel: true,
+                                          labelWidth: 90,
+                                        },
+                                      ),
+                                    useUpdateRecord:
+                                      useUpdateOneObjectRecordMutation,
+                                    hotkeyScope:
+                                      InlineCellHotkeyScope.InlineCell,
+                                  }}
+                                >
+                                  <RecordInlineCell />
+                                </FieldContext.Provider>
+                              ),
+                            )}
+                          </PropertyBox>
+                        </RecordItemDropdown>
+
+                        {/* {inlineFieldMetadataItems.map(
                       (fieldMetadataItem, index) => (
                         <FieldContext.Provider
                           key={record.id + fieldMetadataItem.id}
@@ -338,7 +348,9 @@ export const RecordShowPage = () => {
                         </FieldContext.Provider>
                       ),
                     )} */}
-                  </PropertyBox>
+                      </PropertyBox>
+                    );
+                  })}
                   {isRelationFieldCardEnabled &&
                     relationFieldMetadataItems
                       .filter((item) => {
