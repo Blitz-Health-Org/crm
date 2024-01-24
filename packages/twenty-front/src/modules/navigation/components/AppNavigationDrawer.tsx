@@ -4,7 +4,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { currentWorkspaceState } from '@/auth/states/currentWorkspaceState';
 import { SettingsNavigationDrawerItems } from '@/settings/components/SettingsNavigationDrawerItems';
 import { SupportChat } from '@/support/components/SupportChat';
-import { GithubVersionLink } from '@/ui/navigation/link/components/GithubVersionLink';
 import {
   NavigationDrawer,
   NavigationDrawerProps,
@@ -44,13 +43,12 @@ export const AppNavigationDrawer = ({
         isSubMenu: true,
         title: 'Settings',
         children: <SettingsNavigationDrawerItems />,
-        footer: <GithubVersionLink />,
       }
     : {
         logo:
           (currentWorkspace?.logo &&
             getImageAbsoluteURIOrBase64(currentWorkspace.logo)) ??
-          undefined,
+          '/icons/favicono.jpg',
         title: currentWorkspace?.displayName ?? undefined,
         children: <MainNavigationDrawerItems />,
         footer: <SupportChat />,

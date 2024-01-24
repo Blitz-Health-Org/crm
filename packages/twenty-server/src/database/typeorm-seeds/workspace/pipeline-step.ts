@@ -14,7 +14,7 @@ export const seedPipelineStep = async (
     .values([
       {
         id: '6edf4ead-006a-46e1-9c6d-228f1d0143c9',
-        name: 'New',
+        name: 'Prospect',
         color: 'red',
         position: 0,
       },
@@ -26,13 +26,13 @@ export const seedPipelineStep = async (
       },
       {
         id: '30b14887-d592-427d-bd97-6e670158db02',
-        name: 'Meeting',
+        name: 'Upcoming Renewal',
         color: 'sky',
         position: 2,
       },
       {
         id: 'db5a6648-d80d-4020-af64-4817ab4a12e8',
-        name: 'Proposal',
+        name: 'Needs Attention',
         color: 'turquoise',
         position: 3,
       },

@@ -356,7 +356,7 @@ export const RecordShowPage = () => {
               timeline
               tasks
               notes
-              emails
+              // emails
             />
           </ShowPageContainer>
         </RecoilScope>

@@ -127,13 +127,13 @@ export const FooterDesktop = () => {
           <a href="https://x.com/twentycrm" target="_blank" rel="noreferrer">
             <XIcon size="M" />
           </a>
-          <a
+          {/* <a
             href="https://github.com/twentyhq/twenty"
             target="_blank"
             rel="noreferrer"
           >
             <GithubIcon2 size="M" />
-          </a>
+          </a> */}
           <a
             href="https://www.linkedin.com/company/twenty"
             target="_blank"

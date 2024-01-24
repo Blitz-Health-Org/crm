@@ -94,8 +94,8 @@ export const SignInUpForm = () => {
     }
 
     return signInUpMode === SignInUpMode.SignIn
-      ? 'Sign in to Twenty'
-      : 'Sign up to Twenty';
+      ? 'Sign in to Blume'
+      : 'Sign up to Blume';
   }, [signInUpMode, workspace?.displayName]);
 
   const theme = useTheme();
@@ -227,7 +227,7 @@ export const SignInUpForm = () => {
         </StyledForm>
       </StyledContentContainer>
       <StyledFooterNote>
-        By using Twenty, you agree to the Terms of Service and Data Processing
+        By using Blume, you agree to the Terms of Service and Data Processing
         Agreement.
       </StyledFooterNote>
     </>
