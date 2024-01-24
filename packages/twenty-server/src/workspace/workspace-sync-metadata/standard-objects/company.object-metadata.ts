@@ -296,6 +296,16 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
+    label: 'Carrier',
+    description:
+      'medical_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  carrierMedical: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
     label: 'Rep Contact Info',
     description:
       'medical_plan',
@@ -888,6 +898,274 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   })
   @IsNullable()
   monthlyPremium4EF: string; 
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Carrier',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  carrierDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Rep Contact Info',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  repContactInfoDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Effective Date',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  effectiveDateDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Renewed / Gurantee',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  renewedguaranteeDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Group Number',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  groupNumberDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Employer Contribution',
+    description:
+      'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  employerContributionDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Plan Name',
+    description:
+      'dental_plan plan_name_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  planName5: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Plan Notes',
+    description:
+      'dental_plan plan_name_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  planNotes5: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'dental_plan plan_name_5 EE_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate5EE: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'dental_plan plan_name_5 EE_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate5ES: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'dental_plan plan_name_5 EC_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate5EC: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'dental_plan plan_name_5 EF_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate5EF: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'dental_plan plan_name_5 EE_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled5EE: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'dental_plan plan_name_5 ES_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled5ES: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'dental_plan plan_name_5 EC_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled5EC: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'dental_plan plan_name_5 EF_group_plan_5',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled5EF: string; 
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Plan Name',
+    description:
+      'vision_plan plan_name_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  planName6: string;
+ 
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Plan Notes',
+    description:
+      'vision_plan plan_name_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  planNotes6: string;
+ 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'vision_plan plan_name_6 EE_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate6EE: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'vision_plan plan_name_6 EE_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate6ES: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'vision_plan plan_name_6 EC_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate6EC: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description:
+      'vision_plan plan_name_6 EF_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  currentRate6EF: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'vision_plan plan_name_6 EE_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled6EE: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'vision_plan plan_name_6 ES_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled6ES: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'vision_plan plan_name_6 EC_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled6EC: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Enrolled',
+    description:
+      'vision_plan plan_name_6 EF_group_plan_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  Enrolled6EF: string; 
 
   @FieldMetadata({
     type: FieldMetadataType.BOOLEAN,
