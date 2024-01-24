@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 // import { Threads } from '@/activities/emails/components/Threads';
 import { Attachments } from '@/activities/files/components/Attachments';
 import { Notes } from '@/activities/notes/components/Notes';
+import { PlanDetails } from '@/activities/plan-details/components/PlanDetails';
 import { ObjectTasks } from '@/activities/tasks/components/ObjectTasks';
 import { Timeline } from '@/activities/timeline/components/Timeline';
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
@@ -46,6 +47,7 @@ type ShowPageRightContainerProps = {
   tasks?: boolean;
   notes?: boolean;
   emails?: boolean;
+  planDetails?: boolean;
 };
 
 export const ShowPageRightContainer = ({
@@ -54,6 +56,7 @@ export const ShowPageRightContainer = ({
   tasks,
   notes,
   emails,
+  planDetails,
 }: ShowPageRightContainerProps) => {
   const isMessagingEnabled = useIsFeatureEnabled('IS_MESSAGING_ENABLED');
 
@@ -98,6 +101,12 @@ export const ShowPageRightContainer = ({
       Icon: IconTimelineEvent,
       hide: !timeline,
     },
+    {
+      id: 'planDetails',
+      title: 'Plan Details',
+      Icon: IconTimelineEvent, //fix
+      hide: !planDetails,
+    },
   ];
 
   return (
@@ -116,6 +125,9 @@ export const ShowPageRightContainer = ({
         <Attachments targetableObject={targetableObject} />
       )}
       {/* {activeTabId === 'emails' && <Threads entity={targetableObject} />} */}
+      {activeTabId === 'planDetails' && (
+        <PlanDetails targetableObject={targetableObject} />
+      )}
     </StyledShowPageRightContainer>
   );
 };

@@ -9,11 +9,25 @@ import { DropdownMenuSeparator } from '@/ui/layout/dropdown/components/DropdownM
 export type RecordItemDropdownProps = {
   children: React.ReactNode;
   dropdownTitle: string;
+  defaultOpen?: boolean;
 };
+
+// const StyledCard = styled.div`
+//   align-items: flex-start;
+//   background: ${({ theme }) => theme.background.secondary};
+//   border: 1px solid ${({ theme }) => theme.border.color.medium};
+//   border-radius: ${({ theme }) => theme.border.radius.md};
+//   display: flex;
+//   flex-direction: column;
+//   height: 300px;
+//   justify-content: space-between;
+//   max-width: unset;
+// `;
 
 //TODO: hotkeyscope?? Not super important
 export const RecordItemDropdown = ({
   dropdownTitle,
+  defaultOpen = false,
   children,
 }: RecordItemDropdownProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
@@ -24,7 +38,7 @@ export const RecordItemDropdown = ({
 
   return (
     <>
-      {!isRecordItemMenuUnfolded ? (
+      {!isRecordItemMenuUnfolded && !defaultOpen ? (
         <DropdownMenuHeader
           EndIcon={IconChevronRight}
           onClick={() => setIsRecordItemMenuUnfolded(true)}

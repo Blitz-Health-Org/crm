@@ -32,6 +32,14 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
+    label: 'Current Rate',
+    description: 'Current rate medical_plan ee_group',
+    icon: 'IconBuildingSkyscraper',
+  })
+  current_rate: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
     label: 'Domain Name',
     description:
       'The company website URL. We use this url to fetch the company icon',

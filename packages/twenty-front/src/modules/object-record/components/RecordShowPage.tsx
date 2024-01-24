@@ -147,9 +147,6 @@ export const RecordShowPage = () => {
     });
   };
 
-  // eslint-disable-next-line no-console
-  console.log('record', record);
-
   const isRelationFieldCardEnabled = useIsFeatureEnabled(
     'IS_RELATION_FIELD_CARD_ENABLED',
   );
@@ -399,6 +396,7 @@ export const RecordShowPage = () => {
               tasks
               notes
               // emails
+              planDetails
             />
           </ShowPageContainer>
         </RecoilScope>
