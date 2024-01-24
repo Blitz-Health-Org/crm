@@ -1,8 +1,4 @@
-import {
-  IconCheckbox,
-  IconNotes,
-  IconTimelineEvent,
-} from '@/ui/display/icon/index';
+import { IconCheckbox, IconNotes } from '@/ui/display/icon/index';
 import { Button } from '@/ui/input/button/components/Button';
 import { ButtonGroup } from '@/ui/input/button/components/ButtonGroup';
 
@@ -15,16 +11,16 @@ type ActivityCreateButtonProps = {
 export const ActivityCreateButton = ({
   onNoteClick,
   onTaskClick,
-  onActivityClick,
+  // onActivityClick,
 }: ActivityCreateButtonProps) => (
   <ButtonGroup variant={'secondary'}>
     <Button Icon={IconNotes} title="Note" onClick={onNoteClick} />
     <Button Icon={IconCheckbox} title="Task" onClick={onTaskClick} />
-    <Button
+    {/* <Button
       Icon={IconTimelineEvent}
       title="Activity"
       soon={true}
       onClick={onActivityClick}
-    />
+    /> */}
   </ButtonGroup>
 );

@@ -36,7 +36,8 @@ const StyledContainer = styled.div`
 `;
 
 const StyledDropdownContainer = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   width: 100%;
@@ -289,7 +290,7 @@ export const PlanDetailsList = () => {
                                 key={record?.id + fieldMetadataItem.id}
                                 value={{
                                   entityId: record?.id ?? '',
-                                  maxWidth: 272,
+                                  maxWidth: 273,
                                   recoilScopeId:
                                     record?.id + fieldMetadataItem.id,
                                   isLabelIdentifier: false,
@@ -299,7 +300,7 @@ export const PlanDetailsList = () => {
                                       position: index,
                                       objectMetadataItem,
                                       showLabel: true,
-                                      labelWidth: 90,
+                                      labelWidth: 60,
                                     }),
                                   useUpdateRecord:
                                     useUpdateOneObjectRecordMutation,
