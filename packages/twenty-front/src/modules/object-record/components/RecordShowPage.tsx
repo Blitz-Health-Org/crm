@@ -146,6 +146,8 @@ export const RecordShowPage = () => {
     });
   };
 
+  console.log('record', record);
+
   const isRelationFieldCardEnabled = useIsFeatureEnabled(
     'IS_RELATION_FIELD_CARD_ENABLED',
   );
@@ -282,7 +284,35 @@ export const RecordShowPage = () => {
                     )}
                   </PropertyBox>
                   <PropertyBox extraPadding={true}>
-                    <RecordItemDropdown />
+                    <RecordItemDropdown>
+                      <PropertyBox extraPadding={true}>
+                      {inlineFieldMetadataItems.map(
+                        (fieldMetadataItem, index) => (
+                          <FieldContext.Provider
+                            key={record.id + fieldMetadataItem.id}
+                            value={{
+                              entityId: record.id,
+                              maxWidth: 272,
+                              recoilScopeId: record.id + fieldMetadataItem.id,
+                              isLabelIdentifier: false,
+                              fieldDefinition:
+                                formatFieldMetadataItemAsColumnDefinition({
+                                  field: fieldMetadataItem,
+                                  position: index,
+                                  objectMetadataItem,
+                                  showLabel: true,
+                                  labelWidth: 90,
+                                }),
+                              useUpdateRecord: useUpdateOneObjectRecordMutation,
+                              hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                            }}
+                          >
+                            <RecordInlineCell />
+                          </FieldContext.Provider>
+                        ),
+                      )}
+                    </PropertyBox>
+                    </RecordItemDropdown>
                     {/* {inlineFieldMetadataItems.map(
                       (fieldMetadataItem, index) => (
                         <FieldContext.Provider

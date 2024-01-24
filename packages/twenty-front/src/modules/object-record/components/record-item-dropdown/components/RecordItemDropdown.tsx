@@ -19,11 +19,11 @@ import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
 import { FieldMetadataType } from '~/generated/graphql';
 
 export type RecordItemDropdownProps = {
-  hotkeyScope: HotkeyScope;
+  children: React.ReactNode;
 };
 
 //TODO: hotkeyscope?? Not super important
-export const RecordItemDropdown = () => {
+export const RecordItemDropdown = ({children}: RecordItemDropdownProps) => {
   const { record } = useFindOneRecord({
     objectRecordId: '4c4ef523-7f9e-4b7e-9548-73d0ff86dfe1',
     objectNameSingular: 'company',
@@ -79,30 +79,7 @@ export const RecordItemDropdown = () => {
           </DropdownMenuHeader>
           <DropdownMenuSeparator />
           <DropdownMenuItemsContainer>
-            <PropertyBox extraPadding={true}>
-              {inlineFieldMetadataItems.map((fieldMetadataItem, index) => (
-                <FieldContext.Provider
-                  key={record?.id + fieldMetadataItem.id}
-                  value={{
-                    entityId: record?.id as string,
-                    maxWidth: 272,
-                    recoilScopeId: record?.id + fieldMetadataItem.id,
-                    isLabelIdentifier: false,
-                    fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                      field: fieldMetadataItem,
-                      position: index,
-                      objectMetadataItem,
-                      showLabel: true,
-                      labelWidth: 90,
-                    }),
-                    useUpdateRecord: undefined,
-                    hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                  }}
-                >
-                  <RecordInlineCell />
-                </FieldContext.Provider>
-              ))}
-            </PropertyBox>
+            {children}
             {/* {[...availableSortDefinitions]
                     .sort((a, b) => a.label.localeCompare(b.label))
                     .map((availableSortDefinition, index) => (
