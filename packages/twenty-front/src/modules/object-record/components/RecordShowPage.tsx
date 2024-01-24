@@ -168,6 +168,13 @@ export const RecordShowPage = () => {
         parseFieldRelationType(fieldMetadataItem) === 'TO_ONE_OBJECT'),
   );
 
+  const topLevelFieldMetadataItems = inlineFieldMetadataItems.filter(
+    (fieldMetadataItem) =>
+      !fieldMetadataItem.description?.includes('medical_plan') &&
+      !fieldMetadataItem.description?.includes('group_plan') &&
+      !fieldMetadataItem.description?.includes('plan_name'),
+  );
+
   const relationFieldMetadataItems = availableFieldMetadataItems.filter(
     (fieldMetadataItem) =>
       fieldMetadataItem.type === FieldMetadataType.Relation,

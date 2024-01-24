@@ -164,13 +164,22 @@ export const PlanDetailsList = () => {
       (!isRelationFieldCardEnabled &&
         parseFieldRelationType(fieldMetadataItem) === 'TO_ONE_OBJECT'),
   );
+
+  const medicalPlanMetadataItems = availableFieldMetadataItems
+    .filter((fieldMetadataItem) =>
+      fieldMetadataItem.description?.includes('medical_plan'),
+    )
+    .slice(0, 5);
+
+  console.log('medical', medicalPlanMetadataItems);
+
   return (
     <StyledContainer>
       <StyledDropdownContainer>
         {RecordItemDropdownSections.map((section) => (
           <RecordItemDropdown dropdownTitle={section} defaultOpen>
             <PropertyBox extraPadding={true}>
-              {inlineFieldMetadataItems.map((fieldMetadataItem, index) => (
+              {medicalPlanMetadataItems.map((fieldMetadataItem, index) => (
                 <FieldContext.Provider
                   key={record?.id + fieldMetadataItem.id}
                   value={{
