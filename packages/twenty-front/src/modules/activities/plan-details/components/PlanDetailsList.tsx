@@ -177,11 +177,18 @@ export const PlanDetailsList = () => {
     },
   );
 
-  const getPlanGroupSpecificItems = (plan: any, group: any) => {
+  const getPlanGroupCategorySpecificItems = (
+    plan: any,
+    group: any,
+    category: any,
+  ) => {
     return availableFieldMetadataItems.filter((fieldMetadataItem) => {
       return (
         fieldMetadataItem.description?.includes(`plan_name_${plan + 1}`) &&
-        fieldMetadataItem.description?.includes(`${group}_group_plan`)
+        fieldMetadataItem.description?.includes(`${group}_group_plan`) &&
+        fieldMetadataItem.description?.includes(
+          `${category.toLowerCase()}_plan`,
+        )
       );
     });
   };
@@ -273,36 +280,35 @@ export const PlanDetailsList = () => {
                           defaultOpen
                         >
                           <PropertyBox extraPadding={true}>
-                            {getPlanGroupSpecificItems(index, group).map(
-                              (fieldMetadataItem, index) => (
-                                <FieldContext.Provider
-                                  key={record?.id + fieldMetadataItem.id}
-                                  value={{
-                                    entityId: record?.id ?? '',
-                                    maxWidth: 272,
-                                    recoilScopeId:
-                                      record?.id + fieldMetadataItem.id,
-                                    isLabelIdentifier: false,
-                                    fieldDefinition:
-                                      formatFieldMetadataItemAsColumnDefinition(
-                                        {
-                                          field: fieldMetadataItem,
-                                          position: index,
-                                          objectMetadataItem,
-                                          showLabel: true,
-                                          labelWidth: 90,
-                                        },
-                                      ),
-                                    useUpdateRecord:
-                                      useUpdateOneObjectRecordMutation,
-                                    hotkeyScope:
-                                      InlineCellHotkeyScope.InlineCell,
-                                  }}
-                                >
-                                  <RecordInlineCell />
-                                </FieldContext.Provider>
-                              ),
-                            )}
+                            {getPlanGroupCategorySpecificItems(
+                              index,
+                              group,
+                              category,
+                            ).map((fieldMetadataItem, index) => (
+                              <FieldContext.Provider
+                                key={record?.id + fieldMetadataItem.id}
+                                value={{
+                                  entityId: record?.id ?? '',
+                                  maxWidth: 272,
+                                  recoilScopeId:
+                                    record?.id + fieldMetadataItem.id,
+                                  isLabelIdentifier: false,
+                                  fieldDefinition:
+                                    formatFieldMetadataItemAsColumnDefinition({
+                                      field: fieldMetadataItem,
+                                      position: index,
+                                      objectMetadataItem,
+                                      showLabel: true,
+                                      labelWidth: 90,
+                                    }),
+                                  useUpdateRecord:
+                                    useUpdateOneObjectRecordMutation,
+                                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                                }}
+                              >
+                                <RecordInlineCell />
+                              </FieldContext.Provider>
+                            ))}
                           </PropertyBox>
                         </RecordItemDropdown>
                       ))}
