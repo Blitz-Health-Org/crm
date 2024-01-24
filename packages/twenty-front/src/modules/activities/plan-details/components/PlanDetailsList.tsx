@@ -18,6 +18,7 @@ import { useFindOneRecord } from '@/object-record/hooks/useFindOneRecord';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
 import { RecordInlineCell } from '@/object-record/record-inline-cell/components/RecordInlineCell';
 import { PropertyBox } from '@/object-record/record-inline-cell/property-box/components/PropertyBox';
+import { PropertyBoxRow } from '@/object-record/record-inline-cell/property-box/components/PropertyBoxRow';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
 import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
@@ -265,7 +266,7 @@ export const PlanDetailsList = () => {
                     }
                     defaultOpen
                   >
-                    <PropertyBox extraPadding={true}>
+                    <PropertyBoxRow extraPadding={true}>
                       {['EE', 'ES', 'EF', 'EC'].map((group) => (
                         <RecordItemDropdown
                           dropdownTitle={<>{group}</>}
@@ -305,7 +306,7 @@ export const PlanDetailsList = () => {
                           </PropertyBox>
                         </RecordItemDropdown>
                       ))}
-                    </PropertyBox>
+                    </PropertyBoxRow>
                   </RecordItemDropdown>
                 ))}
               </PropertyBox>
