@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
-
 import { useFavorites } from '@/favorites/hooks/useFavorites';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
+import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -51,6 +51,14 @@ const StyledGroupContainer = styled.div`
   padding: 0px 20px;
 `;
 
+const StyledGroupContainer2 = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 10px;
+`;
+
 const StyledDropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,6 +66,30 @@ const StyledDropdownContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   width: 100%;
 `;
+
+const StyledPlanContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(4)};
+  width: 100%;
+`;
+
+const StyledPlanRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing(4)};
+`;
+
+const StyledPlanColumn = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+  grid-column-gap: 12px; /* Horizontal gap */
+  grid-row-gap: 12px; /* Vertical gap */
+  max-width: 80vw; /* Adjust the max-width percentage as needed */
+  min-width: 300px; /* Set a minimum width as needed */
+  overflow-x: scroll; /* Enable horizontal overflow scrolling */
+`;
+
 
 export const PlanDetailsList = () => {
   const { objectNameSingular, objectRecordId } = useParams<{
@@ -237,8 +269,42 @@ export const PlanDetailsList = () => {
       <StyledDropdownContainer>
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
-            <RecordItemDropdown dropdownTitle={<>{category}</>} defaultOpen>
+          <PropertyBox>
+           <RecordItemDropdownTruncated dropdownTitle={<>{category}</>}  
+            initialRows =  {
               <PropertyBox>
+            <StyledPlanColumn>
+            <>
+            {getCategorySpecificItems(category).map(
+              (fieldMetadataItem, index) => (
+                <FieldContext.Provider
+                  key={record?.id + fieldMetadataItem.id}
+                  value={{
+                    entityId: record?.id ?? '',
+                    maxWidth: 272,
+                    recoilScopeId: record?.id + fieldMetadataItem.id,
+                    isLabelIdentifier: false,
+                    fieldDefinition:
+                      formatFieldMetadataItemAsColumnDefinition({
+                        field: fieldMetadataItem,
+                        position: index,
+                        objectMetadataItem,
+                        showLabel: true,
+                        labelWidth: 160,
+                      }),
+                    useUpdateRecord: useUpdateOneObjectRecordMutation,
+                    hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                  }}
+                >
+                  <RecordInlineCell />
+                </FieldContext.Provider>
+              ),
+            ).slice(0,4)}</>
+              </StyledPlanColumn>
+              </PropertyBox>
+            }>
+              <PropertyBox>
+              <StyledPlanColumn>
                 {getCategorySpecificItems(category).map(
                   (fieldMetadataItem, index) => (
                     <FieldContext.Provider
@@ -264,11 +330,13 @@ export const PlanDetailsList = () => {
                     </FieldContext.Provider>
                   ),
                 )}
+                </StyledPlanColumn>
 
                 {getPlanNameItems.map((section, index) => (
                   <>
                     <StyledSeparator />
                     <RecordItemDropdown
+                    
                       dropdownTitle={
                         <FieldContext.Provider
                           key={record?.id + section.id}
@@ -292,12 +360,11 @@ export const PlanDetailsList = () => {
                           <RecordInlineCell />
                         </FieldContext.Provider>
                       }
-                      defaultOpen
                     >
                       <PropertyBoxRow>
                         {['EE', 'ES', 'EF', 'EC'].map((group) => (
                           <>
-                            <StyledGroupContainer>
+                            <StyledGroupContainer2>
                               <DropdownMenuHeader>
                                 {group}
                                 {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
@@ -349,7 +416,7 @@ export const PlanDetailsList = () => {
                                   </FieldContext.Provider>
                                 ))}
                               </DropdownMenuItemsContainer>
-                            </StyledGroupContainer>
+                            </StyledGroupContainer2>
                           </>
                         ))}
                       </PropertyBoxRow>
@@ -357,7 +424,8 @@ export const PlanDetailsList = () => {
                   </>
                 ))}
               </PropertyBox>
-            </RecordItemDropdown>
+            </RecordItemDropdownTruncated>
+            </PropertyBox>
           ))}
         </>
       </StyledDropdownContainer>

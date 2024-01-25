@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
 import { displayedEmployerInfoFields } from '@/activities/employer-info/constants/contants';
+import { AttachmentDropdown } from '@/activities/files/components/AttachmentDropdown';
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
@@ -20,21 +21,36 @@ import { PropertyBox } from '@/object-record/record-inline-cell/property-box/com
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
 
-const StyledEmployerInfoContainer = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  height: 100%;
-  overflow: auto;
-`;
-
 const StyledContainer = styled.div`
   align-items: flex-start;
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   padding: 8px 24px;
+`;
+
+// const StyledRow = styled.div`
+//   align-items: center;
+//   align-self: stretch;
+//   border-bottom: 1px solid ${({ theme }) => theme.border.color.light};
+//   color: ${({ theme }) => theme.font.color.primary};
+//   display: flex;
+//   justify-content: space-between;
+
+//   padding: ${({ theme }) => theme.spacing(2)};
+// `;
+
+const StyledLeftContent = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(3)};
+`;
+
+const StyledRightContent = styled.div`
+  align-items: center;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(0.5)};
 `;
 
 type EmployerInfoPageProps = {
@@ -101,9 +117,9 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
   }
 
   return (
-    <StyledEmployerInfoContainer>
-      <StyledContainer>
-        <PropertyBox>
+    <StyledContainer>
+      <PropertyBox>
+        <StyledLeftContent>
           {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
             <FieldContext.Provider
               key={record.id + fieldMetadataItem.id}
@@ -126,8 +142,15 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
               <RecordInlineCell />
             </FieldContext.Provider>
           ))}
-        </PropertyBox>
-      </StyledContainer>
-    </StyledEmployerInfoContainer>
+        </StyledLeftContent>
+        <StyledRightContent>
+          <AttachmentDropdown
+            scopeKey={'standin'}
+            onDownload={() => {}}
+            allowDelete={false}
+          />
+        </StyledRightContent>
+      </PropertyBox>
+    </StyledContainer>
   );
 };
