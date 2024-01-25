@@ -8,14 +8,16 @@ import { MenuItem } from '@/ui/navigation/menu-item/components/MenuItem';
 
 type AttachmentDropdownProps = {
   onDownload: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   scopeKey: string;
+  allowDelete?: boolean;
 };
 
 export const AttachmentDropdown = ({
   onDownload,
-  onDelete,
+  onDelete = () => {},
   scopeKey,
+  allowDelete = true,
 }: AttachmentDropdownProps) => {
   const dropdownId = `${scopeKey}-settings-field-active-action-dropdown`;
 
@@ -27,6 +29,8 @@ export const AttachmentDropdown = ({
   };
 
   const handleDelete = () => {
+    if (!allowDelete) return;
+
     onDelete();
     closeDropdown();
   };
@@ -45,12 +49,14 @@ export const AttachmentDropdown = ({
               LeftIcon={IconDownload}
               onClick={handleDownload}
             />
-            <MenuItem
-              text="Delete"
-              accent="danger"
-              LeftIcon={IconTrash}
-              onClick={handleDelete}
-            />
+            {allowDelete && (
+              <MenuItem
+                text="Delete"
+                accent="danger"
+                LeftIcon={IconTrash}
+                onClick={handleDelete}
+              />
+            )}
           </DropdownMenuItemsContainer>
         </DropdownMenu>
       }
