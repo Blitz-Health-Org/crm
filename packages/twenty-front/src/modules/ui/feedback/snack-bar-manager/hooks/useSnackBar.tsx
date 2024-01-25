@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { useRecoilCallback } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
 
 import { SnackBarManagerScopeInternalContext } from '@/ui/feedback/snack-bar-manager/scopes/scope-internal-context/SnackBarManagerScopeInternalContext';
 import {
@@ -42,11 +41,11 @@ export const useSnackBar = () => {
 
   const enqueueSnackBar = useCallback(
     (message: string, options?: Omit<SnackBarOptions, 'message' | 'id'>) => {
-      setSnackBarQueue({
-        id: uuidv4(),
-        message,
-        ...options,
-      });
+      // setSnackBarQueue({
+      //   id: uuidv4(),
+      //   message,
+      //   ...options,
+      // });
     },
     [setSnackBarQueue],
   );

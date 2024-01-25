@@ -21,10 +21,18 @@ import { PropertyBox } from '@/object-record/record-inline-cell/property-box/com
 import { PropertyBoxRow } from '@/object-record/record-inline-cell/property-box/components/PropertyBoxRow';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
+import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
+import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
 import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
 import { useUploadImageMutation } from '~/generated/graphql';
 import { FieldMetadataType, FileFolder } from '~/generated-metadata/graphql';
 import { isDefined } from '~/utils/isDefined';
+
+const StyledSeparator = styled.div`
+  background-color: ${({ theme }) => theme.border.color.light};
+  height: 1px;
+  width: 100%;
+`;
 
 const StyledContainer = styled.div`
   align-items: flex-start;
@@ -33,6 +41,14 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 8px 24px;
+`;
+
+const StyledGroupContainer = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 20px;
 `;
 
 const StyledDropdownContainer = styled.div`
@@ -247,74 +263,97 @@ export const PlanDetailsList = () => {
                     </FieldContext.Provider>
                   ),
                 )}
+
                 {getPlanNameItems.map((section, index) => (
-                  <RecordItemDropdown
-                    dropdownTitle={
-                      <FieldContext.Provider
-                        key={record?.id + section.id}
-                        value={{
-                          entityId: record?.id ?? '',
-                          maxWidth: 272,
-                          recoilScopeId: record?.id + section.id,
-                          isLabelIdentifier: false,
-                          fieldDefinition:
-                            formatFieldMetadataItemAsColumnDefinition({
-                              field: section,
-                              position: index,
-                              objectMetadataItem,
-                              showLabel: true,
-                              labelWidth: 160,
-                            }),
-                          useUpdateRecord: useUpdateOneObjectRecordMutation,
-                          hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                        }}
-                      >
-                        <RecordInlineCell />
-                      </FieldContext.Provider>
-                    }
-                    defaultOpen
-                  >
-                    <PropertyBoxRow>
-                      {['EE', 'ES', 'EF', 'EC'].map((group) => (
-                        <RecordItemDropdown
-                          dropdownTitle={<>{group}</>}
-                          defaultOpen
+                  <>
+                    <StyledSeparator />
+                    <RecordItemDropdown
+                      dropdownTitle={
+                        <FieldContext.Provider
+                          key={record?.id + section.id}
+                          value={{
+                            entityId: record?.id ?? '',
+                            maxWidth: 272,
+                            recoilScopeId: record?.id + section.id,
+                            isLabelIdentifier: false,
+                            fieldDefinition:
+                              formatFieldMetadataItemAsColumnDefinition({
+                                field: section,
+                                position: index,
+                                objectMetadataItem,
+                                showLabel: true,
+                                labelWidth: 160,
+                              }),
+                            useUpdateRecord: useUpdateOneObjectRecordMutation,
+                            hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                          }}
                         >
-                          <PropertyBox>
-                            {getPlanGroupCategorySpecificItems(
-                              index,
-                              group,
-                              category,
-                            ).map((fieldMetadataItem, index) => (
-                              <FieldContext.Provider
-                                key={record?.id + fieldMetadataItem.id}
-                                value={{
-                                  entityId: record?.id ?? '',
-                                  maxWidth: 273,
-                                  recoilScopeId:
-                                    record?.id + fieldMetadataItem.id,
-                                  isLabelIdentifier: false,
-                                  fieldDefinition:
-                                    formatFieldMetadataItemAsColumnDefinition({
-                                      field: fieldMetadataItem,
-                                      position: index,
-                                      objectMetadataItem,
-                                      showLabel: true,
-                                      labelWidth: 60,
-                                    }),
-                                  useUpdateRecord:
-                                    useUpdateOneObjectRecordMutation,
-                                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                                }}
-                              >
-                                <RecordInlineCell />
-                              </FieldContext.Provider>
-                            ))}
-                          </PropertyBox>
-                        </RecordItemDropdown>
-                      ))}
-                    </PropertyBoxRow>
-                  </RecordItemDropdown>
+                          <RecordInlineCell />
+                        </FieldContext.Provider>
+                      }
+                      defaultOpen
+                    >
+                      <PropertyBoxRow>
+                        {['EE', 'ES', 'EF', 'EC'].map((group) => (
+                          <>
+                            <StyledGroupContainer>
+                              <DropdownMenuHeader>
+                                {group}
+                                {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+                              </DropdownMenuHeader>
+                              <DropdownMenuItemsContainer>
+                                {/* {[...availableSortDefinitions]
+                            .sort((a, b) => a.label.localeCompare(b.label))
+                            .map((availableSortDefinition, index) => (
+                              <MenuItem
+                                testId={`select-sort-${index}`}
+                                key={index}
+                                onClick={() => handleAddSort(availableSortDefinition)}
+                                LeftIcon={getIcon(availableSortDefinition.iconName)}
+                                text={availableSortDefinition.label}
+                              />
+                            ))} */}
+                                {/* Map properties to cells here */}
+
+                                {getPlanGroupCategorySpecificItems(
+                                  index,
+                                  group,
+                                  category,
+                                ).map((fieldMetadataItem, index) => (
+                                  <FieldContext.Provider
+                                    key={record?.id + fieldMetadataItem.id}
+                                    value={{
+                                      entityId: record?.id ?? '',
+                                      maxWidth: 273,
+                                      recoilScopeId:
+                                        record?.id + fieldMetadataItem.id,
+                                      isLabelIdentifier: false,
+                                      fieldDefinition:
+                                        formatFieldMetadataItemAsColumnDefinition(
+                                          {
+                                            field: fieldMetadataItem,
+                                            position: index,
+                                            objectMetadataItem,
+                                            showLabel: true,
+                                            labelWidth: 60,
+                                          },
+                                        ),
+                                      useUpdateRecord:
+                                        useUpdateOneObjectRecordMutation,
+                                      hotkeyScope:
+                                        InlineCellHotkeyScope.InlineCell,
+                                    }}
+                                  >
+                                    <RecordInlineCell />
+                                  </FieldContext.Provider>
+                                ))}
+                              </DropdownMenuItemsContainer>
+                            </StyledGroupContainer>
+                          </>
+                        ))}
+                      </PropertyBoxRow>
+                    </RecordItemDropdown>
+                  </>
                 ))}
               </PropertyBox>
             </RecordItemDropdown>
