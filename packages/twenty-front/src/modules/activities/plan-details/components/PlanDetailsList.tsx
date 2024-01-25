@@ -266,7 +266,7 @@ export const PlanDetailsList = () => {
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
           <PropertyBox>
-           <RecordItemDropdownTruncated dropdownTitle={<>{category}</>} defaultOpen 
+           <RecordItemDropdownTruncated dropdownTitle={<>{category}</>}  
             initialRows =  {
               <PropertyBox>
             <StyledPlanColumn>

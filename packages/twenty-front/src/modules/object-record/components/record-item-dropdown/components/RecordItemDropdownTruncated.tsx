@@ -19,7 +19,6 @@ const CollapsedContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-height: 150px;
   overflow: hidden;
 `;
 
