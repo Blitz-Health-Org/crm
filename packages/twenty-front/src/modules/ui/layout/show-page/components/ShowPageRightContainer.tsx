@@ -48,6 +48,7 @@ type ShowPageRightContainerProps = {
   notes?: boolean;
   emails?: boolean;
   planDetails?: boolean;
+  employerInfo?: boolean;
 };
 
 export const ShowPageRightContainer = ({
@@ -57,6 +58,7 @@ export const ShowPageRightContainer = ({
   notes,
   emails,
   planDetails,
+  employerInfo,
 }: ShowPageRightContainerProps) => {
   const isMessagingEnabled = useIsFeatureEnabled('IS_MESSAGING_ENABLED');
 
@@ -104,8 +106,14 @@ export const ShowPageRightContainer = ({
     {
       id: 'planDetails',
       title: 'Plan Details',
-      Icon: IconTimelineEvent, //fix
+      Icon: IconTimelineEvent, //TODO: fix icon
       hide: !planDetails,
+    },
+    {
+      id: 'employerInfo',
+      title: 'Employer Info',
+      Icon: IconTimelineEvent, //TODO: fix icon
+      hide: !employerInfo,
     },
   ];
 

@@ -1,17 +1,9 @@
 import styled from '@emotion/styled';
 
-import {
-  IconTrash,
-  IconUpload,
-  IconX,
-} from '@/ui/display/icon';
-import { Button } from "@/ui/input/button/components/Button";
-
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
 
 const StyledContent = styled.div`
   display: flex;
@@ -44,52 +36,53 @@ const StyledHiddenFileInput = styled.input`
   display: none;
 `;
 export const CommissionTrackerPage = () => {
-  return <><StyledContent>
-  <StyledButtonContainer>
-    <StyledHiddenFileInput
-      type="file"
-      ref={hiddenFileInput}
-      accept="image/jpeg, image/png, image/gif" // to desired specification
-      onChange={(event) => {
-        if (onUpload) {
-          if (event.target.files) {
-            onUpload(event.target.files[0]);
-          }
-        }
-      }}
-    />
-    {isUploading && onAbort ? (
-      <Button
-        Icon={IconX}
-        onClick={onAbort}
-        variant="secondary"
-        title="Abort"
-        disabled={!picture || disabled}
-        fullWidth
-      />
-    ) : (
-      <Button
-        Icon={IconUpload}
-        onClick={onUploadButtonClick}
-        variant="secondary"
-        title="Upload"
-        disabled={disabled}
-        fullWidth
-      />
-    )}
-    <Button
-      Icon={IconTrash}
-      onClick={onRemove}
-      variant="secondary"
-      title="Remove"
-      disabled={!picture || disabled}
-      fullWidth
-    />
-  </StyledButtonContainer>
-  <StyledText>
-    We support your best PNGs, JPEGs and GIFs portraits under 10MB
-  </StyledText>
-  {errorMessage && <StyledErrorText>{errorMessage}</StyledErrorText>}
-</StyledContent>
-</StyledContainer></>;
+  return <>TEMP</>;
+  //   return <><StyledContent>
+  //   <StyledButtonContainer>
+  //     <StyledHiddenFileInput
+  //       type="file"
+  //       ref={hiddenFileInput}
+  //       accept="image/jpeg, image/png, image/gif" // to desired specification
+  //       onChange={(event) => {
+  //         if (onUpload) {
+  //           if (event.target.files) {
+  //             onUpload(event.target.files[0]);
+  //           }
+  //         }
+  //       }}
+  //     />
+  //     {isUploading && onAbort ? (
+  //       <Button
+  //         Icon={IconX}
+  //         onClick={onAbort}
+  //         variant="secondary"
+  //         title="Abort"
+  //         disabled={!picture || disabled}
+  //         fullWidth
+  //       />
+  //     ) : (
+  //       <Button
+  //         Icon={IconUpload}
+  //         onClick={onUploadButtonClick}
+  //         variant="secondary"
+  //         title="Upload"
+  //         disabled={disabled}
+  //         fullWidth
+  //       />
+  //     )}
+  //     <Button
+  //       Icon={IconTrash}
+  //       onClick={onRemove}
+  //       variant="secondary"
+  //       title="Remove"
+  //       disabled={!picture || disabled}
+  //       fullWidth
+  //     />
+  //   </StyledButtonContainer>
+  //   <StyledText>
+  //     We support your best PNGs, JPEGs and GIFs portraits under 10MB
+  //   </StyledText>
+  //   {errorMessage && <StyledErrorText>{errorMessage}</StyledErrorText>}
+  // </StyledContent>
+  // </StyledContainer></>;
 };

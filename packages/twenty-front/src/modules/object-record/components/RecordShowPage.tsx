@@ -341,6 +341,7 @@ export const RecordShowPage = () => {
               notes
               // emails
               planDetails
+              employerInfo
             />
           </ShowPageContainer>
         </RecoilScope>
