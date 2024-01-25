@@ -151,6 +151,7 @@
     "typeorm": "^0.3.17",
     "uuid": "^9.0.0",
     "vite-tsconfig-paths": "^4.2.1",
+    "write-excel-file": "^1.4.29",
     "xlsx-ugnis": "^0.19.3",
     "zod": "^3.22.2"
   },

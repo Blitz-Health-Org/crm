@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
+
 import { useFavorites } from '@/favorites/hooks/useFavorites';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import { isObjectMetadataAvailableForRelation } from '@/object-metadata/utils/isObjectMetadataAvailableForRelation';
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { parseFieldType } from '@/object-metadata/utils/parseFieldType';
+import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -263,64 +264,67 @@ export const RecordShowPage = () => {
                     }
                   />
 
-          <RecordItemDropdownTruncated dropdownTitle="Details"  
-            initialRows =  {
-              <PropertyBox>
-              {topLevelFieldMetadataItems.map(
-                (fieldMetadataItem, index) => (
-                  <FieldContext.Provider
-                    key={record.id + fieldMetadataItem.id}
-                    value={{
-                      entityId: record.id,
-                      maxWidth: 272,
-                      recoilScopeId: record.id + fieldMetadataItem.id,
-                      isLabelIdentifier: false,
-                      fieldDefinition:
-                        formatFieldMetadataItemAsColumnDefinition({
-                          field: fieldMetadataItem,
-                          position: index,
-                          objectMetadataItem,
-                          showLabel: true,
-                          labelWidth: 90,
-                        }),
-                      useUpdateRecord: useUpdateOneObjectRecordMutation,
-                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                    }}
+                  <RecordItemDropdownTruncated
+                    dropdownTitle="Details"
+                    initialRows={
+                      <PropertyBox>
+                        {topLevelFieldMetadataItems
+                          .map((fieldMetadataItem, index) => (
+                            <FieldContext.Provider
+                              key={record.id + fieldMetadataItem.id}
+                              value={{
+                                entityId: record.id,
+                                maxWidth: 272,
+                                recoilScopeId: record.id + fieldMetadataItem.id,
+                                isLabelIdentifier: false,
+                                fieldDefinition:
+                                  formatFieldMetadataItemAsColumnDefinition({
+                                    field: fieldMetadataItem,
+                                    position: index,
+                                    objectMetadataItem,
+                                    showLabel: true,
+                                    labelWidth: 90,
+                                  }),
+                                useUpdateRecord:
+                                  useUpdateOneObjectRecordMutation,
+                                hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                              }}
+                            >
+                              <RecordInlineCell />
+                            </FieldContext.Provider>
+                          ))
+                          .slice(0, 8)}
+                      </PropertyBox>
+                    }
                   >
-                    <RecordInlineCell />
-                  </FieldContext.Provider>
-                ),
-              ).slice(0,8)}
-            </PropertyBox>
-            }>
-                  <PropertyBox>
-                    {topLevelFieldMetadataItems.map(
-                      (fieldMetadataItem, index) => (
-                        <FieldContext.Provider
-                          key={record.id + fieldMetadataItem.id}
-                          value={{
-                            entityId: record.id,
-                            maxWidth: 272,
-                            recoilScopeId: record.id + fieldMetadataItem.id,
-                            isLabelIdentifier: false,
-                            fieldDefinition:
-                              formatFieldMetadataItemAsColumnDefinition({
-                                field: fieldMetadataItem,
-                                position: index,
-                                objectMetadataItem,
-                                showLabel: true,
-                                labelWidth: 90,
-                              }),
-                            useUpdateRecord: useUpdateOneObjectRecordMutation,
-                            hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                          }}
-                        >
-                          <RecordInlineCell />
-                        </FieldContext.Provider>
-                      ),
-                    )}
-                  </PropertyBox>
-            </RecordItemDropdownTruncated>
+                    <PropertyBox>
+                      {topLevelFieldMetadataItems.map(
+                        (fieldMetadataItem, index) => (
+                          <FieldContext.Provider
+                            key={record.id + fieldMetadataItem.id}
+                            value={{
+                              entityId: record.id,
+                              maxWidth: 272,
+                              recoilScopeId: record.id + fieldMetadataItem.id,
+                              isLabelIdentifier: false,
+                              fieldDefinition:
+                                formatFieldMetadataItemAsColumnDefinition({
+                                  field: fieldMetadataItem,
+                                  position: index,
+                                  objectMetadataItem,
+                                  showLabel: true,
+                                  labelWidth: 90,
+                                }),
+                              useUpdateRecord: useUpdateOneObjectRecordMutation,
+                              hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                            }}
+                          >
+                            <RecordInlineCell />
+                          </FieldContext.Provider>
+                        ),
+                      )}
+                    </PropertyBox>
+                  </RecordItemDropdownTruncated>
 
                   {isRelationFieldCardEnabled &&
                     relationFieldMetadataItems

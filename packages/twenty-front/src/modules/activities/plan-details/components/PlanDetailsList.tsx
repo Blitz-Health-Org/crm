@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
+
 import { useFavorites } from '@/favorites/hooks/useFavorites';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
@@ -89,7 +90,6 @@ const StyledPlanColumn = styled.div`
   min-width: 300px; /* Set a minimum width as needed */
   overflow-x: scroll; /* Enable horizontal overflow scrolling */
 `;
-
 
 export const PlanDetailsList = () => {
   const { objectNameSingular, objectRecordId } = useParams<{
@@ -269,85 +269,59 @@ export const PlanDetailsList = () => {
       <StyledDropdownContainer>
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
-          <PropertyBox>
-           <RecordItemDropdownTruncated dropdownTitle={<>{category}</>}  
-            initialRows =  {
-              <PropertyBox>
-            <StyledPlanColumn>
-            <>
-            {getCategorySpecificItems(category).map(
-              (fieldMetadataItem, index) => (
-                <FieldContext.Provider
-                  key={record?.id + fieldMetadataItem.id}
-                  value={{
-                    entityId: record?.id ?? '',
-                    maxWidth: 272,
-                    recoilScopeId: record?.id + fieldMetadataItem.id,
-                    isLabelIdentifier: false,
-                    fieldDefinition:
-                      formatFieldMetadataItemAsColumnDefinition({
-                        field: fieldMetadataItem,
-                        position: index,
-                        objectMetadataItem,
-                        showLabel: true,
-                        labelWidth: 160,
-                      }),
-                    useUpdateRecord: useUpdateOneObjectRecordMutation,
-                    hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                  }}
-                >
-                  <RecordInlineCell />
-                </FieldContext.Provider>
-              ),
-            ).slice(0,4)}</>
-              </StyledPlanColumn>
-              </PropertyBox>
-            }>
-              <PropertyBox>
-              <StyledPlanColumn>
-                {getCategorySpecificItems(category).map(
-                  (fieldMetadataItem, index) => (
-                    <FieldContext.Provider
-                      key={record?.id + fieldMetadataItem.id}
-                      value={{
-                        entityId: record?.id ?? '',
-                        maxWidth: 272,
-                        recoilScopeId: record?.id + fieldMetadataItem.id,
-                        isLabelIdentifier: false,
-                        fieldDefinition:
-                          formatFieldMetadataItemAsColumnDefinition({
-                            field: fieldMetadataItem,
-                            position: index,
-                            objectMetadataItem,
-                            showLabel: true,
-                            labelWidth: 160,
-                          }),
-                        useUpdateRecord: useUpdateOneObjectRecordMutation,
-                        hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                      }}
-                    >
-                      <RecordInlineCell />
-                    </FieldContext.Provider>
-                  ),
-                )}
-                </StyledPlanColumn>
-
-                {getPlanNameItems.map((section, index) => (
-                  <>
-                    <StyledSeparator />
-                    <RecordItemDropdown
-                    
-                      dropdownTitle={
+            <PropertyBox>
+              <RecordItemDropdownTruncated
+                dropdownTitle={<>{category}</>}
+                initialRows={
+                  <PropertyBox>
+                    <StyledPlanColumn>
+                      <>
+                        {getCategorySpecificItems(category)
+                          .map((fieldMetadataItem, index) => (
+                            <FieldContext.Provider
+                              key={record?.id + fieldMetadataItem.id}
+                              value={{
+                                entityId: record?.id ?? '',
+                                maxWidth: 272,
+                                recoilScopeId:
+                                  record?.id + fieldMetadataItem.id,
+                                isLabelIdentifier: false,
+                                fieldDefinition:
+                                  formatFieldMetadataItemAsColumnDefinition({
+                                    field: fieldMetadataItem,
+                                    position: index,
+                                    objectMetadataItem,
+                                    showLabel: true,
+                                    labelWidth: 160,
+                                  }),
+                                useUpdateRecord:
+                                  useUpdateOneObjectRecordMutation,
+                                hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                              }}
+                            >
+                              <RecordInlineCell />
+                            </FieldContext.Provider>
+                          ))
+                          .slice(0, 4)}
+                      </>
+                    </StyledPlanColumn>
+                  </PropertyBox>
+                }
+              >
+                <PropertyBox>
+                  <StyledPlanColumn>
+                    {getCategorySpecificItems(category).map(
+                      (fieldMetadataItem, index) => (
                         <FieldContext.Provider
-                          key={record?.id + section.id}
+                          key={record?.id + fieldMetadataItem.id}
                           value={{
                             entityId: record?.id ?? '',
                             maxWidth: 272,
-                            recoilScopeId: record?.id + section.id,
+                            recoilScopeId: record?.id + fieldMetadataItem.id,
                             isLabelIdentifier: false,
                             fieldDefinition:
                               formatFieldMetadataItemAsColumnDefinition({
-                                field: section,
+                                field: fieldMetadataItem,
                                 position: index,
                                 objectMetadataItem,
                                 showLabel: true,
@@ -359,18 +333,48 @@ export const PlanDetailsList = () => {
                         >
                           <RecordInlineCell />
                         </FieldContext.Provider>
-                      }
-                    >
-                      <PropertyBoxRow>
-                        {['EE', 'ES', 'EF', 'EC'].map((group) => (
-                          <>
-                            <StyledGroupContainer2>
-                              <DropdownMenuHeader>
-                                {group}
-                                {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
-                              </DropdownMenuHeader>
-                              <DropdownMenuItemsContainer>
-                                {/* {[...availableSortDefinitions]
+                      ),
+                    )}
+                  </StyledPlanColumn>
+
+                  {getPlanNameItems.map((section, index) => (
+                    <>
+                      <StyledSeparator />
+                      <RecordItemDropdown
+                        dropdownTitle={
+                          <FieldContext.Provider
+                            key={record?.id + section.id}
+                            value={{
+                              entityId: record?.id ?? '',
+                              maxWidth: 272,
+                              recoilScopeId: record?.id + section.id,
+                              isLabelIdentifier: false,
+                              fieldDefinition:
+                                formatFieldMetadataItemAsColumnDefinition({
+                                  field: section,
+                                  position: index,
+                                  objectMetadataItem,
+                                  showLabel: true,
+                                  labelWidth: 160,
+                                }),
+                              useUpdateRecord: useUpdateOneObjectRecordMutation,
+                              hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                            }}
+                          >
+                            <RecordInlineCell />
+                          </FieldContext.Provider>
+                        }
+                      >
+                        <PropertyBoxRow>
+                          {['EE', 'ES', 'EF', 'EC'].map((group) => (
+                            <>
+                              <StyledGroupContainer2>
+                                <DropdownMenuHeader>
+                                  {group}
+                                  {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+                                </DropdownMenuHeader>
+                                <DropdownMenuItemsContainer>
+                                  {/* {[...availableSortDefinitions]
                             .sort((a, b) => a.label.localeCompare(b.label))
                             .map((availableSortDefinition, index) => (
                               <MenuItem
@@ -381,50 +385,50 @@ export const PlanDetailsList = () => {
                                 text={availableSortDefinition.label}
                               />
                             ))} */}
-                                {/* Map properties to cells here */}
+                                  {/* Map properties to cells here */}
 
-                                {getPlanGroupCategorySpecificItems(
-                                  index,
-                                  group,
-                                  category,
-                                ).map((fieldMetadataItem, index) => (
-                                  <FieldContext.Provider
-                                    key={record?.id + fieldMetadataItem.id}
-                                    value={{
-                                      entityId: record?.id ?? '',
-                                      maxWidth: 273,
-                                      recoilScopeId:
-                                        record?.id + fieldMetadataItem.id,
-                                      isLabelIdentifier: false,
-                                      fieldDefinition:
-                                        formatFieldMetadataItemAsColumnDefinition(
-                                          {
-                                            field: fieldMetadataItem,
-                                            position: index,
-                                            objectMetadataItem,
-                                            showLabel: true,
-                                            labelWidth: 60,
-                                          },
-                                        ),
-                                      useUpdateRecord:
-                                        useUpdateOneObjectRecordMutation,
-                                      hotkeyScope:
-                                        InlineCellHotkeyScope.InlineCell,
-                                    }}
-                                  >
-                                    <RecordInlineCell />
-                                  </FieldContext.Provider>
-                                ))}
-                              </DropdownMenuItemsContainer>
-                            </StyledGroupContainer2>
-                          </>
-                        ))}
-                      </PropertyBoxRow>
-                    </RecordItemDropdown>
-                  </>
-                ))}
-              </PropertyBox>
-            </RecordItemDropdownTruncated>
+                                  {getPlanGroupCategorySpecificItems(
+                                    index,
+                                    group,
+                                    category,
+                                  ).map((fieldMetadataItem, index) => (
+                                    <FieldContext.Provider
+                                      key={record?.id + fieldMetadataItem.id}
+                                      value={{
+                                        entityId: record?.id ?? '',
+                                        maxWidth: 273,
+                                        recoilScopeId:
+                                          record?.id + fieldMetadataItem.id,
+                                        isLabelIdentifier: false,
+                                        fieldDefinition:
+                                          formatFieldMetadataItemAsColumnDefinition(
+                                            {
+                                              field: fieldMetadataItem,
+                                              position: index,
+                                              objectMetadataItem,
+                                              showLabel: true,
+                                              labelWidth: 60,
+                                            },
+                                          ),
+                                        useUpdateRecord:
+                                          useUpdateOneObjectRecordMutation,
+                                        hotkeyScope:
+                                          InlineCellHotkeyScope.InlineCell,
+                                      }}
+                                    >
+                                      <RecordInlineCell />
+                                    </FieldContext.Provider>
+                                  ))}
+                                </DropdownMenuItemsContainer>
+                              </StyledGroupContainer2>
+                            </>
+                          ))}
+                        </PropertyBoxRow>
+                      </RecordItemDropdown>
+                    </>
+                  ))}
+                </PropertyBox>
+              </RecordItemDropdownTruncated>
             </PropertyBox>
           ))}
         </>

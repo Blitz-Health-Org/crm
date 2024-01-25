@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
-import { displayedEmployerInfoFields } from '@/activities/employer-info/constants/contants';
+import { downloadEmployerReport } from '@/activities/download-employer/utils/downloadReport';
 import { AttachmentDropdown } from '@/activities/files/components/AttachmentDropdown';
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
@@ -17,17 +17,38 @@ import { entityFieldsFamilyState } from '@/object-record/field/states/entityFiel
 import { useFindOneRecord } from '@/object-record/hooks/useFindOneRecord';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
 import { RecordInlineCell } from '@/object-record/record-inline-cell/components/RecordInlineCell';
-import { PropertyBox } from '@/object-record/record-inline-cell/property-box/components/PropertyBox';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
+
+const StyledEmployerInfoContainer = styled.div`
+  align-items: flex-start;
+  align-self: stretch;
+  background: ${({ theme }) => theme.background.secondary};
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 100%;
+`;
 
 const StyledContainer = styled.div`
   align-items: flex-start;
   align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledPropertyBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-self: stretch;
+  background: ${({ theme }) => theme.background.secondary};
+  border: 1px solid ${({ theme }) => theme.border.color.medium};
+  border-radius: ${({ theme }) => theme.border.radius.sm};
+  gap: ${({ theme }) => theme.spacing(2)};
+  padding: ${({ theme }) => theme.spacing(3)};
+  flex-grow: 1;
 `;
 
 // const StyledRow = styled.div`
@@ -92,10 +113,12 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
         isFieldMetadataItemAvailable(fieldMetadataItem) &&
         fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id,
     )
-    .filter((fieldMetadataItem) =>
-      displayedEmployerInfoFields.includes(
-        fieldMetadataItem?.description ?? '',
-      ),
+    .filter(
+      (fieldMetadataItem) =>
+        //   displayedEmployerInfoFields.includes(
+        //     fieldMetadataItem?.description ?? '',
+        //   ),
+        true,
     )
     .sort((fieldMetadataItemA, fieldMetadataItemB) =>
       fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
@@ -117,40 +140,44 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
   }
 
   return (
-    <StyledContainer>
-      <PropertyBox>
-        <StyledLeftContent>
+    <StyledEmployerInfoContainer>
+      <StyledContainer>
+        <StyledPropertyBox>
           {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <FieldContext.Provider
-              key={record.id + fieldMetadataItem.id}
-              value={{
-                entityId: record.id,
-                maxWidth: 272,
-                recoilScopeId: record.id + fieldMetadataItem.id,
-                isLabelIdentifier: false,
-                fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                  field: fieldMetadataItem,
-                  position: index,
-                  objectMetadataItem,
-                  showLabel: true,
-                  labelWidth: 90,
-                }),
-                useUpdateRecord: useUpdateOneObjectRecordMutation,
-                hotkeyScope: InlineCellHotkeyScope.InlineCell,
-              }}
-            >
-              <RecordInlineCell />
-            </FieldContext.Provider>
+            <StyledLeftContent>
+              <FieldContext.Provider
+                key={record.id + fieldMetadataItem.id}
+                value={{
+                  entityId: record.id,
+                  maxWidth: 272,
+                  recoilScopeId: record.id + fieldMetadataItem.id,
+                  isLabelIdentifier: false,
+                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
+                    field: fieldMetadataItem,
+                    position: index,
+                    objectMetadataItem,
+                    showLabel: true,
+                    labelWidth: 90,
+                  }),
+                  useUpdateRecord: useUpdateOneObjectRecordMutation,
+                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                }}
+              >
+                <RecordInlineCell />
+              </FieldContext.Provider>
+            </StyledLeftContent>
           ))}
-        </StyledLeftContent>
+        </StyledPropertyBox>
         <StyledRightContent>
           <AttachmentDropdown
             scopeKey={'standin'}
-            onDownload={() => {}}
+            onDownload={() => {
+              downloadEmployerReport(availableFieldMetadataItems);
+            }}
             allowDelete={false}
           />
         </StyledRightContent>
-      </PropertyBox>
-    </StyledContainer>
+      </StyledContainer>
+    </StyledEmployerInfoContainer>
   );
 };
