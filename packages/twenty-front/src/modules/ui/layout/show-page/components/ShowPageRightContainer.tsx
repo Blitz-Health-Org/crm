@@ -12,6 +12,7 @@ import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableE
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import {
   IconCheckbox,
+  IconLayoutKanban,
   IconMail,
   IconNotes,
   IconPaperclip,
@@ -72,6 +73,12 @@ export const ShowPageRightContainer = ({
     });
 
   const TASK_TABS = [
+    {
+      id: 'planDetails',
+      title: 'Plan Details',
+      Icon: IconLayoutKanban, //fix
+      hide: !planDetails,
+    },
     {
       id: 'notes',
       title: 'Notes',
