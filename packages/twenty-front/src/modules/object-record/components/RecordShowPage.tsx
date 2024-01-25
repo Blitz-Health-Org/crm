@@ -265,9 +265,9 @@ export const RecordShowPage = () => {
                     }
                   />
 
-          <RecordItemDropdownTruncated dropdownTitle="Sup"  
+          <RecordItemDropdownTruncated dropdownTitle="Details"  
             initialRows =  {
-              <PropertyBox extraPadding={true}>
+              <PropertyBox>
               {topLevelFieldMetadataItems.map(
                 (fieldMetadataItem, index) => (
                   <FieldContext.Provider
@@ -295,7 +295,7 @@ export const RecordShowPage = () => {
               ).slice(0,8)}
             </PropertyBox>
             }>
-                                <PropertyBox extraPadding={true}>
+                  <PropertyBox>
                     {topLevelFieldMetadataItems.map(
                       (fieldMetadataItem, index) => (
                         <FieldContext.Provider

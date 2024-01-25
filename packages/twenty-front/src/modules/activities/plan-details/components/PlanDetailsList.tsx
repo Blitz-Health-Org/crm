@@ -83,10 +83,13 @@ const StyledPlanRow = styled.div`
 const StyledPlanColumn = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns per row */
-  grid-column-gap: 56px; /* Horizontal gap */
+  grid-column-gap: 12px; /* Horizontal gap */
   grid-row-gap: 12px; /* Vertical gap */
-  max-width: 300px; /* Adjust the max-width as needed */
+  max-width: 80vw; /* Adjust the max-width percentage as needed */
+  min-width: 300px; /* Set a minimum width as needed */
+  overflow-x: scroll; /* Enable horizontal overflow scrolling */
 `;
+
 
 export const PlanDetailsList = () => {
   const { objectNameSingular, objectRecordId } = useParams<{
