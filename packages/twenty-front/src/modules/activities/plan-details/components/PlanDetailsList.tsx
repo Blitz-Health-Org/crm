@@ -265,7 +265,40 @@ export const PlanDetailsList = () => {
       <StyledDropdownContainer>
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
-            <RecordItemDropdownTruncated dropdownTitle={<>{category}</>} defaultOpen>
+          <PropertyBox>
+           <RecordItemDropdownTruncated dropdownTitle={<>{category}</>} defaultOpen 
+            initialRows =  {
+              <PropertyBox>
+            <StyledPlanColumn>
+            <>
+            {getCategorySpecificItems(category).map(
+              (fieldMetadataItem, index) => (
+                <FieldContext.Provider
+                  key={record?.id + fieldMetadataItem.id}
+                  value={{
+                    entityId: record?.id ?? '',
+                    maxWidth: 272,
+                    recoilScopeId: record?.id + fieldMetadataItem.id,
+                    isLabelIdentifier: false,
+                    fieldDefinition:
+                      formatFieldMetadataItemAsColumnDefinition({
+                        field: fieldMetadataItem,
+                        position: index,
+                        objectMetadataItem,
+                        showLabel: true,
+                        labelWidth: 160,
+                      }),
+                    useUpdateRecord: useUpdateOneObjectRecordMutation,
+                    hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                  }}
+                >
+                  <RecordInlineCell />
+                </FieldContext.Provider>
+              ),
+            ).slice(0,4)}</>
+              </StyledPlanColumn>
+              </PropertyBox>
+            }>
               <PropertyBox>
               <StyledPlanColumn>
                 {getCategorySpecificItems(category).map(
@@ -293,12 +326,13 @@ export const PlanDetailsList = () => {
                     </FieldContext.Provider>
                   ),
                 )}
-                                </StyledPlanColumn>
+                </StyledPlanColumn>
 
                 {getPlanNameItems.map((section, index) => (
                   <>
                     <StyledSeparator />
                     <RecordItemDropdown
+                    
                       dropdownTitle={
                         <FieldContext.Provider
                           key={record?.id + section.id}
@@ -387,6 +421,7 @@ export const PlanDetailsList = () => {
                 ))}
               </PropertyBox>
             </RecordItemDropdownTruncated>
+            </PropertyBox>
           ))}
         </>
       </StyledDropdownContainer>

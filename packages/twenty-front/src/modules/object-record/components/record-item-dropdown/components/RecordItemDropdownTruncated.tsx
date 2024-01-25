@@ -9,6 +9,7 @@ import { DropdownMenuSeparator } from '@/ui/layout/dropdown/components/DropdownM
 
 export type RecordItemDropdownTruncatedProps = {
   children: React.ReactNode;
+  initialRows: React.ReactNode;
   dropdownTitle: any;
   defaultOpen?: boolean;
 };
@@ -34,12 +35,15 @@ export const RecordItemDropdownTruncated = ({
   dropdownTitle,
   defaultOpen = false,
   children,
+  initialRows
 }: RecordItemDropdownTruncatedProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
     useState(defaultOpen);
 
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const { getIcon } = useIcons();
+
+  console.log('initial', initialRows)
 
   return (
     <>
@@ -51,10 +55,7 @@ export const RecordItemDropdownTruncated = ({
         >
           {dropdownTitle}
         </DropdownMenuHeader>
-        <DropdownMenuSeparator />
-        <DropdownMenuItemsContainer>
-          {children}
-        </DropdownMenuItemsContainer>
+       {initialRows}
       </CollapsedContainer>
       ) : (
         <>
@@ -66,7 +67,6 @@ export const RecordItemDropdownTruncated = ({
               {dropdownTitle}
               {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
             </DropdownMenuHeader>
-            <DropdownMenuSeparator />
             <DropdownMenuItemsContainer>
               {children}
             </DropdownMenuItemsContainer>
