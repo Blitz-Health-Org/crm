@@ -8,6 +8,7 @@ import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadata
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
+import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -220,7 +221,7 @@ export const PlanDetailsList = () => {
       <StyledDropdownContainer>
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
-            <RecordItemDropdown dropdownTitle={<>{category}</>} defaultOpen>
+            <RecordItemDropdownTruncated dropdownTitle={<>{category}</>} defaultOpen>
               <PropertyBox>
                 {getCategorySpecificItems(category).map(
                   (fieldMetadataItem, index) => (
@@ -317,7 +318,7 @@ export const PlanDetailsList = () => {
                   </RecordItemDropdown>
                 ))}
               </PropertyBox>
-            </RecordItemDropdown>
+            </RecordItemDropdownTruncated>
           ))}
         </>
       </StyledDropdownContainer>
