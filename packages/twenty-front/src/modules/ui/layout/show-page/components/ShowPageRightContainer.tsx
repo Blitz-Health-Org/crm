@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
+import { EmployerInfoPage } from '@/activities/employer-info/EmployerInfoPage';
 // import { Threads } from '@/activities/emails/components/Threads';
 import { Attachments } from '@/activities/files/components/Attachments';
 import { Notes } from '@/activities/notes/components/Notes';
@@ -135,6 +136,9 @@ export const ShowPageRightContainer = ({
       {/* {activeTabId === 'emails' && <Threads entity={targetableObject} />} */}
       {activeTabId === 'planDetails' && (
         <PlanDetails targetableObject={targetableObject} />
+      )}
+      {activeTabId === 'employerInfo' && (
+        <EmployerInfoPage targetableObject={targetableObject} />
       )}
     </StyledShowPageRightContainer>
   );

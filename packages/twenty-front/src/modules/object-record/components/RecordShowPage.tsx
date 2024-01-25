@@ -180,8 +180,6 @@ export const RecordShowPage = () => {
       fieldMetadataItem.type === FieldMetadataType.Relation,
   );
 
-  console.log('toplevel', topLevelFieldMetadataItems);
-
   return (
     <PageContainer>
       <PageTitle title={pageName} />

@@ -174,6 +174,7 @@ export const PlanDetailsList = () => {
       fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
     );
 
+  console.log(availableFieldMetadataItems);
   const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
     (fieldMetadataItem) =>
       fieldMetadataItem.type !== FieldMetadataType.Relation ||
@@ -199,17 +200,6 @@ export const PlanDetailsList = () => {
     group: any,
     category: any,
   ) => {
-    console.log(
-      'check',
-      plan,
-      group,
-      category,
-      availableFieldMetadataItems
-        .filter((fieldMetadataItem) => {
-          return true;
-        })
-        .map((stuff) => stuff.description),
-    );
     return availableFieldMetadataItems.filter((fieldMetadataItem) => {
       return (
         fieldMetadataItem.description?.includes(`plan_name_${plan + 1}`) &&

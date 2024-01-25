@@ -10,8 +10,6 @@ export const ObjectMetadataNavItems = () => {
   const { getIcon } = useIcons();
   const currentPath = useLocation().pathname;
 
-  console.log('settings', activeObjectMetadataItems);
-
   return (
     <>
       {[
