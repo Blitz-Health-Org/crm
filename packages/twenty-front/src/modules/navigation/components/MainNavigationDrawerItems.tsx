@@ -77,6 +77,20 @@ export const MainNavigationDrawerItems = () => {
           Icon={IconCheckbox}
           count={currentUserDueTaskCount}
         />
+        <NavigationDrawerItem
+          label="Vendor Management Platform"
+          to="/commission-tracker"
+          active={isTasksPage}
+          Icon={IconCheckbox}
+          count={currentUserDueTaskCount}
+        />
+        <NavigationDrawerItem
+          label="Compliance Verification"
+          to="/commission-tracker"
+          active={isTasksPage}
+          Icon={IconCheckbox}
+          count={currentUserDueTaskCount}
+        />
       </NavigationDrawerSection>
     </>
   );
