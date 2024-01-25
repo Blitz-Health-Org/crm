@@ -5,7 +5,7 @@ import { IconComponent } from '@/ui/display/icon/types/IconComponent';
 import { LightIconButton } from '@/ui/input/button/components/LightIconButton';
 
 const StyledHeader = styled.li`
-  align-items: start;
+  align-items: center;
   color: ${({ theme }) => theme.font.color.primary};
   display: flex;
   font-size: ${({ theme }) => theme.font.size.sm};
