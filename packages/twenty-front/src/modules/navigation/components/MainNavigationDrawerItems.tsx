@@ -1,3 +1,5 @@
+//TODO: Change tools page icon from iconCheckbox to more appropriate
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
@@ -64,6 +66,17 @@ export const MainNavigationDrawerItems = () => {
       <NavigationDrawerSection>
         <NavigationDrawerSectionTitle label="Workspace" />
         <ObjectMetadataNavItems />
+      </NavigationDrawerSection>
+
+      <NavigationDrawerSection>
+        <NavigationDrawerSectionTitle label="Tools" />
+        <NavigationDrawerItem
+          label="Commission Tracker"
+          to="/commission-tracker"
+          active={isTasksPage}
+          Icon={IconCheckbox}
+          count={currentUserDueTaskCount}
+        />
       </NavigationDrawerSection>
     </>
   );

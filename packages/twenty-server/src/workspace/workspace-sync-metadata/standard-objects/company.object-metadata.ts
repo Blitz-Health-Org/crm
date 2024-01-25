@@ -97,8 +97,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Related Accounts',
-    description:
-      'Related Accounts',
+    description: 'Related Accounts',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -107,8 +106,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Owner',
-    description:
-      'Owner',
+    description: 'Owner',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -117,8 +115,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Control Group',
-    description:
-      'Control Group',
+    description: 'Control Group',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -127,8 +124,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Main Number',
-    description:
-      'Main Number',
+    description: 'Main Number',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -137,8 +133,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Contact Name',
-    description:
-      'Contact Name',
+    description: 'Contact Name',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -147,8 +142,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Email',
-    description:
-      'Email',
+    description: 'Email',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -157,18 +151,16 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Fax Number',
-    description:
-      'Fax Number',
+    description: 'Fax Number',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   faxNumber: string;
-  
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Years in Business',
-    description:
-      'Years in Business',
+    description: 'Years in Business',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -177,8 +169,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Renewal Date',
-    description:
-      'Renewal Date',
+    description: 'Renewal Date',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -187,8 +178,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Grandfathered',
-    description:
-      'Grandfathered',
+    description: 'Grandfathered',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -197,8 +187,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Employee Count',
-    description:
-      'Employee Count',
+    description: 'Employee Count',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -207,8 +196,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Cobra Eligible',
-    description:
-      'Cobra Eligible',
+    description: 'Cobra Eligible',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -217,8 +205,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'State Continuation Eligible',
-    description:
-      'State Continuation Eligible',
+    description: 'State Continuation Eligible',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -227,8 +214,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Waiting Period',
-    description:
-      'Waiting Period',
+    description: 'Waiting Period',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -237,8 +223,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Tax ID',
-    description:
-      'Tax ID',
+    description: 'Tax ID',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -247,8 +232,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'SIC',
-    description:
-      'SIC',
+    description: 'SIC',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -257,8 +241,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Payroll Period',
-    description:
-      'Payroll Period',
+    description: 'Payroll Period',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -267,8 +250,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Employer Contribution',
-    description:
-      'Employer Contribution',
+    description: 'Employer Contribution',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -277,8 +259,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'POP / Section 125',
-    description:
-      'POP / Section 125',
+    description: 'POP / Section 125',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -287,8 +268,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'General Agent',
-    description:
-      'General Agent',
+    description: 'General Agent',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -297,8 +277,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Carrier',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -307,8 +286,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Rep Contact Info',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -317,8 +295,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Effective Date',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -327,8 +304,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Renewed / Gurantee',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -337,8 +313,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Group Number',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -347,8 +322,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Employer Contribution',
-    description:
-      'medical_plan',
+    description: 'medical_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -357,8 +331,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'medical_plan plan_name_1',
+    description: 'medical_plan plan_name_1',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -367,8 +340,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_1 EE_group_plan',
+    description: 'medical_plan plan_name_1 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -377,8 +349,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_1 ES_group_plan',
+    description: 'medical_plan plan_name_1 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -387,8 +358,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_1 EC_group_plan',
+    description: 'medical_plan plan_name_1 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -397,8 +367,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_1 EF_group_plan',
+    description: 'medical_plan plan_name_1 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -407,8 +376,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_1 EE_group_plan',
+    description: 'medical_plan plan_name_1 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -417,8 +385,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_1 ES_group_plan',
+    description: 'medical_plan plan_name_1 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -427,8 +394,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_1 EC_group_plan',
+    description: 'medical_plan plan_name_1 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -437,8 +403,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_1 EF_group_plan',
+    description: 'medical_plan plan_name_1 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -447,8 +412,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_1 EE_group_plan',
+    description: 'medical_plan plan_name_1 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -457,8 +421,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_1 ES_group_plan',
+    description: 'medical_plan plan_name_1 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -467,8 +430,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_1 EC_group_plan',
+    description: 'medical_plan plan_name_1 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -477,8 +439,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_1 EF_group_plan',
+    description: 'medical_plan plan_name_1 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -487,8 +448,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'medical_plan plan_name_2',
+    description: 'medical_plan plan_name_2',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -497,8 +457,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_2 EE_group_plan',
+    description: 'medical_plan plan_name_2 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -507,8 +466,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_2 ES_group_plan',
+    description: 'medical_plan plan_name_2 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -517,8 +475,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_2 EC_group_plan',
+    description: 'medical_plan plan_name_2 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -527,8 +484,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_2 EF_group_plan',
+    description: 'medical_plan plan_name_2 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -537,8 +493,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_2 EE_group_plan',
+    description: 'medical_plan plan_name_2 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -547,8 +502,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_2 ES_group_plan',
+    description: 'medical_plan plan_name_2 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -557,8 +511,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_2 EC_group_plan',
+    description: 'medical_plan plan_name_2 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -567,8 +520,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_2 EF_group_plan',
+    description: 'medical_plan plan_name_2 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -577,8 +529,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_2 EE_group_plan',
+    description: 'medical_plan plan_name_2 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -587,8 +538,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_2 ES_group_plan',
+    description: 'medical_plan plan_name_2 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -597,8 +547,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_2 EC_group_plan',
+    description: 'medical_plan plan_name_2 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -607,8 +556,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_2 EF_group_plan',
+    description: 'medical_plan plan_name_2 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -617,293 +565,241 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'medical_plan plan_name_3',
+    description: 'medical_plan plan_name_3',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   planName3: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_3 EE_group_plan',
+    description: 'medical_plan plan_name_3 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate3EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_3 ES_group_plan',
+    description: 'medical_plan plan_name_3 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate3ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_3 EC_group_plan',
+    description: 'medical_plan plan_name_3 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate3EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_3 EF_group_plan',
+    description: 'medical_plan plan_name_3 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate3EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_3 EE_group_plan',
+    description: 'medical_plan plan_name_3 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled3EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_3 ES_group_plan',
+    description: 'medical_plan plan_name_3 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled3ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_3 EC_group_plan',
+    description: 'medical_plan plan_name_3 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled3EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_3 EF_group_plan',
+    description: 'medical_plan plan_name_3 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled3EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_3 EE_group_plan',
+    description: 'medical_plan plan_name_3 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium3EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_3 ES_group_plan',
+    description: 'medical_plan plan_name_3 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium3ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_3 EC_group_plan',
+    description: 'medical_plan plan_name_3 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium3EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_3 EF_group_plan',
+    description: 'medical_plan plan_name_3 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium3EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'medical_plan plan_name_4',
+    description: 'medical_plan plan_name_4',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   planName4: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_4 EE_group_plan',
+    description: 'medical_plan plan_name_4 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate4EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_4 ES_group_plan',
+    description: 'medical_plan plan_name_4 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate4ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_4 EC_group_plan',
+    description: 'medical_plan plan_name_4 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate4EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'medical_plan plan_name_4 EF_group_plan',
+    description: 'medical_plan plan_name_4 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate4EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_4 EE_group_plan',
+    description: 'medical_plan plan_name_4 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled4EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_4 ES_group_plan',
+    description: 'medical_plan plan_name_4 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled4ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_4 EC_group_plan',
+    description: 'medical_plan plan_name_4 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled4EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'medical_plan plan_name_4 EF_group_plan',
+    description: 'medical_plan plan_name_4 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled4EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_4 EE_group_plan',
+    description: 'medical_plan plan_name_4 EE_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium4EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_4 ES_group_plan',
+    description: 'medical_plan plan_name_4 ES_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium4ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_4 EC_group_plan',
+    description: 'medical_plan plan_name_4 EC_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   monthlyPremium4EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Monthly Premium',
-    description:
-      'medical_plan plan_name_4 EF_group_plan',
+    description: 'medical_plan plan_name_4 EF_group_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  monthlyPremium4EF: string; 
+  monthlyPremium4EF: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Carrier',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -912,8 +808,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Rep Contact Info',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -922,8 +817,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Effective Date',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -932,8 +826,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Renewed / Gurantee',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -942,8 +835,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Group Number',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -952,8 +844,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Employer Contribution',
-    description:
-      'dental_plan',
+    description: 'dental_plan',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -962,8 +853,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'dental_plan plan_name_5',
+    description: 'dental_plan plan_name_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -972,8 +862,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Notes',
-    description:
-      'dental_plan plan_name_5',
+    description: 'dental_plan plan_name_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -982,116 +871,97 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'dental_plan plan_name_5 EE_group_plan_5',
+    description: 'dental_plan plan_name_5 EE_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate5EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'dental_plan plan_name_5 EE_group_plan_5',
+    description: 'dental_plan plan_name_5 EE_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate5ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'dental_plan plan_name_5 EC_group_plan_5',
+    description: 'dental_plan plan_name_5 EC_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate5EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'dental_plan plan_name_5 EF_group_plan_5',
+    description: 'dental_plan plan_name_5 EF_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   currentRate5EF: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'dental_plan plan_name_5 EE_group_plan_5',
+    description: 'dental_plan plan_name_5 EE_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled5EE: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'dental_plan plan_name_5 ES_group_plan_5',
+    description: 'dental_plan plan_name_5 ES_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled5ES: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'dental_plan plan_name_5 EC_group_plan_5',
+    description: 'dental_plan plan_name_5 EC_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   Enrolled5EC: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'dental_plan plan_name_5 EF_group_plan_5',
+    description: 'dental_plan plan_name_5 EF_group_plan_5',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled5EF: string; 
+  Enrolled5EF: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description:
-      'vision_plan plan_name_6',
+    description: 'vision_plan plan_name_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   planName6: string;
- 
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Notes',
-    description:
-      'vision_plan plan_name_6',
+    description: 'vision_plan plan_name_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
   planNotes6: string;
- 
+
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'vision_plan plan_name_6 EE_group_plan_6',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1100,8 +970,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'vision_plan plan_name_6 EE_group_plan_6',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1110,8 +979,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'vision_plan plan_name_6 EC_group_plan_6',
+    description: 'vision_plan plan_name_6 EC_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1120,8 +988,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description:
-      'vision_plan plan_name_6 EF_group_plan_6',
+    description: 'vision_plan plan_name_6 EF_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1130,8 +997,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'vision_plan plan_name_6 EE_group_plan_6',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1140,8 +1006,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'vision_plan plan_name_6 ES_group_plan_6',
+    description: 'vision_plan plan_name_6 ES_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1150,8 +1015,7 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'vision_plan plan_name_6 EC_group_plan_6',
+    description: 'vision_plan plan_name_6 EC_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
@@ -1160,12 +1024,11 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description:
-      'vision_plan plan_name_6 EF_group_plan_6',
+    description: 'vision_plan plan_name_6 EF_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled6EF: string; 
+  Enrolled6EF: string;
 
   @FieldMetadata({
     type: FieldMetadataType.BOOLEAN,
