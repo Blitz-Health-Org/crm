@@ -221,7 +221,7 @@ export const PlanDetailsList = () => {
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
             <RecordItemDropdown dropdownTitle={<>{category}</>} defaultOpen>
-              <PropertyBox extraPadding={true}>
+              <PropertyBox>
                 {getCategorySpecificItems(category).map(
                   (fieldMetadataItem, index) => (
                     <FieldContext.Provider
@@ -237,7 +237,7 @@ export const PlanDetailsList = () => {
                             position: index,
                             objectMetadataItem,
                             showLabel: true,
-                            labelWidth: 90,
+                            labelWidth: 160,
                           }),
                         useUpdateRecord: useUpdateOneObjectRecordMutation,
                         hotkeyScope: InlineCellHotkeyScope.InlineCell,
@@ -263,7 +263,7 @@ export const PlanDetailsList = () => {
                               position: index,
                               objectMetadataItem,
                               showLabel: true,
-                              labelWidth: 90,
+                              labelWidth: 160,
                             }),
                           useUpdateRecord: useUpdateOneObjectRecordMutation,
                           hotkeyScope: InlineCellHotkeyScope.InlineCell,
@@ -274,13 +274,13 @@ export const PlanDetailsList = () => {
                     }
                     defaultOpen
                   >
-                    <PropertyBoxRow extraPadding={true}>
+                    <PropertyBoxRow>
                       {['EE', 'ES', 'EF', 'EC'].map((group) => (
                         <RecordItemDropdown
                           dropdownTitle={<>{group}</>}
                           defaultOpen
                         >
-                          <PropertyBox extraPadding={true}>
+                          <PropertyBox>
                             {getPlanGroupCategorySpecificItems(
                               index,
                               group,
