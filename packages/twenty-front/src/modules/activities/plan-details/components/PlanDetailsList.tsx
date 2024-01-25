@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
-
 import { useFavorites } from '@/favorites/hooks/useFavorites';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
@@ -52,12 +51,41 @@ const StyledGroupContainer = styled.div`
   padding: 0px 20px;
 `;
 
+const StyledGroupContainer2 = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 10px;
+`;
+
 const StyledDropdownContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   width: 100%;
+`;
+
+const StyledPlanContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(4)};
+  width: 100%;
+`;
+
+const StyledPlanRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing(4)};
+`;
+
+const StyledPlanColumn = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+  grid-column-gap: 56px; /* Horizontal gap */
+  grid-row-gap: 12px; /* Vertical gap */
+  max-width: 300px; /* Adjust the max-width as needed */
 `;
 
 export const PlanDetailsList = () => {
@@ -239,6 +267,7 @@ export const PlanDetailsList = () => {
           {['Medical', 'Dental', 'Vision'].map((category) => (
             <RecordItemDropdownTruncated dropdownTitle={<>{category}</>} defaultOpen>
               <PropertyBox>
+              <StyledPlanColumn>
                 {getCategorySpecificItems(category).map(
                   (fieldMetadataItem, index) => (
                     <FieldContext.Provider
@@ -264,6 +293,7 @@ export const PlanDetailsList = () => {
                     </FieldContext.Provider>
                   ),
                 )}
+                                </StyledPlanColumn>
 
                 {getPlanNameItems.map((section, index) => (
                   <>
@@ -292,12 +322,11 @@ export const PlanDetailsList = () => {
                           <RecordInlineCell />
                         </FieldContext.Provider>
                       }
-                      defaultOpen
                     >
                       <PropertyBoxRow>
                         {['EE', 'ES', 'EF', 'EC'].map((group) => (
                           <>
-                            <StyledGroupContainer>
+                            <StyledGroupContainer2>
                               <DropdownMenuHeader>
                                 {group}
                                 {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
@@ -349,7 +378,7 @@ export const PlanDetailsList = () => {
                                   </FieldContext.Provider>
                                 ))}
                               </DropdownMenuItemsContainer>
-                            </StyledGroupContainer>
+                            </StyledGroupContainer2>
                           </>
                         ))}
                       </PropertyBoxRow>
