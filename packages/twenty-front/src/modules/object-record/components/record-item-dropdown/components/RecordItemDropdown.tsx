@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 
+import { PropertyBox } from '@/object-record/record-inline-cell/property-box/components/PropertyBox';
 import { IconChevronDown, IconChevronRight } from '@/ui/display/icon';
 import { useIcons } from '@/ui/display/icon/hooks/useIcons';
 import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
-import { DropdownMenuSeparator } from '@/ui/layout/dropdown/components/DropdownMenuSeparator';
 
 export type RecordItemDropdownProps = {
   children: React.ReactNode;
@@ -35,26 +35,28 @@ export const RecordItemDropdown = ({
   return (
     <>
       {!isRecordItemMenuUnfolded ? (
-        <DropdownMenuHeader
-          EndIcon={IconChevronRight}
-          onClick={() => setIsRecordItemMenuUnfolded(true)}
-        >
-          {dropdownTitle}
-        </DropdownMenuHeader>
+        <PropertyBox>
+          <DropdownMenuHeader
+            EndIcon={IconChevronRight}
+            onClick={() => setIsRecordItemMenuUnfolded(true)}
+          >
+            {dropdownTitle}
+          </DropdownMenuHeader>
+        </PropertyBox>
       ) : (
         <>
-          <StyledContainer>
-            <DropdownMenuHeader
-              EndIcon={IconChevronDown}
-              onClick={() => setIsRecordItemMenuUnfolded(false)}
-            >
-              {dropdownTitle}
-              {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
-            </DropdownMenuHeader>
-            <DropdownMenuSeparator />
-            <DropdownMenuItemsContainer>
-              {children}
-              {/* {[...availableSortDefinitions]
+          <PropertyBox>
+            <StyledContainer>
+              <DropdownMenuHeader
+                EndIcon={IconChevronDown}
+                onClick={() => setIsRecordItemMenuUnfolded(false)}
+              >
+                {dropdownTitle}
+                {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+              </DropdownMenuHeader>
+              <DropdownMenuItemsContainer>
+                {children}
+                {/* {[...availableSortDefinitions]
               .sort((a, b) => a.label.localeCompare(b.label))
               .map((availableSortDefinition, index) => (
                 <MenuItem
@@ -65,9 +67,10 @@ export const RecordItemDropdown = ({
                   text={availableSortDefinition.label}
                 />
               ))} */}
-              {/* Map properties to cells here */}
-            </DropdownMenuItemsContainer>
-          </StyledContainer>
+                {/* Map properties to cells here */}
+              </DropdownMenuItemsContainer>
+            </StyledContainer>
+          </PropertyBox>
         </>
       )}
     </>
