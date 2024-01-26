@@ -1,1 +1,1 @@
-export const displayedEmployerInfoFields = ['Account Owner'];
+export const displayedEmployerInfoFields = ['Address', 'ARR'];

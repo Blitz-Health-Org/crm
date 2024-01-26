@@ -7,8 +7,12 @@ import { useDropdown } from '@/ui/layout/dropdown/hooks/useDropdown';
 import { MenuItem } from '@/ui/navigation/menu-item/components/MenuItem';
 import styled from '@emotion/styled';
 
-const StyledEmployerInfoContainer = styled.div`
+const GrayLightIconButton = styled(LightIconButton)`
+  // Add your custom styling here
+  border: 1px solid ${({ theme }) => theme.border.color.medium};
+  border-radius: ${({ theme }) => theme.border.radius.sm};
   background: ${({ theme }) => theme.background.secondary};
+  // Add any other styles you want to customize
 `;
 
 type AttachmentDropdownProps = {
@@ -41,11 +45,10 @@ export const AttachmentDropdown = ({
   };
 
   return (
-    <StyledEmployerInfoContainer>
     <Dropdown
       dropdownId={dropdownId}
       clickableComponent={
-        <LightIconButton Icon={IconDownload} accent="tertiary" />
+        <GrayLightIconButton Icon={IconDownload} accent="tertiary" />
       }
       dropdownComponents={
         <DropdownMenu width="160px">
@@ -70,6 +73,5 @@ export const AttachmentDropdown = ({
         scope: dropdownId,
       }}
     />
-    </StyledEmployerInfoContainer>
   );
 };
