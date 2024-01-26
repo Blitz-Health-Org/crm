@@ -206,7 +206,6 @@ export const PlanDetailsList = () => {
       fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
     );
 
-  console.log(availableFieldMetadataItems);
   const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
     (fieldMetadataItem) =>
       fieldMetadataItem.type !== FieldMetadataType.Relation ||

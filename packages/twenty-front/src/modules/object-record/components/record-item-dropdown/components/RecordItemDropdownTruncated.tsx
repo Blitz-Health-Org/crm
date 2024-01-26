@@ -5,7 +5,6 @@ import { IconChevronDown, IconChevronRight } from '@/ui/display/icon';
 import { useIcons } from '@/ui/display/icon/hooks/useIcons';
 import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
-import { DropdownMenuSeparator } from '@/ui/layout/dropdown/components/DropdownMenuSeparator';
 
 export type RecordItemDropdownTruncatedProps = {
   children: React.ReactNode;
@@ -34,7 +33,7 @@ export const RecordItemDropdownTruncated = ({
   dropdownTitle,
   defaultOpen = false,
   children,
-  initialRows
+  initialRows,
 }: RecordItemDropdownTruncatedProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
     useState(defaultOpen);
@@ -42,20 +41,18 @@ export const RecordItemDropdownTruncated = ({
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const { getIcon } = useIcons();
 
-  console.log('initial', initialRows)
-
   return (
     <>
       {!isRecordItemMenuUnfolded ? (
-      <CollapsedContainer>
-        <DropdownMenuHeader
-          EndIcon={IconChevronRight}
-          onClick={() => setIsRecordItemMenuUnfolded(true)}
-        >
-          {dropdownTitle}
-        </DropdownMenuHeader>
-       {initialRows}
-      </CollapsedContainer>
+        <CollapsedContainer>
+          <DropdownMenuHeader
+            EndIcon={IconChevronRight}
+            onClick={() => setIsRecordItemMenuUnfolded(true)}
+          >
+            {dropdownTitle}
+          </DropdownMenuHeader>
+          {initialRows}
+        </CollapsedContainer>
       ) : (
         <>
           <ExpandedContainer>
@@ -66,9 +63,7 @@ export const RecordItemDropdownTruncated = ({
               {dropdownTitle}
               {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
             </DropdownMenuHeader>
-            <DropdownMenuItemsContainer>
-              {children}
-            </DropdownMenuItemsContainer>
+            <DropdownMenuItemsContainer>{children}</DropdownMenuItemsContainer>
           </ExpandedContainer>
         </>
       )}
