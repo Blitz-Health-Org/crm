@@ -28,6 +28,7 @@ const StyledEmployerInfoContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   width: 100%;
+  overflow-y: scroll;
 `;
 
 const StyledContainer = styled.div`
@@ -36,19 +37,32 @@ const StyledContainer = styled.div`
   padding: 8px 24px;
   display: flex;
   justify-content: space-between;
+  margin-top: 16px; /* Adjust the margin as needed */
+  overflow-y: scroll;
+`;
+
+const StyledPlanColumn = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+  grid-column-gap: 12px; /* Horizontal gap */
+  grid-row-gap: 12px; /* Vertical gap */
+  max-width: 80vw; /* Adjust the max-width percentage as needed */
+  min-width: 300px; /* Set a minimum width as needed */
+  overflow-x: scroll; /* Enable horizontal overflow scrolling */
+  overflow-y: scroll;
 `;
 
 const StyledPropertyBox = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  align-self: stretch;
   background: ${({ theme }) => theme.background.secondary};
   border: 1px solid ${({ theme }) => theme.border.color.medium};
   border-radius: ${({ theme }) => theme.border.radius.sm};
   gap: ${({ theme }) => theme.spacing(2)};
   padding: ${({ theme }) => theme.spacing(3)};
   flex-grow: 1;
+  overflow-y: scroll;
 `;
 
 // const StyledRow = styled.div`
@@ -72,6 +86,10 @@ const StyledRightContent = styled.div`
   align-items: center;
   display: flex;
   gap: ${({ theme }) => theme.spacing(0.5)};
+  margin-left: 6px;
+  position: sticky;
+  top: 0; // Adjust the top value as needed
+  z-index: 100; // Adjust the z-index as needed
 `;
 
 type EmployerInfoPageProps = {
@@ -143,6 +161,7 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
     <StyledEmployerInfoContainer>
       <StyledContainer>
         <StyledPropertyBox>
+          <StyledPlanColumn>
           {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
             <StyledLeftContent>
               <FieldContext.Provider
@@ -167,6 +186,7 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
               </FieldContext.Provider>
             </StyledLeftContent>
           ))}
+        </StyledPlanColumn>
         </StyledPropertyBox>
         <StyledRightContent>
           <AttachmentDropdown
