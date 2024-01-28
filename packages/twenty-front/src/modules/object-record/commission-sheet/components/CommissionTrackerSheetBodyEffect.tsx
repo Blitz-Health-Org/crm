@@ -1,3 +1,3 @@
-export const CommissionTrackerSheetBody = () => {
-  return <>ejo</>;
+export const CommissionTrackerSheetBodyEffect = () => {
+  return <></>;
 };
