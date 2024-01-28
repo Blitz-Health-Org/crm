@@ -31,6 +31,7 @@ export const RecordBoardInternalEffect = () => {
     savedOpportunitiesState,
   );
   const savedPipelineSteps = useRecoilValue(savedPipelineStepsState);
+
   const savedCompanies = useRecoilValue(savedCompaniesState);
 
   useEffect(() => {

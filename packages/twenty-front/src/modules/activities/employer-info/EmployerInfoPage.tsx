@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
-import { downloadEmployerReport } from '@/activities/download-employer/utils/downloadReport';
 import { AttachmentDropdown } from '@/activities/files/components/AttachmentDropdown';
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
@@ -172,7 +171,7 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
           <AttachmentDropdown
             scopeKey={'standin'}
             onDownload={() => {
-              downloadEmployerReport(availableFieldMetadataItems);
+              //   useDownloadEmployerReport(availableFieldMetadataItems);
             }}
             allowDelete={false}
           />

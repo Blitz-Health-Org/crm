@@ -13,7 +13,7 @@ export type RecordItemDropdownTruncatedProps = {
   defaultOpen?: boolean;
 };
 
-const CollapsedContainer = styled.div`
+const StyledCollapsedContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ const CollapsedContainer = styled.div`
   overflow: hidden;
 `;
 
-const ExpandedContainer = styled.div`
+const StyledExpandedContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@ export const RecordItemDropdownTruncated = ({
   return (
     <>
       {!isRecordItemMenuUnfolded ? (
-        <CollapsedContainer>
+        <StyledCollapsedContainer>
           <DropdownMenuHeader
             EndIcon={IconChevronRight}
             onClick={() => setIsRecordItemMenuUnfolded(true)}
@@ -52,10 +52,10 @@ export const RecordItemDropdownTruncated = ({
             {dropdownTitle}
           </DropdownMenuHeader>
           {initialRows}
-        </CollapsedContainer>
+        </StyledCollapsedContainer>
       ) : (
         <>
-          <ExpandedContainer>
+          <StyledExpandedContainer>
             <DropdownMenuHeader
               EndIcon={IconChevronDown}
               onClick={() => setIsRecordItemMenuUnfolded(false)}
@@ -64,7 +64,7 @@ export const RecordItemDropdownTruncated = ({
               {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
             </DropdownMenuHeader>
             <DropdownMenuItemsContainer>{children}</DropdownMenuItemsContainer>
-          </ExpandedContainer>
+          </StyledExpandedContainer>
         </>
       )}
     </>

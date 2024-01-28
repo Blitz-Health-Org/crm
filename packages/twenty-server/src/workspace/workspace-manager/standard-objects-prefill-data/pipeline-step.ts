@@ -1,6 +1,6 @@
 import { EntityManager } from 'typeorm';
 
-export const pipelineStepPrefillData = async (
+export const PrefillData = async (
   entityManager: EntityManager,
   schemaName: string,
 ) => {

@@ -42,6 +42,7 @@ export const useFindManyRecords = <T extends ObjectRecord = ObjectRecord>({
   skip?: boolean;
   useRecordsWithoutConnection?: boolean;
 }) => {
+  console.log('oncompleted', onCompleted);
   const findManyQueryStateIdentifier =
     objectNameSingular +
     JSON.stringify(filter) +

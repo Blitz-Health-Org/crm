@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
 
+import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
+import { CoreObjectNameSingular } from '@/object-metadata/types/CoreObjectNameSingular';
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -36,6 +39,14 @@ const StyledHiddenFileInput = styled.input`
   display: none;
 `;
 export const CommissionTrackerPage = () => {
+  const {
+    objectMetadataItem,
+    labelIdentifierFieldMetadata,
+    mapToObjectRecordIdentifier,
+  } = useObjectMetadataItem({
+    objectNameSingular: CoreObjectNameSingular.CommissionLine,
+  });
+
   return <>TEMP</>;
   //   return <><StyledContent>
   //   <StyledButtonContainer>

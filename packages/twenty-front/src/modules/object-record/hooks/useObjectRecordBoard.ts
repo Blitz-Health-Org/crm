@@ -58,6 +58,7 @@ export const useObjectRecordBoard = () => {
     filter: {},
     onCompleted: useCallback(
       (data: ObjectRecordConnection<PipelineStep>) => {
+        console.trace('data', data);
         setSavedPipelineSteps(data.edges.map((edge) => edge.node));
       },
       [setSavedPipelineSteps],
