@@ -1,5 +1,5 @@
 import { CommissionTrackerSheetEffect } from '@/object-record/commission-sheet/components/CommissionTrackerSheetEffect';
-import { CommissionTrackerSheetPage } from '@/object-record/commission-sheet/components/CommissionTrackerSheetPage';
+import { CommissionTrackerSheetPageContainer } from '@/object-record/commission-sheet/components/CommissionTrackerSheetPageContainer';
 import { CommissionSheetScope } from '@/object-record/commission-sheet/scopes/CommissionSheetScope';
 
 export const CommissionTrackerSheetContainer = () => {
@@ -9,7 +9,9 @@ export const CommissionTrackerSheetContainer = () => {
     <>
       <CommissionSheetScope commissionSheetScopeId={commissionSheetScopeId}>
         <CommissionTrackerSheetEffect />
-        <CommissionTrackerSheetPage />
+        <CommissionTrackerSheetPageContainer
+          commissionSheetScopeId={commissionSheetScopeId}
+        />
       </CommissionSheetScope>
     </>
   );

@@ -13,7 +13,7 @@ export const CommissionTrackerSheetEffect = () => {
     useRecoilState(commissionLinesState);
 
   useFindManyRecords({
-    objectNameSingular: CoreObjectNameSingular.PipelineStep,
+    objectNameSingular: CoreObjectNameSingular.CommissionLine,
     filter: {},
     onCompleted: useCallback(
       (data: ObjectRecordConnection) => {

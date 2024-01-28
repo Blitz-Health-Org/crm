@@ -36,7 +36,7 @@ export const RecordBoardInternalEffect = () => {
 
   useEffect(() => {
     setSavedOpportunities(opportunities);
-  }, [opportunities, setSavedOpportunities]);
+  }, [setSavedOpportunities]);
 
   useEffect(() => {
     if (isDefined(fetchMoreOpportunities)) {

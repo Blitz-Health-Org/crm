@@ -1,6 +1,5 @@
 import { FieldMetadataType } from 'src/metadata/field-metadata/field-metadata.entity';
 import { FieldMetadata } from 'src/workspace/workspace-sync-metadata/decorators/field-metadata.decorator';
-import { IsSystem } from 'src/workspace/workspace-sync-metadata/decorators/is-system.decorator';
 import { ObjectMetadata } from 'src/workspace/workspace-sync-metadata/decorators/object-metadata.decorator';
 import { BaseObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/base.object-metadata';
 import { CompanyObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/company.object-metadata';
@@ -12,7 +11,6 @@ import { CompanyObjectMetadata } from 'src/workspace/workspace-sync-metadata/sta
   description: 'Lines of Commission ',
   icon: 'IconMessageCircle', //TODO BLUME: fix all icons, figure out how they're referenced later on
 })
-@IsSystem()
 export class CommissionLineObjectMetadata extends BaseObjectMetadata {
   //TODO BLUME: Make the fieldmetadatatype not just text,more specific, ie. FieldMetadata.DATE_TIME
   @FieldMetadata({
@@ -25,7 +23,7 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
   body: string;
 
   @FieldMetadata({
-    type: FieldMetadataType.RELATION,
+    type: FieldMetadataType.TEXT, //change to relation at some point
     label: 'Client',
     description: 'Client served',
     icon: 'IconLink',
