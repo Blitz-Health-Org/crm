@@ -1,13 +1,18 @@
-import { IconDotsVertical, IconDownload, IconTrash, IconFileSpreadsheet } from '@/ui/display/icon';
+import styled from '@emotion/styled';
+
+import {
+  IconDownload,
+  IconFileSpreadsheet,
+  IconTrash,
+} from '@/ui/display/icon';
 import { LightIconButton } from '@/ui/input/button/components/LightIconButton';
 import { Dropdown } from '@/ui/layout/dropdown/components/Dropdown';
 import { DropdownMenu } from '@/ui/layout/dropdown/components/DropdownMenu';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
 import { useDropdown } from '@/ui/layout/dropdown/hooks/useDropdown';
 import { MenuItem } from '@/ui/navigation/menu-item/components/MenuItem';
-import styled from '@emotion/styled';
 
-const GrayLightIconButton = styled(LightIconButton)`
+const StyledGrayLightIconButton = styled(LightIconButton)`
   // Add your custom styling here
   border: 1px solid ${({ theme }) => theme.border.color.medium};
   border-radius: ${({ theme }) => theme.border.radius.sm};
@@ -48,7 +53,7 @@ export const AttachmentDropdown = ({
     <Dropdown
       dropdownId={dropdownId}
       clickableComponent={
-        <GrayLightIconButton Icon={IconDownload} accent="tertiary" />
+        <StyledGrayLightIconButton Icon={IconDownload} accent="tertiary" />
       }
       dropdownComponents={
         <DropdownMenu width="160px">

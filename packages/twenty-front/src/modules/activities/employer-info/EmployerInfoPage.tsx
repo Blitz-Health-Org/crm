@@ -18,7 +18,6 @@ import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
 import { RecordInlineCell } from '@/object-record/record-inline-cell/components/RecordInlineCell';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
-import { displayedEmployerInfoFields } from '@/activities/employer-info/constants/contants';
 
 const StyledEmployerInfoContainer = styled.div`
   align-items: flex-start;
@@ -42,20 +41,21 @@ const StyledContainer = styled.div`
 `;
 
 const StyledPlanColumn = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns per row */
-  grid-column-gap: 12px; /* Horizontal gap */
-  grid-row-gap: 12px; /* Vertical gap */
-  max-width: 80vw; /* Adjust the max-width percentage as needed */
-  min-width: 300px; /* Set a minimum width as needed */
-  overflow-x: scroll; /* Enable horizontal overflow scrolling */
-  overflow-y: scroll;
   background: ${({ theme }) => theme.background.secondary};
-  border: 1px solid ${({ theme }) => theme.border.color.medium};
-  border-radius: ${({ theme }) => theme.border.radius.sm};
-  gap: ${({ theme }) => theme.spacing(2)};
-  padding: ${({ theme }) => theme.spacing(3)};
+  border: 1px solid ${({ theme }) => theme.border.color.medium}; /* Two columns per row */
+  border-radius: ${({ theme }) => theme.border.radius.sm}; /* Horizontal gap */
+  display: grid; /* Vertical gap */
+  gap: ${({ theme }) =>
+    theme.spacing(2)}; /* Adjust the max-width percentage as needed */
+  grid-column-gap: 12px; /* Set a minimum width as needed */
+  grid-row-gap: 12px; /* Enable horizontal overflow scrolling */
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 12px;
+  max-width: 80vw;
+  min-width: 300px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  padding: ${({ theme }) => theme.spacing(3)};
 `;
 
 const StyledPropertyBox = styled.div`
@@ -126,9 +126,7 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
     setEntityFields(record);
   }, [record, setEntityFields]);
 
-console.log('available', objectMetadataItem);
-
-  const availableFieldMetadataItems = objectMetadataItem.fields 
+  const availableFieldMetadataItems = objectMetadataItem.fields
     .filter(
       (fieldMetadataItem) =>
         isFieldMetadataItemAvailable(fieldMetadataItem) &&
@@ -163,203 +161,222 @@ console.log('available', objectMetadataItem);
     <StyledEmployerInfoContainer>
       <StyledContainer>
         <StyledPropertyBox>
+          <StyledPlanColumn>
+            What's good
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
 
           <StyledPlanColumn>
             What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
 
-        <StyledPlanColumn>
-          What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
-
-        <StyledPlanColumn>
+          <StyledPlanColumn>
             What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
 
-        <StyledPlanColumn>
-          What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
-
-        <StyledPlanColumn>
-          What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
-
-        <StyledPlanColumn>
+          <StyledPlanColumn>
             What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
 
-        <StyledPlanColumn>
-          What's good
-          {availableFieldMetadataItems.map((fieldMetadataItem, index) => (
-            <StyledLeftContent>
-              <FieldContext.Provider
-                key={record.id + fieldMetadataItem.id}
-                value={{
-                  entityId: record.id,
-                  maxWidth: 272,
-                  recoilScopeId: record.id + fieldMetadataItem.id,
-                  isLabelIdentifier: false,
-                  fieldDefinition: formatFieldMetadataItemAsColumnDefinition({
-                    field: fieldMetadataItem,
-                    position: index,
-                    objectMetadataItem,
-                    showLabel: true,
-                    labelWidth: 90,
-                  }),
-                  useUpdateRecord: useUpdateOneObjectRecordMutation,
-                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                }}
-              >
-                <RecordInlineCell />
-              </FieldContext.Provider>
-            </StyledLeftContent>
-          )).slice(0,10)}
-        </StyledPlanColumn>
+          <StyledPlanColumn>
+            What's good
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
 
+          <StyledPlanColumn>
+            What's good
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
+
+          <StyledPlanColumn>
+            What's good
+            {availableFieldMetadataItems
+              .map((fieldMetadataItem, index) => (
+                <StyledLeftContent>
+                  <FieldContext.Provider
+                    key={record.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record.id,
+                      maxWidth: 272,
+                      recoilScopeId: record.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 90,
+                        }),
+                      useUpdateRecord: useUpdateOneObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                </StyledLeftContent>
+              ))
+              .slice(0, 10)}
+          </StyledPlanColumn>
         </StyledPropertyBox>
         <StyledRightContent>
           <AttachmentDropdown

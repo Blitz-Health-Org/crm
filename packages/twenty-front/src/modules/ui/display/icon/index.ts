@@ -54,6 +54,7 @@ export {
   IconFile,
   IconFileCheck,
   IconFileImport,
+  IconFileSpreadsheet,
   IconFileText,
   IconFileUpload,
   IconFileZip,
@@ -118,5 +119,4 @@ export {
   IconWand,
   IconWorld,
   IconX,
-  IconFileSpreadsheet,
 } from '@tabler/icons-react';
