@@ -118,4 +118,5 @@ export {
   IconWand,
   IconWorld,
   IconX,
+  IconFileSpreadsheet,
 } from '@tabler/icons-react';

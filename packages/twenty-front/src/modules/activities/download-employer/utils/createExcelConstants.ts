@@ -13,8 +13,8 @@ export const createExcelfromLabels = async (values: ValueProps[]) => {
       value,
       fontWeight: 'bold',
     })),
-    ...values
-      .filter((value) => value.options !== null)
+    values
+      // .filter((value) => value.options !== null)
       .map((value) => [
         {
           type: String,
@@ -22,12 +22,10 @@ export const createExcelfromLabels = async (values: ValueProps[]) => {
         },
         {
           type: String,
-          value: value.options.value,
+          value: 'check',
         },
       ]),
   ];
-
-  console.log('data', values);
 
   await writeXlsxFile(data as SheetData, { fileName: 'file.xlsx' });
 };

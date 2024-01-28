@@ -17,6 +17,7 @@ import {
   IconNotes,
   IconPaperclip,
   IconTimelineEvent,
+  IconPlug,
 } from '@/ui/display/icon';
 import { TabList } from '@/ui/layout/tab/components/TabList';
 import { useTabList } from '@/ui/layout/tab/hooks/useTabList';
@@ -92,6 +93,12 @@ export const ShowPageRightContainer = ({
       hide: !tasks,
     },
     {
+      id: 'employerInfo',
+      title: 'Shareable',
+      Icon: IconPlug, //TODO: fix icon
+      hide: !employerInfo,
+    },
+    {
       id: 'files',
       title: 'Files',
       Icon: IconPaperclip,
@@ -110,18 +117,6 @@ export const ShowPageRightContainer = ({
       title: 'Timeline',
       Icon: IconTimelineEvent,
       hide: !timeline,
-    },
-    {
-      id: 'planDetails',
-      title: 'Plan Details',
-      Icon: IconTimelineEvent, //TODO: fix icon
-      hide: !planDetails,
-    },
-    {
-      id: 'employerInfo',
-      title: 'Employer Info',
-      Icon: IconTimelineEvent, //TODO: fix icon
-      hide: !employerInfo,
     },
   ];
 
