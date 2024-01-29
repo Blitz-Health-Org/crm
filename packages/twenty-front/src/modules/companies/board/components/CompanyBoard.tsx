@@ -56,8 +56,6 @@ export const CompanyBoard = ({
     [createOneRecord],
   );
 
-  console.log('opportunitesboardOptions', opportunitiesBoardOptions);
-
   return (
     <StyledContainer>
       <ViewBar

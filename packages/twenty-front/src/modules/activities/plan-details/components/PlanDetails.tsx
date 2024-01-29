@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import { PlanDetailsList } from '@/activities/plan-details/components/PlanDetailsList';
-import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 
 const StyledPlanDetailsContainer = styled.div`
   display: flex;
@@ -11,11 +10,7 @@ const StyledPlanDetailsContainer = styled.div`
   overflow: auto;
 `;
 
-export const PlanDetails = ({
-  targetableObject,
-}: {
-  targetableObject: ActivityTargetableObject;
-}) => {
+export const PlanDetails = () => {
   return (
     <StyledPlanDetailsContainer>
       <PlanDetailsList />

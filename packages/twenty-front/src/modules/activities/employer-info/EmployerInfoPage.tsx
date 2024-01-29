@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
 import { AttachmentDropdown } from '@/activities/files/components/AttachmentDropdown';
-import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import {
@@ -93,11 +92,7 @@ const StyledRightContent = styled.div`
   z-index: 100; // Adjust the z-index as needed
 `;
 
-type EmployerInfoPageProps = {
-  targetableObject: ActivityTargetableObject;
-};
-
-export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
+export const EmployerInfoPage = () => {
   const { objectNameSingular, objectRecordId } = useParams<{
     objectNameSingular: string;
     objectRecordId: string;
@@ -116,7 +111,7 @@ export const EmployerInfoPage = (props: EmployerInfoPageProps) => {
     entityFieldsFamilyState(objectRecordId ?? ''),
   );
 
-  const { record, loading } = useFindOneRecord({
+  const { record } = useFindOneRecord({
     objectRecordId,
     objectNameSingular,
   });

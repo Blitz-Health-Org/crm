@@ -3,10 +3,8 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
-import { useFavorites } from '@/favorites/hooks/useFavorites';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
-import { parseFieldRelationType } from '@/object-metadata/utils/parseFieldRelationType';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
 import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
 import {
@@ -24,10 +22,6 @@ import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
 import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
-import { useIsFeatureEnabled } from '@/workspace/hooks/useIsFeatureEnabled';
-import { useUploadImageMutation } from '~/generated/graphql';
-import { FieldMetadataType, FileFolder } from '~/generated-metadata/graphql';
-import { isDefined } from '~/utils/isDefined';
 
 const StyledSeparator = styled.div`
   background-color: ${({ theme }) => theme.border.color.light};
@@ -44,13 +38,13 @@ const StyledContainer = styled.div`
   padding: 8px 24px;
 `;
 
-const StyledGroupContainer = styled.div`
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0px 20px;
-`;
+// const StyledGroupContainer = styled.div`
+//   align-items: flex-start;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   padding: 0px 20px;
+// `;
 
 const StyledGroupContainer2 = styled.div`
   align-items: flex-start;
@@ -68,18 +62,18 @@ const StyledDropdownContainer = styled.div`
   width: 100%;
 `;
 
-const StyledPlanContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing(4)};
-  width: 100%;
-`;
+// const StyledPlanContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: ${({ theme }) => theme.spacing(4)};
+//   width: 100%;
+// `;
 
-const StyledPlanRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${({ theme }) => theme.spacing(4)};
-`;
+// const StyledPlanRow = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: ${({ theme }) => theme.spacing(4)};
+// `;
 
 const StyledPlanColumn = styled.div`
   display: grid;
@@ -104,18 +98,18 @@ export const PlanDetailsList = () => {
   const {
     objectMetadataItem,
     labelIdentifierFieldMetadata,
-    mapToObjectRecordIdentifier,
+    // mapToObjectRecordIdentifier,
   } = useObjectMetadataItem({
     objectNameSingular,
   });
 
-  const { favorites, createFavorite, deleteFavorite } = useFavorites();
+  // const { favorites, createFavorite, deleteFavorite } = useFavorites();
 
   const setEntityFields = useSetRecoilState(
     entityFieldsFamilyState(objectRecordId ?? ''),
   );
 
-  const { record, loading } = useFindOneRecord({
+  const { record } = useFindOneRecord({
     objectRecordId,
     objectNameSingular,
   });
@@ -125,7 +119,7 @@ export const PlanDetailsList = () => {
     setEntityFields(record);
   }, [record, setEntityFields]);
 
-  const [uploadImage] = useUploadImageMutation();
+  // const [uploadImage] = useUploadImageMutation();
   const { updateOneRecord } = useUpdateOneRecord({ objectNameSingular });
 
   const useUpdateOneObjectRecordMutation: RecordUpdateHook = () => {
@@ -139,62 +133,62 @@ export const PlanDetailsList = () => {
     return [updateEntity, { loading: false }];
   };
 
-  const correspondingFavorite = favorites.find(
-    (favorite) => favorite.recordId === objectRecordId,
-  );
+  // const correspondingFavorite = favorites.find(
+  //   (favorite) => favorite.recordId === objectRecordId,
+  // );
 
-  const isFavorite = isDefined(correspondingFavorite);
+  // const isFavorite = isDefined(correspondingFavorite);
 
-  const handleFavoriteButtonClick = async () => {
-    if (!objectNameSingular || !record) return;
+  // const handleFavoriteButtonClick = async () => {
+  //   if (!objectNameSingular || !record) return;
 
-    if (isFavorite && record) {
-      deleteFavorite(correspondingFavorite.id);
-    } else {
-      createFavorite(record, objectNameSingular);
-    }
-  };
+  //   if (isFavorite && record) {
+  //     deleteFavorite(correspondingFavorite.id);
+  //   } else {
+  //     createFavorite(record, objectNameSingular);
+  //   }
+  // };
 
-  const pageName =
-    objectNameSingular === 'person'
-      ? record?.name.firstName + ' ' + record?.name.lastName
-      : record?.name;
+  // const pageName =
+  //   objectNameSingular === 'person'
+  //     ? record?.name.firstName + ' ' + record?.name.lastName
+  //     : record?.name;
 
-  const onUploadPicture = async (file: File) => {
-    if (objectNameSingular !== 'person') {
-      return;
-    }
+  // const onUploadPicture = async (file: File) => {
+  //   if (objectNameSingular !== 'person') {
+  //     return;
+  //   }
 
-    const result = await uploadImage({
-      variables: {
-        file,
-        fileFolder: FileFolder.PersonPicture,
-      },
-    });
+  // const result = await uploadImage({
+  //   variables: {
+  //     file,
+  //     fileFolder: FileFolder.PersonPicture,
+  //   },
+  // });
 
-    const avatarUrl = result?.data?.uploadImage;
+  //   const avatarUrl = result?.data?.uploadImage;
 
-    if (!avatarUrl) {
-      return;
-    }
-    if (!updateOneRecord) {
-      return;
-    }
-    if (!record) {
-      return;
-    }
+  //   if (!avatarUrl) {
+  //     return;
+  //   }
+  //   if (!updateOneRecord) {
+  //     return;
+  //   }
+  //   if (!record) {
+  //     return;
+  //   }
 
-    await updateOneRecord({
-      idToUpdate: record.id,
-      updateOneRecordInput: {
-        avatarUrl,
-      },
-    });
-  };
+  //   await updateOneRecord({
+  //     idToUpdate: record.id,
+  //     updateOneRecordInput: {
+  //       avatarUrl,
+  //     },
+  //   });
+  // };
 
-  const isRelationFieldCardEnabled = useIsFeatureEnabled(
-    'IS_RELATION_FIELD_CARD_ENABLED',
-  );
+  // const isRelationFieldCardEnabled = useIsFeatureEnabled(
+  //   'IS_RELATION_FIELD_CARD_ENABLED',
+  // );
 
   const availableFieldMetadataItems = objectMetadataItem.fields
     .filter(
@@ -206,19 +200,19 @@ export const PlanDetailsList = () => {
       fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
     );
 
-  const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
-    (fieldMetadataItem) =>
-      fieldMetadataItem.type !== FieldMetadataType.Relation ||
-      (!isRelationFieldCardEnabled &&
-        parseFieldRelationType(fieldMetadataItem) === 'TO_ONE_OBJECT'),
-  );
+  // const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
+  //   (fieldMetadataItem) =>
+  //     fieldMetadataItem.type !== FieldMetadataType.Relation ||
+  //     (!isRelationFieldCardEnabled &&
+  //       parseFieldRelationType(fieldMetadataItem) === 'TO_ONE_OBJECT'),
+  // );
 
-  const medicalPlanMetadataItems = availableFieldMetadataItems.filter(
-    (fieldMetadataItem) =>
-      fieldMetadataItem.description?.includes('medical_plan') &&
-      !fieldMetadataItem.description?.includes('plan_name') &&
-      !fieldMetadataItem.description?.includes('group_plan'),
-  );
+  // const medicalPlanMetadataItems = availableFieldMetadataItems.filter(
+  //   (fieldMetadataItem) =>
+  //     fieldMetadataItem.description?.includes('medical_plan') &&
+  //     !fieldMetadataItem.description?.includes('plan_name') &&
+  //     !fieldMetadataItem.description?.includes('group_plan'),
+  // );
 
   const getPlanNameItems = availableFieldMetadataItems.filter(
     (fieldMetadataItem) => {

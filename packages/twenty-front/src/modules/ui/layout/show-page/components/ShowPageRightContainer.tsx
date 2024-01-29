@@ -137,10 +137,10 @@ export const ShowPageRightContainer = ({
       )}
       {/* {activeTabId === 'emails' && <Threads entity={targetableObject} />} */}
       {activeTabId === 'planDetails' && (
-        <PlanDetails targetableObject={targetableObject} />
+        <PlanDetails /> //targetable object
       )}
       {activeTabId === 'employerInfo' && (
-        <EmployerInfoPage targetableObject={targetableObject} />
+        <EmployerInfoPage /> //targetable object
       )}
     </StyledShowPageRightContainer>
   );

@@ -235,6 +235,7 @@ export const useViewBar = (props?: UseViewProps) => {
   const loadView = useRecoilCallback(
     ({ snapshot }) =>
       (viewId: string) => {
+        console.log('viewId in loadview', viewId);
         setCurrentViewId?.(viewId);
 
         const { currentView } = getViewScopedStateValuesFromSnapshot({

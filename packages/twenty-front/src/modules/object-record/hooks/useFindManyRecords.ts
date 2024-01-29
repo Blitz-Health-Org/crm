@@ -74,6 +74,10 @@ export const useFindManyRecords = <T extends ObjectRecord = ObjectRecord>({
   const { enqueueSnackBar } = useSnackBar();
   const currentWorkspace = useRecoilValue(currentWorkspaceState);
 
+  if (objectNameSingular === 'view') {
+    console.log('findmanyrecordsquery', findManyRecordsQuery);
+  }
+
   const { data, loading, error, fetchMore } = useQuery<
     ObjectRecordQueryResult<T>
   >(findManyRecordsQuery, {
@@ -207,6 +211,8 @@ export const useFindManyRecords = <T extends ObjectRecord = ObjectRecord>({
       }) as T[],
     [data, objectMetadataItem],
   );
+
+  console.log('records', records);
 
   const mapConnectionToRecords = useMapConnectionToRecords();
 

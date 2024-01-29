@@ -105,6 +105,7 @@ export class DataSeedWorkspaceCommand extends CommandRunner {
       await seedPeople(workspaceDataSource, dataSourceMetadata.schema);
       await seedPipelineStep(workspaceDataSource, dataSourceMetadata.schema);
       await seedOpportunity(workspaceDataSource, dataSourceMetadata.schema);
+      // await seedCommissionLines(workspaceDataSource, dataSourceMetadata.schema);
 
       await seedViews(
         workspaceDataSource,

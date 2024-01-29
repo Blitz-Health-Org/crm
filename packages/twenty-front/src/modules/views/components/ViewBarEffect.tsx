@@ -65,7 +65,6 @@ export const ViewBarEffect = () => {
       loadViewFilters(currentView.viewFilters, currentView.id);
       loadViewSorts(currentView.viewSorts, currentView.id);
     }
-
     if (!currentViewIdFromUrl) return changeViewInUrl(currentView.id);
   }, [
     changeViewInUrl,

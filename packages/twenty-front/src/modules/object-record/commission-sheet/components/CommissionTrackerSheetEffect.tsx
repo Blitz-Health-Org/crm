@@ -22,8 +22,7 @@ export const CommissionTrackerSheetEffect = ({
     // setObjectMetadataConfig,
   } = useCommissionSheetScopedStates({ commissionSheetScopeId });
 
-  const [commissionLines, setCommissionLines] =
-    useRecoilState(commissionLinesState);
+  const [, setCommissionLines] = useRecoilState(commissionLinesState);
 
   useFindManyRecords({
     objectNameSingular: CoreObjectNameSingular.CommissionLine,
@@ -39,8 +38,12 @@ export const CommissionTrackerSheetEffect = ({
 
   const { objectMetadataItem } = useObjectMetadataItem({ objectNameSingular });
 
-  const { columnDefinitions, filterDefinitions, sortDefinitions } =
-    useColumnDefinitionsFromFieldMetadata(objectMetadataItem);
+  const {
+    columnDefinitions,
+    //  filterDefinitions, sortDefinitions
+  } = useColumnDefinitionsFromFieldMetadata(objectMetadataItem);
+
+  console.log('columndef', columnDefinitions);
 
   useEffect(() => {
     setAvailableTableColumns(columnDefinitions);

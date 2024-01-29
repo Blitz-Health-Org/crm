@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { CommissionTrackerSheetBody } from '@/object-record/commission-sheet/components/CommissionTrackerSheetBody';
 import { CommissionTrackerSheetBodyEffect } from '@/object-record/commission-sheet/components/CommissionTrackerSheetBodyEffect';
 import { CommissionTrackerSheetHeader } from '@/object-record/commission-sheet/components/CommissionTrackerSheetHeader';
+import { RecordTableScope } from '@/object-record/record-table/scopes/RecordTableScope';
 import { rgba } from '@/ui/theme/constants/colors';
 
 const StyledCommissionTable = styled.table`
@@ -98,13 +99,18 @@ export const CommissionTrackerSheetPage = ({
 }) => {
   return (
     <>
-      {/* <StyledCommissionTable className="entity-table-cell"> */}
-      <CommissionTrackerSheetHeader />
-      <CommissionTrackerSheetBodyEffect />
-      <CommissionTrackerSheetBody
-        commissionSheetScopeId={commissionSheetScopeId}
-      />
-      {/* </StyledCommissionTable> */}
+      <RecordTableScope
+        recordTableScopeId={commissionSheetScopeId}
+        onColumnsChange={() => {}} //TODO BLUME: implement
+      >
+        <StyledCommissionTable className="entity-table-cell">
+          <CommissionTrackerSheetHeader />
+          <CommissionTrackerSheetBodyEffect />
+          <CommissionTrackerSheetBody
+            commissionSheetScopeId={commissionSheetScopeId}
+          />
+        </StyledCommissionTable>
+      </RecordTableScope>
     </>
   );
 };

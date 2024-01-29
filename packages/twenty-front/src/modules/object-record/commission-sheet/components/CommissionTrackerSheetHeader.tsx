@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
@@ -33,19 +32,16 @@ const StyledPlusIconHeaderCell = styled.th<{ isTableWiderThanScreen: boolean }>`
   z-index: 1;
 `;
 
-const StyledPlusIconContainer = styled.div`
-  align-items: center;
-  display: flex;
-  height: 32px;
-  justify-content: center;
-  width: 32px;
-`;
+// const StyledPlusIconContainer = styled.div`
+//   align-items: center;
+//   display: flex;
+//   height: 32px;
+//   justify-content: center;
+//   width: 32px;
+// `;
 
 export const HIDDEN_TABLE_COLUMN_DROPDOWN_ID =
   'hidden-table-columns-dropdown-scope-id';
-
-const HIDDEN_TABLE_COLUMN_DROPDOWN_HOTKEY_SCOPE_ID =
-  'hidden-table-columns-dropdown-hotkey-scope-id';
 
 export const CommissionTrackerSheetHeader = () => {
   const { getAvailableTableColumnsState } = useCommissionSheetScopedStates();
@@ -62,7 +58,7 @@ export const CommissionTrackerSheetHeader = () => {
 
   // const visibleTableColumns = useRecoilValue(visibleTableColumnsSelector);
 
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <StyledTableHead data-select-disable>

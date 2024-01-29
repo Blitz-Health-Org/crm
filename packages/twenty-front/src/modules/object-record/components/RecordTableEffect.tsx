@@ -20,6 +20,7 @@ export const RecordTableEffect = ({
 }) => {
   const {
     setAvailableTableColumns,
+    setTableColumns,
     setOnEntityCountChange,
     setObjectMetadataConfig,
   } = useRecordTable({ recordTableId });

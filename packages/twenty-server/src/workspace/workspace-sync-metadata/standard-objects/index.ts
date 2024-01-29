@@ -20,6 +20,7 @@ import { ViewObjectMetadata } from 'src/workspace/workspace-sync-metadata/standa
 import { WebhookObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/webhook.object-metadata';
 import { WorkspaceMemberObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/workspace-member.object-metadata';
 import { CommissionLineObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/commission-line.object-metadata';
+import { MedicalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/medical-plan.object-metadata';
 
 export const standardObjectMetadata = [
   ActivityTargetObjectMetadata,
@@ -44,5 +45,6 @@ export const standardObjectMetadata = [
   MessageChannelObjectMetadata,
   MessageParticipantObjectMetadata,
   CommissionLineObjectMetadata,
+  MedicalPlanObjectMetadata,
   // CarrierObjectMetadata,
 ];

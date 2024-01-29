@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { LightIconButton } from 'tsup.ui.index';
 
 import { useCommissionSheetScopedStates } from '@/object-record/commission-sheet/hooks/useCommissionSheetScopedStates';
@@ -8,6 +8,8 @@ import { ColumnDefinition } from '@/object-record/commission-sheet/types/ColumnD
 import { FieldMetadata } from '@/object-record/field/types/FieldMetadata';
 import { ColumnHeadWithDropdown } from '@/object-record/record-table/components/ColumnHeadWithDropdown';
 import { IconPlus } from '@/ui/display/icon';
+import { useTrackPointer } from '@/ui/utilities/pointer-event/hooks/useTrackPointer';
+import { getSnapshotValue } from '@/ui/utilities/recoil-scope/utils/getSnapshotValue';
 
 const COLUMN_MIN_WIDTH = 104;
 
@@ -44,16 +46,16 @@ const StyledColumnHeaderCell = styled.th<{
   }};
 `;
 
-const StyledResizeHandler = styled.div`
-  bottom: 0;
-  cursor: col-resize;
-  padding: 0 ${({ theme }) => theme.spacing(2)};
-  position: absolute;
-  right: -9px;
-  top: 0;
-  width: 3px;
-  z-index: 1;
-`;
+// const StyledResizeHandler = styled.div`
+//   bottom: 0;
+//   cursor: col-resize;
+//   padding: 0 ${({ theme }) => theme.spacing(2)};
+//   position: absolute;
+//   right: -9px;
+//   top: 0;
+//   width: 3px;
+//   z-index: 1;
+// `;
 
 const StyledColumnHeadContainer = styled.div`
   display: flex;
@@ -78,16 +80,18 @@ export const CommissionSheetTableHeaderCell = ({
   // };
 
   const {
-    // getResizeFieldOffsetState,
+    getResizeFieldOffsetState,
     // getTableColumnsState,
-    // tableColumnsByKeySelector,
     // visibleTableColumnsSelector,
     getAvailableTableColumnsState,
+    tableColumnsByKeySelector,
   } = useCommissionSheetScopedStates();
 
-  //   const [resizeFieldOffset, setResizeFieldOffset] = useRecoilState(
-  //     getResizeFieldOffsetState(),
-  //   );
+  const tableColumnsByKey = useRecoilValue(tableColumnsByKeySelector);
+
+  const [resizeFieldOffset, setResizeFieldOffset] = useRecoilState(
+    getResizeFieldOffsetState(),
+  );
 
   const tableColumns = useRecoilValue(getAvailableTableColumnsState());
   //   const tableColumnsByKey = useRecoilValue(tableColumnsByKeySelector);
@@ -98,7 +102,7 @@ export const CommissionSheetTableHeaderCell = ({
   >(null);
   const [resizedFieldKey, setResizedFieldKey] = useState<string | null>(null);
 
-  //   const { handleColumnsChange } = useTableColumns();
+  //   const { handleColumnsChange } = useCommissionTableColumns();
 
   const handleResizeHandlerStart = useCallback((positionX: number) => {
     setInitialPointerPositionX(positionX);
@@ -108,73 +112,70 @@ export const CommissionSheetTableHeaderCell = ({
 
   const primaryColumn = tableColumns.find((column) => column.position === 0);
 
-  //   const handleResizeHandlerMove = useCallback(
-  //     (positionX: number) => {
-  //       if (!initialPointerPositionX) return;
-  //       setResizeFieldOffset(positionX - initialPointerPositionX);
-  //     },
-  //     [setResizeFieldOffset, initialPointerPositionX],
-  //   );
+  const handleResizeHandlerMove = useCallback(
+    (positionX: number) => {
+      if (!initialPointerPositionX) return;
+      setResizeFieldOffset(positionX - initialPointerPositionX);
+    },
+    [setResizeFieldOffset, initialPointerPositionX],
+  );
 
-  //   const handleResizeHandlerEnd = useRecoilCallback(
-  //     ({ snapshot, set }) =>
-  //       async () => {
-  //         if (!resizedFieldKey) return;
+  const handleResizeHandlerEnd = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async () => {
+        if (!resizedFieldKey) return;
 
-  //         const resizeFieldOffset = getSnapshotValue(
-  //           snapshot,
-  //           getResizeFieldOffsetState(),
-  //         );
+        const resizeFieldOffset = getSnapshotValue(
+          snapshot,
+          getResizeFieldOffsetState(),
+        );
 
-  //         const nextWidth = Math.round(
-  //           Math.max(
-  //             tableColumnsByKey[resizedFieldKey].size + resizeFieldOffset,
-  //             COLUMN_MIN_WIDTH,
-  //           ),
-  //         );
+        const nextWidth = Math.round(
+          Math.max(
+            tableColumnsByKey[resizedFieldKey].size + resizeFieldOffset,
+            COLUMN_MIN_WIDTH,
+          ),
+        );
 
-  //         set(getResizeFieldOffsetState(), 0);
-  //         setInitialPointerPositionX(null);
-  //         setResizedFieldKey(null);
+        set(getResizeFieldOffsetState(), 0);
+        setInitialPointerPositionX(null);
+        setResizedFieldKey(null);
 
-  //         if (nextWidth !== tableColumnsByKey[resizedFieldKey].size) {
-  //           const nextColumns = tableColumns.map((column) =>
-  //             column.fieldMetadataId === resizedFieldKey
-  //               ? { ...column, size: nextWidth }
-  //               : column,
-  //           );
+        if (nextWidth !== tableColumnsByKey[resizedFieldKey].size) {
+          //   const nextColumns = tableColumns.map((column) =>
+          //     column.fieldMetadataId === resizedFieldKey
+          //       ? { ...column, size: nextWidth }
+          //       : column,
+          //   );
+          //   await handleColumnsChange(nextColumns);
+        }
+      },
+    [
+      resizedFieldKey,
+      getResizeFieldOffsetState,
+      tableColumnsByKey,
+      //   tableColumns,
+      //   handleColumnsChange,
+    ],
+  );
 
-  //           await handleColumnsChange(nextColumns);
-  //         }
-  //       },
-  //     [
-  //       resizedFieldKey,
-  //       getResizeFieldOffsetState,
-  //       tableColumnsByKey,
-  //       tableColumns,
-  //       handleColumnsChange,
-  //     ],
-  //   );
-
-  //   useTrackPointer({
-  //     shouldTrackPointer: resizedFieldKey !== null,
-  //     onMouseDown: handleResizeHandlerStart,
-  //     onMouseMove: handleResizeHandlerMove,
-  //     onMouseUp: handleResizeHandlerEnd,
-  //   });
+  useTrackPointer({
+    shouldTrackPointer: resizedFieldKey !== null,
+    onMouseDown: handleResizeHandlerStart,
+    onMouseMove: handleResizeHandlerMove,
+    onMouseUp: handleResizeHandlerEnd,
+  });
 
   return (
     <StyledColumnHeaderCell
       key={column.fieldMetadataId}
       isResizing={resizedFieldKey === column.fieldMetadataId}
-      columnWidth={
-        //   columnWidth={Math.max(
-        //     tableColumnsByKey[column.fieldMetadataId].size +
-        //       (resizedFieldKey === column.fieldMetadataId ? resizeFieldOffset : 0) +
-        //       24,
-        COLUMN_MIN_WIDTH
-        //   )
-      }
+      columnWidth={Math.max(
+        tableColumnsByKey[column.fieldMetadataId].size +
+          (resizedFieldKey === column.fieldMetadataId ? resizeFieldOffset : 0) +
+          24,
+        COLUMN_MIN_WIDTH,
+      )}
     >
       <StyledColumnHeadContainer
         onMouseEnter={() => setIconVisibility(true)}
