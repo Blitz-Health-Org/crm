@@ -1,33 +1,3 @@
-// import styled from '@emotion/styled';
-// import { NavigationDrawerHeader } from '/Users/varunverma/Desktop/twenty/packages/twenty-front/src/modules/ui/navigation/navigation-drawer/components/NavigationDrawerHeader.tsx'
-// import { ReactNode, useState } from 'react';
-// import {
-//   IconMoneybag
-// } from '@/ui/display/icon';
-
-// export const CommissionTrackerPage = () => {
-
-//   const [isHovered, setIsHovered] = useState(false);
-
-//   const handleHover = () => {
-//     setIsHovered(true);
-//   };
-
-//   const handleMouseLeave = () => {
-//     setIsHovered(false);
-//   };
-
-//   return (
-
-//     <NavigationDrawerHeader
-//     name="Commission Tracker"
-//     logo='@/ui/input/button/components/IconButton'
-//     showCollapseButton={true}
-//     />
-
-//   );
-// };
-
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useIsMobile } from '@/ui/utilities/responsive/hooks/useIsMobile';
@@ -43,6 +13,10 @@ import {
 } from '@/ui/display/icon';
 import { isNavigationDrawerOpenState } from '@/ui/navigation/states/isNavigationDrawerOpenState';
 import { useRecoilValue } from 'recoil';
+import { space, background, border } from '@chakra-ui/system';
+import { size } from '@floating-ui/react';
+import { px, color } from 'framer-motion';
+import { start } from 'repl';
 
 const StyledMainContainer = styled.div`
   background: ${({ theme }) => theme.background.noisy};
@@ -60,7 +34,16 @@ const StyledMainContainer = styled.div`
 
 const StyledContainer = styled.div`
   align-items: center;
+
+import { CommissionTrackerSheetContainer } from '@/commissions/components/CommissionTrackerSheet';
+import { IconTargetArrow } from '@/ui/display/icon';
+import { PageBody } from '@/ui/layout/page/PageBody';
+import { PageContainer } from '@/ui/layout/page/PageContainer';
+import { PageHeader } from '@/ui/layout/page/PageHeader';
+
+const StyledCommissionSheetContainer = styled.div`
   display: flex;
+  height: 100%;
   gap: ${({ theme }) => theme.spacing(2)};
   height: ${({ theme }) => theme.spacing(6)};
   padding: ${({ theme }) => theme.spacing(1)};
@@ -152,7 +135,16 @@ export const CommissionTrackerPage = ({
     setSelectedOption(option);
   };
 
+export const CommissionTrackerPage = () => {
   return (
+    // <StyledContainerComplete>
+    //   <StyledContainer>
+    //     {!isMobile && (
+    //       <StyledNavigationDrawerCollapseButton direction="left" show={true} />
+    //     )}
+    //     <StyledIconMoneybag />
+    //     <StyledName>{name}</StyledName>
+    //   </StyledContainer>
     <StyledContainerComplete>
       <StyledNewContainer>
         <StyledContainer>
@@ -166,6 +158,20 @@ export const CommissionTrackerPage = ({
           <StyledName>{name}</StyledName>
         </StyledContainer>
 
+    //   <StyledContainerDropdowns>
+    //     <RecordItemDropdown dropdownTitle="sup">Sup</RecordItemDropdown>
+    //   </StyledContainerDropdowns>
+    // </StyledContainerComplete>
+    <PageContainer>
+      <PageHeader title="Commission Tracker" Icon={IconTargetArrow}>
+        {/* TODO BLUME: Fix this icon*/}
+      </PageHeader>
+      <PageBody>
+        <StyledCommissionSheetContainer>
+          <CommissionTrackerSheetContainer />
+        </StyledCommissionSheetContainer>
+      </PageBody>
+    </PageContainer>
         <StyledContainer>
 
           <StyledButton

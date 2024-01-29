@@ -19,6 +19,7 @@ import { ViewSortObjectMetadata } from 'src/workspace/workspace-sync-metadata/st
 import { ViewObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/view.object-metadata';
 import { WebhookObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/webhook.object-metadata';
 import { WorkspaceMemberObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/workspace-member.object-metadata';
+import { CommissionLineObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/commission-line.object-metadata';
 
 export const standardObjectMetadata = [
   ActivityTargetObjectMetadata,
@@ -42,4 +43,6 @@ export const standardObjectMetadata = [
   MessageObjectMetadata,
   MessageChannelObjectMetadata,
   MessageParticipantObjectMetadata,
+  CommissionLineObjectMetadata,
+  // CarrierObjectMetadata,
 ];

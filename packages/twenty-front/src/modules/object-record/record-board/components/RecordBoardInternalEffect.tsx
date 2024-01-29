@@ -31,11 +31,12 @@ export const RecordBoardInternalEffect = () => {
     savedOpportunitiesState,
   );
   const savedPipelineSteps = useRecoilValue(savedPipelineStepsState);
+
   const savedCompanies = useRecoilValue(savedCompaniesState);
 
   useEffect(() => {
     setSavedOpportunities(opportunities);
-  }, [opportunities, setSavedOpportunities]);
+  }, [setSavedOpportunities]);
 
   useEffect(() => {
     if (isDefined(fetchMoreOpportunities)) {

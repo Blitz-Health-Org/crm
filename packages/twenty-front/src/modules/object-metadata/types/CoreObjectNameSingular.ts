@@ -20,4 +20,5 @@ export enum CoreObjectNameSingular {
   ViewSort = 'viewSort',
   Webhook = 'webhook',
   WorkspaceMember = 'workspaceMember',
+  CommissionLine = 'commissionLine',
 }

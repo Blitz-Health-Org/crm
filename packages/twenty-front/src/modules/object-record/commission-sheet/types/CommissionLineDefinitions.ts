@@ -1,0 +1,1 @@
+export type CommissionLine = any;

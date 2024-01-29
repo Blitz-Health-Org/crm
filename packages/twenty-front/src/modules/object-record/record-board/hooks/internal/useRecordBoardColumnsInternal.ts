@@ -23,14 +23,13 @@ export const useBoardColumnsInternal = () => {
     if (!stages.length) return;
 
     return Promise.all(
-      stages.map(
-        (stage) =>
-          updateOnePipelineStep?.({
-            idToUpdate: stage.id,
-            updateOneRecordInput: {
-              position: stage.position,
-            },
-          }),
+      stages.map((stage) =>
+        updateOnePipelineStep?.({
+          idToUpdate: stage.id,
+          updateOneRecordInput: {
+            position: stage.position,
+          },
+        }),
       ),
     );
   };

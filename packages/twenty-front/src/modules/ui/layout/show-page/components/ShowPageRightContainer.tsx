@@ -16,8 +16,8 @@ import {
   IconMail,
   IconNotes,
   IconPaperclip,
-  IconTimelineEvent,
   IconPlug,
+  IconTimelineEvent,
 } from '@/ui/display/icon';
 import { TabList } from '@/ui/layout/tab/components/TabList';
 import { useTabList } from '@/ui/layout/tab/hooks/useTabList';

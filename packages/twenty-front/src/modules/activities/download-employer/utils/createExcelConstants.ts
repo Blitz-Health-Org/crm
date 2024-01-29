@@ -1,4 +1,4 @@
-import writeXlsxFile, {SheetData}  from 'write-excel-file';
+import writeXlsxFile, { SheetData } from 'write-excel-file';
 
 type ValueProps = {
   label: string;
@@ -8,9 +8,8 @@ type ValueProps = {
 };
 
 export const createExcelfromLabels = async (values: ValueProps[]) => {
-  console.log('values', values);
   const data = [
-    ['label', 'value'].map((value) => ({
+    ...['label', 'value'].map((value) => ({
       value,
       fontWeight: 'bold',
     })),
@@ -28,5 +27,5 @@ export const createExcelfromLabels = async (values: ValueProps[]) => {
       ]),
   ];
 
-  await writeXlsxFile(data as SheetData, {fileName: 'file.xlsx' });
+  await writeXlsxFile(data as SheetData, { fileName: 'file.xlsx' });
 };

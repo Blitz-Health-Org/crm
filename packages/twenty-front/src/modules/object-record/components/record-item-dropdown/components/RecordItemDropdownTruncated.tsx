@@ -5,7 +5,6 @@ import { IconChevronDown, IconChevronRight } from '@/ui/display/icon';
 import { useIcons } from '@/ui/display/icon/hooks/useIcons';
 import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
-import { DropdownMenuSeparator } from '@/ui/layout/dropdown/components/DropdownMenuSeparator';
 
 export type RecordItemDropdownTruncatedProps = {
   children: React.ReactNode;
@@ -14,7 +13,7 @@ export type RecordItemDropdownTruncatedProps = {
   defaultOpen?: boolean;
 };
 
-const CollapsedContainer = styled.div`
+const StyledCollapsedContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -22,7 +21,7 @@ const CollapsedContainer = styled.div`
   overflow: hidden;
 `;
 
-const ExpandedContainer = styled.div`
+const StyledExpandedContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -34,7 +33,7 @@ export const RecordItemDropdownTruncated = ({
   dropdownTitle,
   defaultOpen = false,
   children,
-  initialRows
+  initialRows,
 }: RecordItemDropdownTruncatedProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
     useState(defaultOpen);
@@ -42,23 +41,21 @@ export const RecordItemDropdownTruncated = ({
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const { getIcon } = useIcons();
 
-  console.log('initial', initialRows)
-
   return (
     <>
       {!isRecordItemMenuUnfolded ? (
-      <CollapsedContainer>
-        <DropdownMenuHeader
-          EndIcon={IconChevronRight}
-          onClick={() => setIsRecordItemMenuUnfolded(true)}
-        >
-          {dropdownTitle}
-        </DropdownMenuHeader>
-       {initialRows}
-      </CollapsedContainer>
+        <StyledCollapsedContainer>
+          <DropdownMenuHeader
+            EndIcon={IconChevronRight}
+            onClick={() => setIsRecordItemMenuUnfolded(true)}
+          >
+            {dropdownTitle}
+          </DropdownMenuHeader>
+          {initialRows}
+        </StyledCollapsedContainer>
       ) : (
         <>
-          <ExpandedContainer>
+          <StyledExpandedContainer>
             <DropdownMenuHeader
               EndIcon={IconChevronDown}
               onClick={() => setIsRecordItemMenuUnfolded(false)}
@@ -66,10 +63,8 @@ export const RecordItemDropdownTruncated = ({
               {dropdownTitle}
               {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
             </DropdownMenuHeader>
-            <DropdownMenuItemsContainer>
-              {children}
-            </DropdownMenuItemsContainer>
-          </ExpandedContainer>
+            <DropdownMenuItemsContainer>{children}</DropdownMenuItemsContainer>
+          </StyledExpandedContainer>
         </>
       )}
     </>
