@@ -2,8 +2,8 @@ import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
-import { useCommissionSheetScopedStates } from '@/object-record/commission-sheet/hooks/useCommissionSheetScopedStates';
 import { CommissionSheetTableHeaderCell } from '@/object-record/commission-sheet/components/CommissionSheetTableHeaderCell';
+import { useCommissionSheetScopedStates } from '@/object-record/commission-sheet/hooks/useCommissionSheetScopedStates';
 
 // import { SelectAllCheckbox } from './SelectAllCheckbox';
 
@@ -47,7 +47,7 @@ export const HIDDEN_TABLE_COLUMN_DROPDOWN_ID =
 const HIDDEN_TABLE_COLUMN_DROPDOWN_HOTKEY_SCOPE_ID =
   'hidden-table-columns-dropdown-hotkey-scope-id';
 
-export const CommissionSheetTableHeader = () => {
+export const CommissionTrackerSheetHeader = () => {
   const { getAvailableTableColumnsState } = useCommissionSheetScopedStates();
 
   const columns = useRecoilValue(getAvailableTableColumnsState());
@@ -85,7 +85,10 @@ export const CommissionSheetTableHeader = () => {
           />
         ))}
         <StyledPlusIconHeaderCell
-          isTableWiderThanScreen={isTableWiderThanScreen}
+          isTableWiderThanScreen={
+            true
+            // isTableWiderThanScreen
+          }
         >
           {/* {hiddenTableColumns.length > 0 && (
             <Dropdown

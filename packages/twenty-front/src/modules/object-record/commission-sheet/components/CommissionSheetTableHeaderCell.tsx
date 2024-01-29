@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { LightIconButton } from 'tsup.ui.index';
 
@@ -7,6 +8,66 @@ import { ColumnDefinition } from '@/object-record/commission-sheet/types/ColumnD
 import { FieldMetadata } from '@/object-record/field/types/FieldMetadata';
 import { ColumnHeadWithDropdown } from '@/object-record/record-table/components/ColumnHeadWithDropdown';
 import { IconPlus } from '@/ui/display/icon';
+
+const COLUMN_MIN_WIDTH = 104;
+
+const StyledColumnHeaderCell = styled.th<{
+  columnWidth: number;
+  isResizing?: boolean;
+}>`
+  ${({ columnWidth }) => `
+      min-width: ${columnWidth}px;
+      width: ${columnWidth}px;
+      `}
+  position: relative;
+  user-select: none;
+  ${({ theme }) => {
+    return `
+    &:hover {
+      background: ${theme.background.quaternary};
+    };
+    `;
+  }};
+  ${({ isResizing, theme }) => {
+    if (isResizing) {
+      return `&:after {
+        background-color: ${theme.color.blue};
+        bottom: 0;
+        content: '';
+        display: block;
+        position: absolute;
+        right: -1px;
+        top: 0;
+        width: 2px;
+      }`;
+    }
+  }};
+`;
+
+const StyledResizeHandler = styled.div`
+  bottom: 0;
+  cursor: col-resize;
+  padding: 0 ${({ theme }) => theme.spacing(2)};
+  position: absolute;
+  right: -9px;
+  top: 0;
+  width: 3px;
+  z-index: 1;
+`;
+
+const StyledColumnHeadContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+`;
+
+const StyledHeaderIcon = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacing(1)};
+  margin-right: ${({ theme }) => theme.spacing(1)};
+  margin-top: ${({ theme }) => theme.spacing(1)};
+`;
 
 export const CommissionSheetTableHeaderCell = ({
   column,
@@ -106,12 +167,14 @@ export const CommissionSheetTableHeaderCell = ({
     <StyledColumnHeaderCell
       key={column.fieldMetadataId}
       isResizing={resizedFieldKey === column.fieldMetadataId}
-      columnWidth={Math.max(
-        tableColumnsByKey[column.fieldMetadataId].size +
-          (resizedFieldKey === column.fieldMetadataId ? resizeFieldOffset : 0) +
-          24,
-        COLUMN_MIN_WIDTH,
-      )}
+      columnWidth={
+        //   columnWidth={Math.max(
+        //     tableColumnsByKey[column.fieldMetadataId].size +
+        //       (resizedFieldKey === column.fieldMetadataId ? resizeFieldOffset : 0) +
+        //       24,
+        COLUMN_MIN_WIDTH
+        //   )
+      }
     >
       <StyledColumnHeadContainer
         onMouseEnter={() => setIconVisibility(true)}
@@ -120,7 +183,7 @@ export const CommissionSheetTableHeaderCell = ({
         <ColumnHeadWithDropdown
           column={column}
           isFirstColumn={column.position === 1}
-          isLastColumn={column.position === visibleTableColumns.length - 1}
+          isLastColumn={column.position === tableColumns.length - 1}
           primaryColumnKey={primaryColumn?.fieldMetadataId || ''}
         />
         {iconVisibility && column.position === 0 && (
@@ -129,18 +192,19 @@ export const CommissionSheetTableHeaderCell = ({
               Icon={IconPlus}
               size="small"
               accent="tertiary"
-              onClick={createRecord}
+              onClick={() => {}}
+              //createrecord
             />
           </StyledHeaderIcon>
         )}
       </StyledColumnHeadContainer>
-      <StyledResizeHandler
+      {/* <StyledResizeHandler
         className="cursor-col-resize"
         role="separator"
         onPointerDown={() => {
           setResizedFieldKey(column.fieldMetadataId);
         }}
-      />
+      /> */}
     </StyledColumnHeaderCell>
   );
 };
