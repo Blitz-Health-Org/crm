@@ -27,6 +27,8 @@ export const CommissionLineRow = ({ rowId }: { rowId: string }) => {
   const { getAvailableTableColumnsState } = useCommissionSheetScopedStates();
   const columns = useRecoilValue(getAvailableTableColumnsState());
 
+  console.log('columns', columns);
+
   const scrollWrapperRef = useContext(ScrollWrapperContext);
 
   //   const { ref: elementRef, inView } = useInView({

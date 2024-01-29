@@ -8,7 +8,9 @@ export const CommissionTrackerSheetContainer = () => {
   return (
     <>
       <CommissionSheetScope commissionSheetScopeId={commissionSheetScopeId}>
-        <CommissionTrackerSheetEffect />
+        <CommissionTrackerSheetEffect
+          commissionSheetScopeId={commissionSheetScopeId}
+        />
         <CommissionTrackerSheetPageContainer
           commissionSheetScopeId={commissionSheetScopeId}
         />

@@ -9,12 +9,11 @@ import { useFindManyRecords } from '@/object-record/hooks/useFindManyRecords';
 import { ObjectRecordConnection } from '@/object-record/types/ObjectRecordConnection';
 
 export const CommissionTrackerSheetEffect = ({
-  objectNameSingular,
   commissionSheetScopeId,
 }: {
-  objectNameSingular: string;
   commissionSheetScopeId: string;
 }) => {
+  const objectNameSingular = 'commissionLine';
   const { commissionLinesState } = useCommissionSheetScopedStates();
 
   const {
