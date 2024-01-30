@@ -1,29 +1,34 @@
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
+import { motion } from 'framer-motion';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { IconChevronLeft } from '@/ui/display/icon/index';
 import { IconComponent } from '@/ui/display/icon/types/IconComponent';
 import { OverflowingTextWithTooltip } from '@/ui/display/tooltip/OverflowingTextWithTooltip';
 import { IconButton } from '@/ui/input/button/components/IconButton';
 import { NavigationDrawerCollapseButton } from '@/ui/navigation/navigation-drawer/components/NavigationDrawerCollapseButton';
+import { isHeaderOpenState } from '@/ui/navigation/states/isHeaderOpenState';
 import { isNavigationDrawerOpenState } from '@/ui/navigation/states/isNavigationDrawerOpenState';
 import { MOBILE_VIEWPORT } from '@/ui/theme/constants/theme';
 import { useIsMobile } from '@/ui/utilities/responsive/hooks/useIsMobile';
 
 export const PAGE_BAR_MIN_HEIGHT = 40;
 
-const StyledTopBarContainer = styled.div`
+const StyledTopBarMotionContainer = styled(motion.div)<{
+  isHeaderOpen: boolean;
+}>`
   align-items: center;
   background: ${({ theme }) => theme.background.noisy};
   color: ${({ theme }) => theme.font.color.primary};
   display: flex;
   flex-direction: row;
+  minHeight = ${({ isHeaderOpen }) =>
+    isHeaderOpen ? `${PAGE_BAR_MIN_HEIGHT}px` : '0'};
   font-size: ${({ theme }) => theme.font.size.lg};
   justify-content: space-between;
-  min-height: ${PAGE_BAR_MIN_HEIGHT}px;
   padding: ${({ theme }) => theme.spacing(2)};
   padding-left: 0;
   padding-right: ${({ theme }) => theme.spacing(3)};
@@ -88,9 +93,34 @@ export const PageHeader = ({
   const navigate = useNavigate();
   const theme = useTheme();
   const isNavigationDrawerOpen = useRecoilValue(isNavigationDrawerOpenState);
+  const [isHeaderOpen, setIsHeaderOpen] = useRecoilState(isHeaderOpenState);
+
+  useEffect(() => {
+    setIsHeaderOpen(!isMobile);
+  }, [isMobile, setIsHeaderOpen]);
+
+  const desktopHeight = !isHeaderOpen ? 0 : 'auto';
+  const mobileHeight = !isHeaderOpen ? '100%' : 0;
 
   return (
-    <StyledTopBarContainer>
+    <StyledTopBarMotionContainer
+      isHeaderOpen={isHeaderOpen}
+      initial={false}
+      animate={{
+        height: isMobile ? mobileHeight : desktopHeight,
+        opacity: isHeaderOpen ? 1 : 0,
+      }}
+      transition={{
+        duration: theme.animation.duration.normal,
+      }}
+    >
+      <button
+        onClick={() => {
+          setIsHeaderOpen(!isHeaderOpen);
+        }}
+      >
+        CLICK THIS
+      </button>
       <StyledLeftContainer>
         {!isMobile && !isNavigationDrawerOpen && (
           <StyledTopBarButtonContainer>
@@ -113,6 +143,6 @@ export const PageHeader = ({
         </StyledTopBarIconStyledTitleContainer>
       </StyledLeftContainer>
       <StyledPageActionContainer>{children}</StyledPageActionContainer>
-    </StyledTopBarContainer>
+    </StyledTopBarMotionContainer>
   );
 };

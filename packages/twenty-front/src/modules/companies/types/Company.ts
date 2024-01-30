@@ -6,6 +6,7 @@ export type Company = {
   name: string;
   domainName: string;
   address: string;
+  medicalPlanId?: string | null;
   accountOwnerId: string | null;
   linkedinLink: { url: string; label: string };
   xLink: { url: string; label: string };

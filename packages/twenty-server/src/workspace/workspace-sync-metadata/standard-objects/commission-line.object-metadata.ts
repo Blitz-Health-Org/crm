@@ -3,25 +3,20 @@ import { FieldMetadata } from 'src/workspace/workspace-sync-metadata/decorators/
 import { ObjectMetadata } from 'src/workspace/workspace-sync-metadata/decorators/object-metadata.decorator';
 import { BaseObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/base.object-metadata';
 import { CompanyObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/company.object-metadata';
+import { RelationMetadata } from 'src/workspace/workspace-sync-metadata/decorators/relation-metadata.decorator';
+import { RelationMetadataType } from 'src/metadata/relation-metadata/relation-metadata.entity';
+import { MedicalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/medical-plan.object-metadata';
+import { DentalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/dental-plan.object-metadata';
+import { IsNullable } from 'src/workspace/workspace-sync-metadata/decorators/is-nullable.decorator';
 
 @ObjectMetadata({
-  namePlural: 'commissionLines',
-  labelSingular: 'Commisssion Line',
+  namePlural: 'commissions',
+  labelSingular: 'Commission Line',
   labelPlural: 'Commission Lines',
   description: 'Lines of Commission ',
   icon: 'IconMessageCircle', //TODO BLUME: fix all icons, figure out how they're referenced later on
 })
 export class CommissionLineObjectMetadata extends BaseObjectMetadata {
-  //TODO BLUME: Make the fieldmetadatatype not just text,more specific, ie. FieldMetadata.DATE_TIME
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'Renewal Date',
-    description: 'Comment body',
-    icon: 'IconLink',
-    defaultValue: { value: '' },
-  })
-  body: string;
-
   @FieldMetadata({
     type: FieldMetadataType.TEXT, //change to relation at some point
     label: 'Client',
@@ -30,6 +25,16 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
     joinColumn: 'companyId',
   })
   client: CompanyObjectMetadata;
+
+  //TODO BLUME: Make the fieldmetadatatype not just text,more specific, ie. FieldMetadata.DATE_TIME
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Renewal Date',
+    description: 'Comment body',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  renewalDate: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
@@ -49,15 +54,6 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
     defaultValue: { value: '' },
   })
   carrier: string;
-
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'LOC',
-    description: 'Line of Coverage',
-    icon: 'IconLink',
-    defaultValue: { value: '' },
-  })
-  loc: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
@@ -103,4 +99,50 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
     defaultValue: { value: '' },
   })
   enrolledEmployees: string;
+
+  //Relations
+  @FieldMetadata({
+    type: FieldMetadataType.RELATION,
+    label: 'LOC',
+    description: 'Line of Coverage',
+    icon: 'IconLink',
+    joinColumn: 'medicalPlanId',
+  })
+  @RelationMetadata({
+    type: RelationMetadataType.ONE_TO_ONE,
+    objectName: 'medicalPlan', //pick one of medicalPlan, dentalPlan, visionPlan,
+    //TODO BLUME: Extend this to all medical plans
+  })
+  @IsNullable()
+  medicalPlan: MedicalPlanObjectMetadata;
+
+  @FieldMetadata({
+    type: FieldMetadataType.RELATION,
+    label: 'LOC',
+    description: 'Line of Coverage',
+    icon: 'IconLink',
+    joinColumn: 'dentalPlanId',
+  })
+  @RelationMetadata({
+    type: RelationMetadataType.ONE_TO_ONE,
+    objectName: 'dentalPlan', //pick one of medicalPlan, dentalPlan, visionPlan,
+    //TODO BLUME: Extend this to all medical plans
+  })
+  @IsNullable()
+  dentalPlan: DentalPlanObjectMetadata;
+
+  @FieldMetadata({
+    type: FieldMetadataType.RELATION,
+    label: 'LOC',
+    description: 'Line of Coverage',
+    icon: 'IconLink',
+    joinColumn: 'visionPlanId',
+  })
+  @RelationMetadata({
+    type: RelationMetadataType.ONE_TO_ONE,
+    objectName: 'visionPlan', //pick one of medicalPlan, dentalPlan, visionPlan,
+    //TODO BLUME: Extend this to all medical plans
+  })
+  @IsNullable()
+  visionPlan: DentalPlanObjectMetadata;
 }

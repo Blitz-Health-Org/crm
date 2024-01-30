@@ -27,6 +27,11 @@ export const seedViews = async (
         objectMetadataId: objectMetadataMap['opportunity'].id,
         type: 'kanban',
       },
+      {
+        name: 'All Commission Lines',
+        objectMetadataId: objectMetadataMap['commissionLine'].id,
+        type: 'table',
+      },
     ])
     .returning('*')
     .execute();
@@ -189,6 +194,13 @@ export const seedViews = async (
         position: 3,
         isVisible: true,
         size: 150,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
       },
     ])
     .execute();

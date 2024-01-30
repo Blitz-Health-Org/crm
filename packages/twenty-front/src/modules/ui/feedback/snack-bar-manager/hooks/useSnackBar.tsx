@@ -42,14 +42,11 @@ export const useSnackBar = () => {
 
   const enqueueSnackBar = useCallback(
     (message: string, options?: Omit<SnackBarOptions, 'message' | 'id'>) => {
-      const bool = false;
-      if (bool) {
-        setSnackBarQueue({
-          id: uuidv4(),
-          message,
-          ...options,
-        });
-      }
+      setSnackBarQueue({
+        id: uuidv4(),
+        message,
+        ...options,
+      });
     },
     [setSnackBarQueue],
   );

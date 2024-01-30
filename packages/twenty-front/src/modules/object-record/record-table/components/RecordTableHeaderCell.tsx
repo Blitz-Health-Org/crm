@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 
@@ -18,13 +19,28 @@ const COLUMN_MIN_WIDTH = 104;
 const StyledColumnHeaderCell = styled.th<{
   columnWidth: number;
   isResizing?: boolean;
+  isLastVisibleColumn?: boolean;
+  isCommissionsObject?: boolean;
 }>`
+  ${({ theme, isLastVisibleColumn, isCommissionsObject }) => {
+    if (isLastVisibleColumn && isCommissionsObject) {
+      return `&:after {
+        background-color: ${theme.color.gray70};
+        bottom: 0;
+        content: '';
+        display: block;
+        position: absolute;
+        right: -1px;
+        top: 0;
+        width: 4px;
+      }`;
+    }
+  }}
+
   ${({ columnWidth }) => `
       min-width: ${columnWidth}px;
       width: ${columnWidth}px;
       `}
-  position: relative;
-  user-select: none;
   ${({ theme }) => {
     return `
     &:hover {
@@ -32,6 +48,8 @@ const StyledColumnHeaderCell = styled.th<{
     };
     `;
   }};
+  position: relative;
+  user-select: none;
   ${({ isResizing, theme }) => {
     if (isResizing) {
       return `&:after {
@@ -167,6 +185,15 @@ export const RecordTableHeaderCell = ({
     onMouseUp: handleResizeHandlerEnd,
   });
 
+  console.log('check commissions', visibleTableColumns.length, column.position);
+
+  const isLastVisibleColumn =
+    column.position === visibleTableColumns.length - 1;
+
+  const { objectNamePlural } = useParams();
+
+  const isCommissionsObject = objectNamePlural === 'commissions';
+
   return (
     <StyledColumnHeaderCell
       key={column.fieldMetadataId}
@@ -177,6 +204,8 @@ export const RecordTableHeaderCell = ({
           24,
         COLUMN_MIN_WIDTH,
       )}
+      isLastVisibleColumn={isLastVisibleColumn}
+      isCommissionsObject={isCommissionsObject}
     >
       <StyledColumnHeadContainer
         onMouseEnter={() => setIconVisibility(true)}

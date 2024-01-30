@@ -29,5 +29,6 @@ export const standardObjectsPrefillData = async (
     await personPrefillData(entityManager, schemaName);
     await viewPrefillData(entityManager, schemaName, objectMetadataMap);
     await pipelineStepPrefillData(entityManager, schemaName);
+    // await commissionLinePrefillData(entityManager, schemaName);
   });
 };

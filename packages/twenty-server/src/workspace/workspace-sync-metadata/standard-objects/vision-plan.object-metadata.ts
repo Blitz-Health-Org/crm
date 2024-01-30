@@ -1,143 +1,116 @@
 import { FieldMetadataType } from 'src/metadata/field-metadata/field-metadata.entity';
-import { RelationMetadataType } from 'src/metadata/relation-metadata/relation-metadata.entity';
 import { FieldMetadata } from 'src/workspace/workspace-sync-metadata/decorators/field-metadata.decorator';
 import { IsNullable } from 'src/workspace/workspace-sync-metadata/decorators/is-nullable.decorator';
 import { ObjectMetadata } from 'src/workspace/workspace-sync-metadata/decorators/object-metadata.decorator';
 import { BaseObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/base.object-metadata';
 import { CompanyObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/company.object-metadata';
 import { RelationMetadata } from 'src/workspace/workspace-sync-metadata/decorators/relation-metadata.decorator';
+import { RelationMetadataType } from 'src/metadata/relation-metadata/relation-metadata.entity';
 import { CommissionLineObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/commission-line.object-metadata';
 
 @ObjectMetadata({
-  namePlural: 'medicalPlans',
-  labelSingular: 'Medical_Plan',
-  labelPlural: 'Medical_Plans',
-  description: 'Medical Plans associated with client',
-  icon: 'IconUsers',
+  namePlural: 'visionPlans',
+  labelSingular: 'Vision_Plan',
+  labelPlural: 'Vision_Plans',
+  description: 'A dental plan',
+  icon: 'IconBuildingSkyscraper', // TODO BLUME: Fix this icon
 })
-export class MedicalPlanObjectMetadata extends BaseObjectMetadata {
+export class VisionPlanObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Plan Name',
-    description: 'medical_plan plan_name_1',
+    description: 'vision_plan plan_name_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  planName1: string;
+  planName6: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Plan Notes',
+    description: 'vision_plan plan_name_6',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  planNotes6: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description: 'medical_plan plan_name_1 EE_group_plan',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  currentRate1EE: string;
+  currentRate6EE: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description: 'medical_plan plan_name_1 ES_group_plan',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  currentRate1ES: string;
+  currentRate6ES: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description: 'medical_plan plan_name_1 EC_group_plan',
+    description: 'vision_plan plan_name_6 EC_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  currentRate1EC: string;
+  currentRate6EC: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Current Rate',
-    description: 'medical_plan plan_name_1 EF_group_plan',
+    description: 'vision_plan plan_name_6 EF_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  currentRate1EF: string;
+  currentRate6EF: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description: 'medical_plan plan_name_1 EE_group_plan',
+    description: 'vision_plan plan_name_6 EE_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled1EE: string;
+  Enrolled6EE: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description: 'medical_plan plan_name_1 ES_group_plan',
+    description: 'vision_plan plan_name_6 ES_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled1ES: string;
+  Enrolled6ES: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description: 'medical_plan plan_name_1 EC_group_plan',
+    description: 'vision_plan plan_name_6 EC_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled1EC: string;
+  Enrolled6EC: string;
 
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
     label: 'Enrolled',
-    description: 'medical_plan plan_name_1 EF_group_plan',
+    description: 'vision_plan plan_name_6 EF_group_plan_6',
     icon: 'IconMoneybag',
   })
   @IsNullable()
-  Enrolled1EF: string;
-
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'Monthly Premium',
-    description: 'medical_plan plan_name_1 EE_group_plan',
-    icon: 'IconMoneybag',
-  })
-  @IsNullable()
-  monthlyPremium1EE: string;
-
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'Monthly Premium',
-    description: 'medical_plan plan_name_1 ES_group_plan',
-    icon: 'IconMoneybag',
-  })
-  @IsNullable()
-  monthlyPremium1ES: string;
-
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'Monthly Premium',
-    description: 'medical_plan plan_name_1 EC_group_plan',
-    icon: 'IconMoneybag',
-  })
-  @IsNullable()
-  monthlyPremium1EC: string;
-
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT,
-    label: 'Monthly Premium',
-    description: 'medical_plan plan_name_1 EF_group_plan',
-    icon: 'IconMoneybag',
-  })
-  @IsNullable()
-  monthlyPremium1EF: string;
+  Enrolled6EF: string;
 
   //Relations
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
     label: 'Company',
-    description: "Medical plan's company",
+    description: "Dental plan's company",
     icon: 'IconBuildingSkyscraper',
     joinColumn: 'companyId',
   })
@@ -147,7 +120,7 @@ export class MedicalPlanObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
     label: 'Commission Line',
-    description: 'Commission line for medical plan',
+    description: 'Commission line for vision plan',
     icon: 'IconBuildingSkyscraper', //TODO BLUME: icon
     joinColumn: 'commissionLineId',
   })

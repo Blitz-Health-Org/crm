@@ -43,8 +43,6 @@ export const CommissionTrackerSheetEffect = ({
     //  filterDefinitions, sortDefinitions
   } = useColumnDefinitionsFromFieldMetadata(objectMetadataItem);
 
-  console.log('columndef', columnDefinitions);
-
   useEffect(() => {
     setAvailableTableColumns(columnDefinitions);
   });

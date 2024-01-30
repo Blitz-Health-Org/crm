@@ -26,7 +26,9 @@ const StyledColumnCardsContainer = styled.div`
   flex-direction: column;
 `;
 
-const StyledColumn = styled.div<{ isFirstColumn: boolean }>`
+const StyledColumn = styled.div<{
+  isFirstColumn: boolean;
+}>`
   background-color: ${({ theme }) => theme.background.primary};
   border-left: 1px solid
     ${({ theme, isFirstColumn }) =>
@@ -35,7 +37,6 @@ const StyledColumn = styled.div<{ isFirstColumn: boolean }>`
   flex-direction: column;
   max-width: 200px;
   min-width: 200px;
-
   padding: ${({ theme }) => theme.spacing(2)};
   position: relative;
 `;

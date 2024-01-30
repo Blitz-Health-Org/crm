@@ -29,6 +29,11 @@ export const viewPrefillData = async (
         objectMetadataId: objectMetadataMap['opportunity'].id,
         type: 'kanban',
       },
+      {
+        name: 'All Commission Lines',
+        objectMetadataId: objectMetadataMap['commissionLine'].id,
+        type: 'table',
+      },
     ])
     .returning('*')
     .execute();
@@ -38,6 +43,8 @@ export const viewPrefillData = async (
 
     return acc;
   }, {});
+
+  console.log('LOG objectmetadatmap', objectMetadataMap);
 
   // Creating viewFields
   await entityManager
@@ -195,6 +202,85 @@ export const viewPrefillData = async (
         position: 3,
         isVisible: true,
         size: 150,
+      },
+      //Commission Lines
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields['medicalPlan'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 1,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields['createdAt'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 2,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['aor'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 3,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields['monthlyInvoiceEstimate'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 4,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['carrier'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 5,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields['enrolledEmployees'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 6,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['ee'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 7,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields['renewalDate'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 8,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId:
+          objectMetadataMap['commissionLine'].fields[
+            'estimatedAnnualCommission'
+          ],
+        viewId: viewIdMap['commisionRate'],
+        position: 9,
+        isVisible: true,
+        size: 180,
       },
     ])
     .execute();

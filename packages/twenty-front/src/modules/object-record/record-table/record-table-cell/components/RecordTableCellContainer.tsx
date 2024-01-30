@@ -1,10 +1,12 @@
 import { ReactElement, useContext, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 
 import { useGetButtonIcon } from '@/object-record/field/hooks/useGetButtonIcon';
 import { useIsFieldEmpty } from '@/object-record/field/hooks/useIsFieldEmpty';
 import { useIsFieldInputOnly } from '@/object-record/field/hooks/useIsFieldInputOnly';
+import { useRecordTableStates } from '@/object-record/record-table/hooks/internal/useRecordTableStates';
 import { useRecordTable } from '@/object-record/record-table/hooks/useRecordTable';
 import { IconArrowUpRight } from '@/ui/display/icon';
 import { HotkeyScope } from '@/ui/utilities/hotkey/types/HotkeyScope';
@@ -23,7 +25,25 @@ import { RecordTableCellDisplayMode } from './RecordTableCellDisplayMode';
 import { RecordTableCellEditMode } from './RecordTableCellEditMode';
 import { RecordTableCellSoftFocusMode } from './RecordTableCellSoftFocusMode';
 
-const StyledCellBaseContainer = styled.div`
+const StyledCellBaseContainer = styled.div<{
+  isLastVisibleColumn: boolean;
+  isCommissionsObject: boolean;
+}>`
+  ${({ theme, isLastVisibleColumn, isCommissionsObject }) => {
+    if (isLastVisibleColumn && isCommissionsObject) {
+      return `&:after {
+      background-color: ${theme.color.gray70};
+      bottom: 0;
+      content: '';
+      display: block;
+      position: absolute;
+      right: -1px;
+      top: 0;
+      width: 4px;
+    }`;
+    }
+  }}
+
   align-items: center;
   box-sizing: border-box;
   cursor: pointer;
@@ -59,6 +79,11 @@ export const TableCellContainer = ({
   const { isCurrentTableCellInEditMode } = useCurrentTableCellEditMode();
 
   const { isSomeCellInEditModeState } = useRecordTable();
+
+  const { visibleTableColumnsSelector } = useRecordTableStates();
+
+  const visibleTableColumns = useRecoilValue(visibleTableColumnsSelector);
+
   const isSomeCellInEditMode = useRecoilValue(isSomeCellInEditModeState());
 
   const [isHovered, setIsHovered] = useState(false);
@@ -96,6 +121,13 @@ export const TableCellContainer = ({
 
   const isFirstColumn = useContext(ColumnIndexContext) === 0;
 
+  const isLastVisibleColumn =
+    useContext(ColumnIndexContext) === visibleTableColumns.length - 1;
+
+  const { objectNamePlural } = useParams();
+
+  const isCommissionsObject = objectNamePlural === 'commissions';
+
   const customButtonIcon = useGetButtonIcon();
 
   const buttonIcon = isFirstColumn ? IconArrowUpRight : customButtonIcon;
@@ -114,6 +146,8 @@ export const TableCellContainer = ({
       <StyledCellBaseContainer
         onMouseEnter={handleContainerMouseEnter}
         onMouseLeave={handleContainerMouseLeave}
+        isLastVisibleColumn={isLastVisibleColumn}
+        isCommissionsObject={isCommissionsObject}
       >
         {isCurrentTableCellInEditMode ? (
           <RecordTableCellEditMode
