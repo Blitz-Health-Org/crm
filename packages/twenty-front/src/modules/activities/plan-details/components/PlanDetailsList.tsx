@@ -36,6 +36,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 8px 24px;
+  margin-top: 12px;
 `;
 
 // const StyledGroupContainer = styled.div`
