@@ -42,6 +42,7 @@ export const seedViews = async (
     return acc;
   }, {});
 
+  //TODO BLUME URGENT: change the sizes on these for commissionLine entries (controls the top row widths for columns); run yarn database:reset to see changes take effect.
   await workspaceDataSource
     .createQueryBuilder()
     .insert()
@@ -169,7 +170,7 @@ export const seedViews = async (
       {
         fieldMetadataId: objectMetadataMap['opportunity'].fields['amount'],
         viewId: viewIdMap['All Opportunities'],
-        position: 0,
+        position: 9,
         isVisible: true,
         size: 150,
       },
@@ -194,6 +195,90 @@ export const seedViews = async (
         position: 3,
         isVisible: true,
         size: 150,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['jan'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['feb'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
+      },
+      {
+        fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
+        viewId: viewIdMap['All Commission Lines'],
+        position: 0,
+        isVisible: true,
+        size: 180,
       },
       {
         fieldMetadataId: objectMetadataMap['commissionLine'].fields['client'],
