@@ -10,6 +10,8 @@ export const ObjectMetadataNavItems = () => {
   const { getIcon } = useIcons();
   const currentPath = useLocation().pathname;
 
+  console.log('activeobjectmetadata', activeObjectMetadataItems);
+
   return (
     <>
       {[
@@ -28,17 +30,17 @@ export const ObjectMetadataNavItems = () => {
             }
             return indexA - indexB;
           }),
-        ...activeObjectMetadataItems
-          .filter(
-            (item) =>
-              !['person', 'company', 'opportunity'].includes(item.nameSingular),
-          )
-          .sort((objectMetadataItemA, objectMetadataItemB) => {
-            return new Date(objectMetadataItemA.createdAt) <
-              new Date(objectMetadataItemB.createdAt)
-              ? 1
-              : -1;
-          }),
+        // ...activeObjectMetadataItems
+        //   .filter(
+        //     (item) =>
+        //       !['person', 'company', 'opportunity'].includes(item.nameSingular),
+        //   )
+        //   .sort((objectMetadataItemA, objectMetadataItemB) => {
+        //     return new Date(objectMetadataItemA.createdAt) <
+        //       new Date(objectMetadataItemB.createdAt)
+        //       ? 1
+        //       : -1;
+        //   }),
       ].map((objectMetadataItem) => (
         <NavigationDrawerItem
           key={objectMetadataItem.id}
