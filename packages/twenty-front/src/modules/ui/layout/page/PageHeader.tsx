@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { IconChevronLeft } from '@/ui/display/icon/index';
+import { IconChevronDown } from '@/ui/display/icon/index';
+import { IconChevronUp } from '@/ui/display/icon/index';
 import { IconComponent } from '@/ui/display/icon/types/IconComponent';
 import { OverflowingTextWithTooltip } from '@/ui/display/tooltip/OverflowingTextWithTooltip';
 import { IconButton } from '@/ui/input/button/components/IconButton';
@@ -25,6 +27,7 @@ const StyledTopBarMotionContainer = styled(motion.div)<{
   color: ${({ theme }) => theme.font.color.primary};
   display: flex;
   flex-direction: row;
+  width: 100%;
   minHeight = ${({ isHeaderOpen }) =>
     isHeaderOpen ? `${PAGE_BAR_MIN_HEIGHT}px` : '0'};
   font-size: ${({ theme }) => theme.font.size.lg};
@@ -37,6 +40,13 @@ const StyledTopBarMotionContainer = styled(motion.div)<{
   @media (max-width: ${MOBILE_VIEWPORT}px) {
     padding-left: ${({ theme }) => theme.spacing(3)};
   }
+`;
+
+const StyledComplete = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 `;
 
 const StyledLeftContainer = styled.div`
@@ -103,26 +113,9 @@ export const PageHeader = ({
   const mobileHeight = !isHeaderOpen ? '100%' : 0;
 
   return (
-    <StyledTopBarMotionContainer
-      isHeaderOpen={isHeaderOpen}
-      initial={false}
-      animate={{
-        height: isMobile ? mobileHeight : desktopHeight,
-        opacity: isHeaderOpen ? 1 : 0,
-      }}
-      transition={{
-        duration: theme.animation.duration.normal,
-      }}
-    >
-      <button //TODO BLUME URGENT: Make this an actual fucking button
-        onClick={() => {
-          setIsHeaderOpen(!isHeaderOpen);
-        }}
-      >
-        CLICK THIS
-      </button>
-      <StyledLeftContainer>
-        {!isMobile && !isNavigationDrawerOpen && (
+    <StyledComplete>
+    
+    {!isMobile && !isNavigationDrawerOpen && (
           <StyledTopBarButtonContainer>
             <NavigationDrawerCollapseButton direction="right" />
           </StyledTopBarButtonContainer>
@@ -135,6 +128,25 @@ export const PageHeader = ({
             variant="tertiary"
           />
         )}
+    
+    <IconButton
+    Icon={isHeaderOpen ? IconChevronUp : IconChevronDown}
+    size="small"
+    onClick={() => setIsHeaderOpen(!isHeaderOpen)}
+    variant="tertiary"
+  />
+    <StyledTopBarMotionContainer
+      isHeaderOpen={isHeaderOpen}
+      initial={false}
+      animate={{
+        height: isMobile ? mobileHeight : desktopHeight,
+        opacity: isHeaderOpen ? 1 : 0,
+      }}
+      transition={{
+        duration: theme.animation.duration.normal,
+      }}
+    >
+      <StyledLeftContainer>
         <StyledTopBarIconStyledTitleContainer>
           {Icon && <Icon size={theme.icon.size.md} />}
           <StyledTitleContainer data-testid="top-bar-title">
@@ -144,5 +156,6 @@ export const PageHeader = ({
       </StyledLeftContainer>
       <StyledPageActionContainer>{children}</StyledPageActionContainer>
     </StyledTopBarMotionContainer>
+    </StyledComplete>
   );
 };
