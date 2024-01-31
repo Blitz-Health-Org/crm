@@ -1,14 +1,16 @@
+import { medicalPlansStateScopeMap } from '@/activities/plan-details/components/states/medicalPlansStateScopeMap';
 import { MedicalPlan } from '@/medical-plan/types/MedicalPlan';
 import { MedicalPlanTargetableObject } from '@/medical-plan/types/MedicalPlanTargetableObject';
-import { getMedicalPlanObjectFieldIdName } from '@/medical-plan/utils/getMedicalPlanObjectFieldIdName';
+import { getPlanObjectFieldIdName } from '@/medical-plan/utils/getMedicalPlanObjectFieldIdName';
 import { CoreObjectNameSingular } from '@/object-metadata/types/CoreObjectNameSingular';
 import { useFindManyRecords } from '@/object-record/hooks/useFindManyRecords';
+import { getState } from '@/ui/utilities/recoil-scope/utils/getState';
 
-// do we need to test this?
 export const useMedicalPlans = (
   targetableObject: MedicalPlanTargetableObject,
+  scopeId: string,
 ) => {
-  const targetableObjectFieldIdName = getMedicalPlanObjectFieldIdName({
+  const targetableObjectFieldIdName = getPlanObjectFieldIdName({
     nameSingular: targetableObject.targetObjectNameSingular,
   });
 
@@ -24,7 +26,10 @@ export const useMedicalPlans = (
     },
   });
 
+  const getMedicalPlansState = getState(medicalPlansStateScopeMap, scopeId);
+
   return {
     medicalPlans: medicalPlans as MedicalPlan[],
+    getMedicalPlansState,
   };
 };

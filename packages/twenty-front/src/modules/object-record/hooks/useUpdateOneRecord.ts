@@ -57,6 +57,7 @@ export const useUpdateOneRecord = <T>({
       sanitizedUpdateOneRecordInput,
     );
 
+    console.log('IDLOG', idToUpdate, objectMetadataItem);
     const updatedRecord = await apolloClient.mutate({
       mutation: updateOneRecordMutation,
       variables: {

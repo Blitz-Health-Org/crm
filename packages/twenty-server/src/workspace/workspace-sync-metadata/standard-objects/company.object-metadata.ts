@@ -342,10 +342,118 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   @IsNullable()
   employerContributionMedical: string;
 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Effective Date',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  effectiveDateDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Renewed / Gurantee',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  renewedguaranteeDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Group Number',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  groupNumberDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Employer Contribution',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  employerContributionDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Carrier',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  carrierDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Rep Contact Info',
+    description: 'dental_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  repContactInfoDental: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Effective Date',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  effectiveDateVision: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Renewed / Gurantee',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  renewedguaranteeVision: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Group Number',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  groupNumberVision: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Employer Contribution',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  employerContributionVision: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Carrier',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  carrierVision: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'Rep Contact Info',
+    description: 'vision_plan',
+    icon: 'IconMoneybag',
+  })
+  @IsNullable()
+  repContactInfoVision: string;
+
   // Relations
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
-    label: 'Medical_Plan',
+    label: 'Medical Plan',
     description: 'Medical Plans associated with client',
     icon: 'IconUsers', //TODO BLUME: fix this icon
   })
@@ -358,12 +466,12 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
 
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
-    label: 'Dental_Plan',
+    label: 'Dental Plan',
     description: 'Dental Plan associated with client',
     icon: 'IconUsers', //TODO BLUME: fix this icon
   })
   @RelationMetadata({
-    type: RelationMetadataType.ONE_TO_ONE,
+    type: RelationMetadataType.ONE_TO_MANY,
     objectName: 'dentalPlan',
   })
   @IsNullable()
@@ -371,12 +479,12 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
 
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
-    label: 'Vision_Plan',
+    label: 'Vision Plan',
     description: 'Vision Plans associated with client',
     icon: 'IconUsers', //TODO BLUME: fix this icon
   })
   @RelationMetadata({
-    type: RelationMetadataType.ONE_TO_ONE,
+    type: RelationMetadataType.ONE_TO_MANY,
     objectName: 'visionPlan',
   })
   @IsNullable()

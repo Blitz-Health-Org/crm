@@ -96,8 +96,8 @@ export const ViewBar = ({
                 scope: FiltersHotkeyScope.ObjectSortDropdownButton,
               }}
             />
-            {optionsDropdownButton}
             {groupByDropdownButton}
+            {optionsDropdownButton}
           </>
         }
         bottomComponent={

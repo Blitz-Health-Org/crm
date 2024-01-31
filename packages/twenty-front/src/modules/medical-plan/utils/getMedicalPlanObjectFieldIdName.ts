@@ -1,4 +1,4 @@
-export const getMedicalPlanObjectFieldIdName = ({
+export const getPlanObjectFieldIdName = ({
   nameSingular,
 }: {
   nameSingular: string;

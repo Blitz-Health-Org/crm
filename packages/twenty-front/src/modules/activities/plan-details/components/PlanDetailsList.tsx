@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Button } from 'tsup.ui.index';
 
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
+import { useDentalPlans } from '@/medical-plan/hooks/useDentalPlan';
 import { useMedicalPlans } from '@/medical-plan/hooks/useMedicalPlans';
+import { useVisionPlans } from '@/medical-plan/hooks/useVisionPlans';
 import { MedicalPlan } from '@/medical-plan/types/MedicalPlan';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { objectMetadataItemsState } from '@/object-metadata/states/objectMetadataItemsState';
@@ -18,6 +20,7 @@ import {
   RecordUpdateHookParams,
 } from '@/object-record/field/contexts/FieldContext';
 import { entityFieldsFamilyState } from '@/object-record/field/states/entityFieldsFamilyState';
+import { entityFieldsMultipleFamilySelector } from '@/object-record/field/states/selectors/entityFieldsMultipleFamilySelector';
 import { useCreateOneRecord } from '@/object-record/hooks/useCreateOneRecord';
 import { useFindOneRecord } from '@/object-record/hooks/useFindOneRecord';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
@@ -34,6 +37,7 @@ const StyledSeparator = styled.div`
   background-color: ${({ theme }) => theme.border.color.light};
   height: 1px;
   width: 100%;
+  margin-bottom: 5px;
 `;
 
 const StyledContainer = styled.div`
@@ -107,6 +111,20 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     throw new Error(`Object name is not defined`);
   }
 
+  const { medicalPlans } = useMedicalPlans(
+    targetableObject,
+    objectRecordId ?? '',
+  );
+  const { dentalPlans } = useDentalPlans(
+    targetableObject,
+    objectRecordId ?? '',
+  );
+
+  const { visionPlans } = useVisionPlans(
+    targetableObject,
+    objectRecordId ?? '',
+  );
+
   const objectMetadataItems = useRecoilValue(objectMetadataItemsState);
 
   const {
@@ -117,11 +135,19 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     objectNameSingular,
   });
 
-  const { medicalPlans } = useMedicalPlans(targetableObject);
-
   const { updateOneRecord: updateOneMedicalPlan } =
     useUpdateOneRecord<MedicalPlan>({
       objectNameSingular: CoreObjectNameSingular.MedicalPlan,
+    });
+
+  const { updateOneRecord: updateOneDentalPlan } =
+    useUpdateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.DentalPlan,
+    });
+
+  const { updateOneRecord: updateOneVisionPlan } =
+    useUpdateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.VisionPlan,
     });
 
   // const { favorites, createFavorite, deleteFavorite } = useFavorites();
@@ -130,8 +156,10 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     entityFieldsFamilyState(objectRecordId ?? ''),
   );
 
-  const setMedicalPlanEntityFields = useSetRecoilState(
-    entityFieldsFamilyState((medicalPlans[0] as any)?.id ?? ''),
+  const [getPlans, setPlans] = useRecoilState(
+    entityFieldsMultipleFamilySelector({
+      medicalPlans,
+    }),
   );
 
   const { record } = useFindOneRecord({
@@ -139,17 +167,13 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     objectNameSingular,
   });
 
-  const { record: medicalPlanRecord } = useFindOneRecord({
-    objectRecordId: (medicalPlans[0] as any)?.id ?? '',
-    objectNameSingular: 'medicalPlan',
-  });
-
   useEffect(() => {
     if (!record) return;
     setEntityFields(record);
-    if (!medicalPlanRecord) return;
-    setMedicalPlanEntityFields(medicalPlanRecord as any);
-  }, [record, setEntityFields, setMedicalPlanEntityFields, medicalPlanRecord]);
+    if (!medicalPlans.length) return;
+    setPlans(medicalPlans as any);
+    console.log('CHECKCHECK', medicalPlans);
+  }, [record, setEntityFields, setPlans, medicalPlans]);
 
   // const [uploadImage] = useUploadImageMutation();
   const { updateOneRecord } = useUpdateOneRecord({ objectNameSingular });
@@ -168,6 +192,28 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
   const useUpdateMedicalPlanObjectRecordMutation: RecordUpdateHook = () => {
     const updateEntity = ({ variables }: RecordUpdateHookParams) => {
       updateOneMedicalPlan?.({
+        idToUpdate: variables.where.id as string,
+        updateOneRecordInput: variables.updateOneRecordInput,
+      });
+    };
+
+    return [updateEntity, { loading: false }];
+  };
+
+  const useUpdateDentalPlanObjectRecordMutation: RecordUpdateHook = () => {
+    const updateEntity = ({ variables }: RecordUpdateHookParams) => {
+      updateOneDentalPlan?.({
+        idToUpdate: variables.where.id as string,
+        updateOneRecordInput: variables.updateOneRecordInput,
+      });
+    };
+
+    return [updateEntity, { loading: false }];
+  };
+
+  const useUpdateVisionPlanObjectRecordMutation: RecordUpdateHook = () => {
+    const updateEntity = ({ variables }: RecordUpdateHookParams) => {
+      updateOneVisionPlan?.({
         idToUpdate: variables.where.id as string,
         updateOneRecordInput: variables.updateOneRecordInput,
       });
@@ -244,14 +290,49 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     );
 
   const medicalPlanId = availableFieldMetadataItems.find((company) => {
-    return company.label === 'Medical_Plan';
+    return company.label === 'Medical Plan';
   })?.fromRelationMetadata?.toObjectMetadata?.id;
 
   const medicalPlanMetadataItem = objectMetadataItems.find(
     (objectMetadataItem) => objectMetadataItem.id === medicalPlanId,
   );
 
-  const medicalPlanFields = medicalPlanMetadataItem?.fields;
+  const medicalPlanFields = medicalPlanMetadataItem?.fields.filter(
+    (fieldMetadataItem) =>
+      isFieldMetadataItemAvailable(fieldMetadataItem) &&
+      fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id &&
+      fieldMetadataItem.type !== 'RELATION',
+  );
+
+  const dentalPlanId = availableFieldMetadataItems.find((company) => {
+    return company.label === 'Dental Plan';
+  })?.fromRelationMetadata?.toObjectMetadata?.id;
+
+  const dentalPlanMetadataItem = objectMetadataItems.find(
+    (objectMetadataItem) => objectMetadataItem.id === dentalPlanId,
+  );
+
+  const dentalPlanFields = dentalPlanMetadataItem?.fields.filter(
+    (fieldMetadataItem) =>
+      isFieldMetadataItemAvailable(fieldMetadataItem) &&
+      fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id &&
+      fieldMetadataItem.type !== 'RELATION',
+  );
+
+  const visionPlanId = availableFieldMetadataItems.find((company) => {
+    return company.label === 'Vision Plan';
+  })?.fromRelationMetadata?.toObjectMetadata?.id;
+
+  const visionPlanMetadataItem = objectMetadataItems.find(
+    (objectMetadataItem) => objectMetadataItem.id === visionPlanId,
+  );
+
+  const visionPlanFields = visionPlanMetadataItem?.fields.filter(
+    (fieldMetadataItem) =>
+      isFieldMetadataItemAvailable(fieldMetadataItem) &&
+      fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id &&
+      fieldMetadataItem.type !== 'RELATION',
+  );
 
   // const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
   //   (fieldMetadataItem) =>
@@ -272,8 +353,30 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
       objectNameSingular: CoreObjectNameSingular.MedicalPlan,
     });
 
+  const { createOneRecord: createOneDentalPlanRecord } =
+    useCreateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.DentalPlan,
+    });
+
+  const { createOneRecord: createOneVisionPlanRecord } =
+    useCreateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.VisionPlan,
+    });
+
   const handleCreateMedicalPlan = async () => {
     await createOneMedicalPlanRecord({
+      companyId: objectRecordId,
+    });
+  };
+
+  const handleCreateDentalPlan = async () => {
+    await createOneDentalPlanRecord({
+      companyId: objectRecordId,
+    });
+  };
+
+  const handleCreateVisionPlan = async () => {
+    await createOneVisionPlanRecord({
       companyId: objectRecordId,
     });
   };
@@ -303,6 +406,12 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
   //     });
   //   };
 
+  console.log(
+    'available',
+    availableFieldMetadataItems.filter(
+      (x) => x.description?.includes('dental'),
+    ),
+  );
   return (
     <StyledContainer>
       <StyledDropdownContainer>
@@ -315,38 +424,44 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                   <StyledPlanColumn>
                     <>
                       {medicalPlans.length > 0 ? (
-                        medicalPlanFields &&
-                        medicalPlanFields
-                          .map((fieldMetadataItem, index) => (
-                            <FieldContext.Provider
-                              key={
-                                (medicalPlans[0] as any).id +
-                                fieldMetadataItem.id
-                              }
-                              value={{
-                                entityId: (medicalPlans[0] as any).id ?? '',
-                                maxWidth: 272,
-                                recoilScopeId:
-                                  (medicalPlans[0] as any).id +
-                                  fieldMetadataItem.id,
-                                isLabelIdentifier: false,
-                                fieldDefinition:
-                                  formatFieldMetadataItemAsColumnDefinition({
-                                    field: fieldMetadataItem,
-                                    position: index,
-                                    objectMetadataItem,
-                                    showLabel: true,
-                                    labelWidth: 160,
-                                  }),
-                                useUpdateRecord:
-                                  useUpdateMedicalPlanObjectRecordMutation,
-                                hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                              }}
-                            >
-                              <RecordInlineCell />
-                            </FieldContext.Provider>
-                          ))
-                          .slice(0, 4)
+                        medicalPlans.map(
+                          (medicalPlan) =>
+                            medicalPlanFields &&
+                            medicalPlanFields
+                              .map((fieldMetadataItem, index) => (
+                                <FieldContext.Provider
+                                  key={
+                                    (medicalPlan as any).id +
+                                    fieldMetadataItem.id
+                                  }
+                                  value={{
+                                    entityId: (medicalPlan as any).id ?? '',
+                                    maxWidth: 272,
+                                    recoilScopeId:
+                                      (medicalPlan as any).id +
+                                      fieldMetadataItem.id,
+                                    isLabelIdentifier: false,
+                                    fieldDefinition:
+                                      formatFieldMetadataItemAsColumnDefinition(
+                                        {
+                                          field: fieldMetadataItem,
+                                          position: index,
+                                          objectMetadataItem,
+                                          showLabel: true,
+                                          labelWidth: 160,
+                                        },
+                                      ),
+                                    useUpdateRecord:
+                                      useUpdateMedicalPlanObjectRecordMutation,
+                                    hotkeyScope:
+                                      InlineCellHotkeyScope.InlineCell,
+                                  }}
+                                >
+                                  <RecordInlineCell />
+                                </FieldContext.Provider>
+                              ))
+                              .slice(0, 4),
+                        )
                       ) : (
                         <Button
                           Icon={IconPlus}
@@ -360,50 +475,257 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                 </PropertyBox>
               }
             >
+              <StyledPlanColumn>
+                {availableFieldMetadataItems
+                  .filter((field) => {
+                    return field.description?.includes('medical_plan');
+                  })
+                  .map((fieldMetadataItem, index) => (
+                    <FieldContext.Provider
+                      key={record?.id + fieldMetadataItem.id}
+                      value={{
+                        entityId: record?.id ?? '',
+                        maxWidth: 272,
+                        recoilScopeId: record?.id + fieldMetadataItem.id,
+                        isLabelIdentifier: false,
+                        fieldDefinition:
+                          formatFieldMetadataItemAsColumnDefinition({
+                            field: fieldMetadataItem,
+                            position: index,
+                            objectMetadataItem,
+                            showLabel: true,
+                            labelWidth: 160,
+                          }),
+                        useUpdateRecord:
+                          useUpdateMedicalPlanObjectRecordMutation,
+                        hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                      }}
+                    >
+                      <RecordInlineCell />
+                    </FieldContext.Provider>
+                  ))}
+              </StyledPlanColumn>
+
+              {medicalPlans.map(
+                (medicalPlan) =>
+                  medicalPlanFields &&
+                  medicalPlanFields
+                    .filter((field) => {
+                      return field.label === 'Plan Name';
+                    })
+                    .map((section, index) => (
+                      <>
+                        <StyledSeparator />
+                        <RecordItemDropdown
+                          dropdownTitle={
+                            <FieldContext.Provider
+                              key={(medicalPlan as any)?.id ?? '' + section.id}
+                              value={{
+                                entityId: (medicalPlan as any)?.id ?? '',
+                                maxWidth: 272,
+                                recoilScopeId:
+                                  (medicalPlan as any)?.id ?? '' + section.id,
+                                isLabelIdentifier: false,
+                                fieldDefinition:
+                                  formatFieldMetadataItemAsColumnDefinition({
+                                    field: section,
+                                    position: index,
+                                    objectMetadataItem,
+                                    showLabel: true,
+                                    labelWidth: 160,
+                                  }),
+                                useUpdateRecord:
+                                  useUpdateMedicalPlanObjectRecordMutation,
+                                hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                              }}
+                            >
+                              {/* <RecordInlineCell /> */}
+                              New Plan
+                            </FieldContext.Provider>
+                          }
+                        >
+                          <PropertyBoxRow>
+                            {['EE', 'ES', 'EF', 'EC'].map((group) => (
+                              <>
+                                <StyledGroupContainer2>
+                                  <DropdownMenuHeader>
+                                    {group}
+                                    {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+                                  </DropdownMenuHeader>
+                                  <DropdownMenuItemsContainer>
+                                    {/* {[...availableSortDefinitions]
+                            .sort((a, b) => a.label.localeCompare(b.label))
+                            .map((availableSortDefinition, index) => (
+                              <MenuItem
+                                testId={`select-sort-${index}`}
+                                key={index}
+                                onClick={() => handleAddSort(availableSortDefinition)}
+                                LeftIcon={getIcon(availableSortDefinition.iconName)}
+                                text={availableSortDefinition.label}
+                              />
+                            ))} */}
+                                    {/* Map properties to cells here */}
+
+                                    {medicalPlanFields
+                                      .filter((field) => {
+                                        return field.description?.includes(
+                                          group,
+                                        );
+                                      })
+                                      .map((fieldMetadataItem, index) => (
+                                        <FieldContext.Provider
+                                          key={
+                                            (medicalPlan as any)?.id +
+                                            fieldMetadataItem.id
+                                          }
+                                          value={{
+                                            entityId:
+                                              (medicalPlan as any)?.id ?? '',
+                                            maxWidth: 273,
+                                            recoilScopeId:
+                                              (medicalPlan as any)?.id +
+                                              fieldMetadataItem.id,
+                                            isLabelIdentifier: false,
+                                            fieldDefinition:
+                                              formatFieldMetadataItemAsColumnDefinition(
+                                                {
+                                                  field: fieldMetadataItem,
+                                                  position: index,
+                                                  objectMetadataItem,
+                                                  showLabel: true,
+                                                  labelWidth: 60,
+                                                },
+                                              ),
+                                            useUpdateRecord:
+                                              useUpdateMedicalPlanObjectRecordMutation,
+                                            hotkeyScope:
+                                              InlineCellHotkeyScope.InlineCell,
+                                          }}
+                                        >
+                                          <RecordInlineCell />
+                                        </FieldContext.Provider>
+                                      ))}
+                                  </DropdownMenuItemsContainer>
+                                </StyledGroupContainer2>
+                              </>
+                            ))}
+                          </PropertyBoxRow>
+                        </RecordItemDropdown>
+                      </>
+                    )),
+              )}
+
+              <Button
+                Icon={IconPlus}
+                title="Add Medical Plan"
+                variant="secondary"
+                onClick={handleCreateMedicalPlan}
+              />
+            </RecordItemDropdown>
+          ))}
+          <RecordItemDropdown
+            dropdownTitle={'Dental'}
+            initialRows={
               <PropertyBox>
                 <StyledPlanColumn>
-                  {/* {getCategorySpecificItems(category).map(
-                      (fieldMetadataItem, index) => (
-                        <FieldContext.Provider
-                          key={record?.id + fieldMetadataItem.id}
-                          value={{
-                            entityId: record?.id ?? '',
-                            maxWidth: 272,
-                            recoilScopeId: record?.id + fieldMetadataItem.id,
-                            isLabelIdentifier: false,
-                            fieldDefinition:
-                              formatFieldMetadataItemAsColumnDefinition({
-                                field: fieldMetadataItem,
-                                position: index,
-                                objectMetadataItem,
-                                showLabel: true,
-                                labelWidth: 160,
-                              }),
-                            useUpdateRecord: useUpdateOneObjectRecordMutation,
-                            hotkeyScope: InlineCellHotkeyScope.InlineCell,
-                          }}
-                        >
-                          <RecordInlineCell />
-                        </FieldContext.Provider>
-                      ),
-                    )} */}
+                  <>
+                    {dentalPlans.length > 0 ? (
+                      dentalPlans.map(
+                        (dentalPlan) =>
+                          dentalPlanFields &&
+                          dentalPlanFields
+                            .map((fieldMetadataItem, index) => (
+                              <FieldContext.Provider
+                                key={
+                                  (dentalPlan as any).id + fieldMetadataItem.id
+                                }
+                                value={{
+                                  entityId: (dentalPlan as any).id ?? '',
+                                  maxWidth: 272,
+                                  recoilScopeId:
+                                    (dentalPlan as any).id +
+                                    fieldMetadataItem.id,
+                                  isLabelIdentifier: false,
+                                  fieldDefinition:
+                                    formatFieldMetadataItemAsColumnDefinition({
+                                      field: fieldMetadataItem,
+                                      position: index,
+                                      objectMetadataItem,
+                                      showLabel: true,
+                                      labelWidth: 160,
+                                    }),
+                                  useUpdateRecord:
+                                    useUpdateDentalPlanObjectRecordMutation,
+                                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                                }}
+                              >
+                                <RecordInlineCell />
+                              </FieldContext.Provider>
+                            ))
+                            .slice(0, 4),
+                      )
+                    ) : (
+                      <Button
+                        Icon={IconPlus}
+                        title="Add Dental Plan"
+                        variant="secondary"
+                        onClick={handleCreateDentalPlan}
+                      />
+                    )}
+                  </>
                 </StyledPlanColumn>
+              </PropertyBox>
+            }
+          >
+            <StyledPlanColumn>
+              {availableFieldMetadataItems
+                .filter((field) => {
+                  return field.description?.includes('dental_plan');
+                })
+                .map((fieldMetadataItem, index) => (
+                  <FieldContext.Provider
+                    key={record?.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record?.id ?? '',
+                      maxWidth: 272,
+                      recoilScopeId: record?.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 160,
+                        }),
+                      useUpdateRecord: useUpdateMedicalPlanObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                ))}
+            </StyledPlanColumn>
 
-                {medicalPlanFields &&
-                  medicalPlanFields.map((section, index) => (
+            {dentalPlans.map(
+              (dentalPlan) =>
+                dentalPlanFields &&
+                dentalPlanFields
+                  .filter((field) => {
+                    return field.label === 'Plan Name';
+                  })
+                  .map((section, index) => (
                     <>
                       <StyledSeparator />
                       <RecordItemDropdown
                         dropdownTitle={
                           <FieldContext.Provider
-                            key={
-                              (medicalPlans[0] as any)?.id ?? '' + section.id
-                            }
+                            key={(dentalPlan as any)?.id ?? '' + section.id}
                             value={{
-                              entityId: (medicalPlans[0] as any)?.id ?? '',
+                              entityId: (dentalPlan as any)?.id ?? '',
                               maxWidth: 272,
                               recoilScopeId:
-                                (medicalPlans[0] as any)?.id ?? '' + section.id,
+                                (dentalPlan as any)?.id ?? '' + section.id,
                               isLabelIdentifier: false,
                               fieldDefinition:
                                 formatFieldMetadataItemAsColumnDefinition({
@@ -414,11 +736,12 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                                   labelWidth: 160,
                                 }),
                               useUpdateRecord:
-                                useUpdateMedicalPlanObjectRecordMutation,
+                                useUpdateDentalPlanObjectRecordMutation,
                               hotkeyScope: InlineCellHotkeyScope.InlineCell,
                             }}
                           >
-                            <RecordInlineCell />
+                            {/* <RecordInlineCell /> */}
+                            New Plan
                           </FieldContext.Provider>
                         }
                       >
@@ -444,38 +767,43 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                             ))} */}
                                   {/* Map properties to cells here */}
 
-                                  {getPlanGroupCategorySpecificItems(
-                                    index,
-                                    group,
-                                    category,
-                                  ).map((fieldMetadataItem, index) => (
-                                    <FieldContext.Provider
-                                      key={record?.id + fieldMetadataItem.id}
-                                      value={{
-                                        entityId: record?.id ?? '',
-                                        maxWidth: 273,
-                                        recoilScopeId:
-                                          record?.id + fieldMetadataItem.id,
-                                        isLabelIdentifier: false,
-                                        fieldDefinition:
-                                          formatFieldMetadataItemAsColumnDefinition(
-                                            {
-                                              field: fieldMetadataItem,
-                                              position: index,
-                                              objectMetadataItem,
-                                              showLabel: true,
-                                              labelWidth: 60,
-                                            },
-                                          ),
-                                        useUpdateRecord:
-                                          useUpdateOneObjectRecordMutation,
-                                        hotkeyScope:
-                                          InlineCellHotkeyScope.InlineCell,
-                                      }}
-                                    >
-                                      <RecordInlineCell />
-                                    </FieldContext.Provider>
-                                  ))}
+                                  {dentalPlanFields
+                                    .filter((field) => {
+                                      return field.description?.includes(group);
+                                    })
+                                    .map((fieldMetadataItem, index) => (
+                                      <FieldContext.Provider
+                                        key={
+                                          (dentalPlan as any)?.id +
+                                          fieldMetadataItem.id
+                                        }
+                                        value={{
+                                          entityId:
+                                            (dentalPlan as any)?.id ?? '',
+                                          maxWidth: 273,
+                                          recoilScopeId:
+                                            (dentalPlan as any)?.id +
+                                            fieldMetadataItem.id,
+                                          isLabelIdentifier: false,
+                                          fieldDefinition:
+                                            formatFieldMetadataItemAsColumnDefinition(
+                                              {
+                                                field: fieldMetadataItem,
+                                                position: index,
+                                                objectMetadataItem,
+                                                showLabel: true,
+                                                labelWidth: 60,
+                                              },
+                                            ),
+                                          useUpdateRecord:
+                                            useUpdateDentalPlanObjectRecordMutation,
+                                          hotkeyScope:
+                                            InlineCellHotkeyScope.InlineCell,
+                                        }}
+                                      >
+                                        <RecordInlineCell />
+                                      </FieldContext.Provider>
+                                    ))}
                                 </DropdownMenuItemsContainer>
                               </StyledGroupContainer2>
                             </>
@@ -483,10 +811,215 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                         </PropertyBoxRow>
                       </RecordItemDropdown>
                     </>
-                  ))}
+                  )),
+            )}
+
+            <Button
+              Icon={IconPlus}
+              title="Add Dental Plan"
+              variant="secondary"
+              onClick={handleCreateDentalPlan}
+            />
+          </RecordItemDropdown>
+
+          <RecordItemDropdown
+            dropdownTitle={'Vision'}
+            initialRows={
+              <PropertyBox>
+                <StyledPlanColumn>
+                  <>
+                    {visionPlans.length > 0 ? (
+                      visionPlans.map(
+                        (visionPlan) =>
+                          visionPlanFields &&
+                          visionPlanFields
+                            .map((fieldMetadataItem, index) => (
+                              <FieldContext.Provider
+                                key={
+                                  (visionPlan as any).id + fieldMetadataItem.id
+                                }
+                                value={{
+                                  entityId: (visionPlan as any).id ?? '',
+                                  maxWidth: 272,
+                                  recoilScopeId:
+                                    (visionPlan as any).id +
+                                    fieldMetadataItem.id,
+                                  isLabelIdentifier: false,
+                                  fieldDefinition:
+                                    formatFieldMetadataItemAsColumnDefinition({
+                                      field: fieldMetadataItem,
+                                      position: index,
+                                      objectMetadataItem,
+                                      showLabel: true,
+                                      labelWidth: 160,
+                                    }),
+                                  useUpdateRecord:
+                                    useUpdateVisionPlanObjectRecordMutation,
+                                  hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                                }}
+                              >
+                                <RecordInlineCell />
+                              </FieldContext.Provider>
+                            ))
+                            .slice(0, 4),
+                      )
+                    ) : (
+                      <Button
+                        Icon={IconPlus}
+                        title="Add Vision Plan"
+                        variant="secondary"
+                        onClick={handleCreateVisionPlan}
+                      />
+                    )}
+                  </>
+                </StyledPlanColumn>
               </PropertyBox>
-            </RecordItemDropdown>
-          ))}
+            }
+          >
+            <StyledPlanColumn>
+              {availableFieldMetadataItems
+                .filter((field) => {
+                  return field.description?.includes('vision_plan');
+                })
+                .map((fieldMetadataItem, index) => (
+                  <FieldContext.Provider
+                    key={record?.id + fieldMetadataItem.id}
+                    value={{
+                      entityId: record?.id ?? '',
+                      maxWidth: 272,
+                      recoilScopeId: record?.id + fieldMetadataItem.id,
+                      isLabelIdentifier: false,
+                      fieldDefinition:
+                        formatFieldMetadataItemAsColumnDefinition({
+                          field: fieldMetadataItem,
+                          position: index,
+                          objectMetadataItem,
+                          showLabel: true,
+                          labelWidth: 160,
+                        }),
+                      useUpdateRecord: useUpdateMedicalPlanObjectRecordMutation,
+                      hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                    }}
+                  >
+                    <RecordInlineCell />
+                  </FieldContext.Provider>
+                ))}
+            </StyledPlanColumn>
+
+            {visionPlans.map(
+              (visionPlan) =>
+                visionPlanFields &&
+                visionPlanFields
+                  .filter((field) => {
+                    return field.label === 'Plan Name';
+                  })
+                  .map((section, index) => (
+                    <>
+                      <StyledSeparator />
+                      <RecordItemDropdown
+                        dropdownTitle={
+                          <FieldContext.Provider
+                            key={(visionPlan as any)?.id ?? '' + section.id}
+                            value={{
+                              entityId: (visionPlan as any)?.id ?? '',
+                              maxWidth: 272,
+                              recoilScopeId:
+                                (visionPlan as any)?.id ?? '' + section.id,
+                              isLabelIdentifier: false,
+                              fieldDefinition:
+                                formatFieldMetadataItemAsColumnDefinition({
+                                  field: section,
+                                  position: index,
+                                  objectMetadataItem,
+                                  showLabel: true,
+                                  labelWidth: 160,
+                                }),
+                              useUpdateRecord:
+                                useUpdateVisionPlanObjectRecordMutation,
+                              hotkeyScope: InlineCellHotkeyScope.InlineCell,
+                            }}
+                          >
+                            {/* <RecordInlineCell /> */}
+                            New Plan
+                          </FieldContext.Provider>
+                        }
+                      >
+                        <PropertyBoxRow>
+                          {['EE', 'ES', 'EF', 'EC'].map((group) => (
+                            <>
+                              <StyledGroupContainer2>
+                                <DropdownMenuHeader>
+                                  {group}
+                                  {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+                                </DropdownMenuHeader>
+                                <DropdownMenuItemsContainer>
+                                  {/* {[...availableSortDefinitions]
+                            .sort((a, b) => a.label.localeCompare(b.label))
+                            .map((availableSortDefinition, index) => (
+                              <MenuItem
+                                testId={`select-sort-${index}`}
+                                key={index}
+                                onClick={() => handleAddSort(availableSortDefinition)}
+                                LeftIcon={getIcon(availableSortDefinition.iconName)}
+                                text={availableSortDefinition.label}
+                              />
+                            ))} */}
+                                  {/* Map properties to cells here */}
+
+                                  {visionPlanFields
+                                    .filter((field) => {
+                                      return field.description?.includes(group);
+                                    })
+                                    .map((fieldMetadataItem, index) => (
+                                      <FieldContext.Provider
+                                        key={
+                                          (visionPlan as any)?.id +
+                                          fieldMetadataItem.id
+                                        }
+                                        value={{
+                                          entityId:
+                                            (visionPlan as any)?.id ?? '',
+                                          maxWidth: 273,
+                                          recoilScopeId:
+                                            (visionPlan as any)?.id +
+                                            fieldMetadataItem.id,
+                                          isLabelIdentifier: false,
+                                          fieldDefinition:
+                                            formatFieldMetadataItemAsColumnDefinition(
+                                              {
+                                                field: fieldMetadataItem,
+                                                position: index,
+                                                objectMetadataItem,
+                                                showLabel: true,
+                                                labelWidth: 60,
+                                              },
+                                            ),
+                                          useUpdateRecord:
+                                            useUpdateVisionPlanObjectRecordMutation,
+                                          hotkeyScope:
+                                            InlineCellHotkeyScope.InlineCell,
+                                        }}
+                                      >
+                                        <RecordInlineCell />
+                                      </FieldContext.Provider>
+                                    ))}
+                                </DropdownMenuItemsContainer>
+                              </StyledGroupContainer2>
+                            </>
+                          ))}
+                        </PropertyBoxRow>
+                      </RecordItemDropdown>
+                    </>
+                  )),
+            )}
+
+            <Button
+              Icon={IconPlus}
+              title="Add Vision Plan"
+              variant="secondary"
+              onClick={handleCreateVisionPlan}
+            />
+          </RecordItemDropdown>
         </>
       </StyledDropdownContainer>
     </StyledContainer>

@@ -11,13 +11,11 @@ import { Timeline } from '@/activities/timeline/components/Timeline';
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import {
-  IconCheckbox,
   IconLayoutKanban,
   IconMail,
   IconNotes,
   IconPaperclip,
   IconPlug,
-  IconTimelineEvent,
 } from '@/ui/display/icon';
 import { TabList } from '@/ui/layout/tab/components/TabList';
 import { useTabList } from '@/ui/layout/tab/hooks/useTabList';
@@ -86,12 +84,12 @@ export const ShowPageRightContainer = ({
       Icon: IconNotes,
       hide: !notes,
     },
-    {
-      id: 'tasks',
-      title: 'Tasks',
-      Icon: IconCheckbox,
-      hide: !tasks,
-    },
+    // {
+    //   id: 'tasks',
+    //   title: 'Tasks',
+    //   Icon: IconCheckbox,
+    //   hide: !tasks,
+    // },
     {
       id: 'employerInfo',
       title: 'Shareable',
@@ -100,7 +98,7 @@ export const ShowPageRightContainer = ({
     },
     {
       id: 'files',
-      title: 'Files',
+      title: 'Commission Reports',
       Icon: IconPaperclip,
       hide: !notes,
       disabled: targetableObjectMetadataItem.isCustom,
@@ -112,12 +110,12 @@ export const ShowPageRightContainer = ({
       hide: !emails,
       disabled: !isMessagingEnabled || targetableObjectMetadataItem.isCustom,
     },
-    {
-      id: 'timeline',
-      title: 'Timeline',
-      Icon: IconTimelineEvent,
-      hide: !timeline,
-    },
+    // {
+    //   id: 'timeline',
+    //   title: 'Timeline',
+    //   Icon: IconTimelineEvent,
+    //   hide: !timeline,
+    // },
   ];
 
   return (

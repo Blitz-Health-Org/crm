@@ -10,7 +10,7 @@ import { CommissionLineObjectMetadata } from 'src/workspace/workspace-sync-metad
 
 @ObjectMetadata({
   namePlural: 'visionPlans',
-  labelSingular: 'Vision_Plan',
+  labelSingular: 'Vision Plan',
   labelPlural: 'Vision_Plans',
   description: 'A dental plan',
   icon: 'IconBuildingSkyscraper', // TODO BLUME: Fix this icon

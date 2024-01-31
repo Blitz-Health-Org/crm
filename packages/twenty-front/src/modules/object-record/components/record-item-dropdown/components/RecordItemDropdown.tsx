@@ -12,6 +12,7 @@ export type RecordItemDropdownProps = {
   dropdownTitle: any;
   defaultOpen?: boolean;
   initialRows?: React.ReactNode;
+  propertyBox?: boolean;
 };
 
 const StyledContainer = styled.div`
@@ -27,6 +28,7 @@ export const RecordItemDropdown = ({
   defaultOpen = false,
   initialRows,
   children,
+  propertyBox = true,
 }: RecordItemDropdownProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
     useState(defaultOpen);
@@ -34,21 +36,66 @@ export const RecordItemDropdown = ({
   // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
   const { getIcon } = useIcons();
 
-  return (
-    <>
-      {!isRecordItemMenuUnfolded ? (
-        <PropertyBox>
-          <DropdownMenuHeader
-            EndIcon={IconChevronRight}
-            onClick={() => setIsRecordItemMenuUnfolded(true)}
-          >
-            {dropdownTitle}
-          </DropdownMenuHeader>
-          {initialRows}
-        </PropertyBox>
-      ) : (
-        <>
+  if (propertyBox)
+    return (
+      <>
+        {!isRecordItemMenuUnfolded ? (
           <PropertyBox>
+            <DropdownMenuHeader
+              EndIcon={IconChevronRight}
+              onClick={() => setIsRecordItemMenuUnfolded(true)}
+            >
+              {dropdownTitle}
+            </DropdownMenuHeader>
+            {initialRows}
+          </PropertyBox>
+        ) : (
+          <>
+            <PropertyBox>
+              <StyledContainer>
+                <DropdownMenuHeader
+                  EndIcon={IconChevronDown}
+                  onClick={() => setIsRecordItemMenuUnfolded(false)}
+                >
+                  {dropdownTitle}
+                  {/* ADD MEDICAL/TITLE/DENTAL STUFF HERE */}
+                </DropdownMenuHeader>
+                <DropdownMenuItemsContainer>
+                  {children}
+                  {/* {[...availableSortDefinitions]
+              .sort((a, b) => a.label.localeCompare(b.label))
+              .map((availableSortDefinition, index) => (
+                <MenuItem
+                  testId={`select-sort-${index}`}
+                  key={index}
+                  onClick={() => handleAddSort(availableSortDefinition)}
+                  LeftIcon={getIcon(availableSortDefinition.iconName)}
+                  text={availableSortDefinition.label}
+                />
+              ))} */}
+                  {/* Map properties to cells here */}
+                </DropdownMenuItemsContainer>
+              </StyledContainer>
+            </PropertyBox>
+          </>
+        )}
+      </>
+    );
+  else {
+    return (
+      <>
+        {!isRecordItemMenuUnfolded ? (
+          <PropertyBox>
+            <DropdownMenuHeader
+              EndIcon={IconChevronRight}
+              onClick={() => setIsRecordItemMenuUnfolded(true)}
+            >
+              {dropdownTitle}
+            </DropdownMenuHeader>
+            {initialRows}
+          </PropertyBox>
+        ) : (
+          <>
             <StyledContainer>
               <DropdownMenuHeader
                 EndIcon={IconChevronDown}
@@ -73,9 +120,9 @@ export const RecordItemDropdown = ({
                 {/* Map properties to cells here */}
               </DropdownMenuItemsContainer>
             </StyledContainer>
-          </PropertyBox>
-        </>
-      )}
-    </>
-  );
+          </>
+        )}
+      </>
+    );
+  }
 };
