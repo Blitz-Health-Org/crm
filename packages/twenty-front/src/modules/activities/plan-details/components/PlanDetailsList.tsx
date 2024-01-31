@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Button } from 'tsup.ui.index';
 
 import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
 import { useMedicalPlans } from '@/medical-plan/hooks/useMedicalPlans';
@@ -17,6 +18,7 @@ import {
   RecordUpdateHookParams,
 } from '@/object-record/field/contexts/FieldContext';
 import { entityFieldsFamilyState } from '@/object-record/field/states/entityFieldsFamilyState';
+import { useCreateOneRecord } from '@/object-record/hooks/useCreateOneRecord';
 import { useFindOneRecord } from '@/object-record/hooks/useFindOneRecord';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
 import { RecordInlineCell } from '@/object-record/record-inline-cell/components/RecordInlineCell';
@@ -24,6 +26,7 @@ import { PropertyBox } from '@/object-record/record-inline-cell/property-box/com
 import { PropertyBoxRow } from '@/object-record/record-inline-cell/property-box/components/PropertyBoxRow';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
 import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
+import { IconPlus } from '@/ui/display/icon/index';
 import { DropdownMenuHeader } from '@/ui/layout/dropdown/components/DropdownMenuHeader';
 import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
 
@@ -127,15 +130,26 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     entityFieldsFamilyState(objectRecordId ?? ''),
   );
 
+  const setMedicalPlanEntityFields = useSetRecoilState(
+    entityFieldsFamilyState((medicalPlans[0] as any)?.id ?? ''),
+  );
+
   const { record } = useFindOneRecord({
     objectRecordId,
     objectNameSingular,
   });
 
+  const { record: medicalPlanRecord } = useFindOneRecord({
+    objectRecordId: (medicalPlans[0] as any)?.id ?? '',
+    objectNameSingular: 'medicalPlan',
+  });
+
   useEffect(() => {
     if (!record) return;
     setEntityFields(record);
-  }, [record, setEntityFields]);
+    if (!medicalPlanRecord) return;
+    setMedicalPlanEntityFields(medicalPlanRecord as any);
+  }, [record, setEntityFields, setMedicalPlanEntityFields, medicalPlanRecord]);
 
   // const [uploadImage] = useUploadImageMutation();
   const { updateOneRecord } = useUpdateOneRecord({ objectNameSingular });
@@ -143,6 +157,17 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
   const useUpdateOneObjectRecordMutation: RecordUpdateHook = () => {
     const updateEntity = ({ variables }: RecordUpdateHookParams) => {
       updateOneRecord?.({
+        idToUpdate: variables.where.id as string,
+        updateOneRecordInput: variables.updateOneRecordInput,
+      });
+    };
+
+    return [updateEntity, { loading: false }];
+  };
+
+  const useUpdateMedicalPlanObjectRecordMutation: RecordUpdateHook = () => {
+    const updateEntity = ({ variables }: RecordUpdateHookParams) => {
+      updateOneMedicalPlan?.({
         idToUpdate: variables.where.id as string,
         updateOneRecordInput: variables.updateOneRecordInput,
       });
@@ -222,13 +247,6 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     return company.label === 'Medical_Plan';
   })?.fromRelationMetadata?.toObjectMetadata?.id;
 
-  const { record: medicalPlanRecord } = useFindOneRecord({
-    objectRecordId: medicalPlanId,
-    objectNameSingular: 'medicalPlan',
-  });
-
-  console.log('medicalPlanrecord', medicalPlanRecord);
-
   const medicalPlanMetadataItem = objectMetadataItems.find(
     (objectMetadataItem) => objectMetadataItem.id === medicalPlanId,
   );
@@ -249,13 +267,16 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
   //     !fieldMetadataItem.description?.includes('group_plan'),
   // );
 
-  console.log('medicalplanfields', medicalPlanFields);
+  const { createOneRecord: createOneMedicalPlanRecord } =
+    useCreateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.MedicalPlan,
+    });
 
-  const getPlanNameItems = availableFieldMetadataItems.filter(
-    (fieldMetadataItem) => {
-      return fieldMetadataItem.label === 'Plan Name';
-    },
-  );
+  const handleCreateMedicalPlan = async () => {
+    await createOneMedicalPlanRecord({
+      companyId: objectRecordId,
+    });
+  };
 
   const getPlanGroupCategorySpecificItems = (
     plan: any,
@@ -273,15 +294,6 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     });
   };
 
-  const getPlanCategorySpecificItems = (category: any) => {
-    const planCategoryFields = availableFieldMetadataItems.find(
-      (fieldMetadataItem) => {
-        return fieldMetadataItem.label === `${category.toUpperCase()}_Plan`;
-      },
-    );
-
-    return planCategoryFields;
-  };
   //   const getSpecificItemsPlan = (index: any) => {
   //     return availableFieldMetadataItems.filter((fieldMetadataItem) => {
   //       return (
@@ -295,23 +307,28 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
     <StyledContainer>
       <StyledDropdownContainer>
         <>
-          {['Medical', 'Dental', 'Vision'].map((category) => (
+          {['Medical'].map((category) => (
             <RecordItemDropdown
               dropdownTitle={category}
               initialRows={
                 <PropertyBox>
                   <StyledPlanColumn>
                     <>
-                      {medicalPlanFields &&
+                      {medicalPlans.length > 0 ? (
+                        medicalPlanFields &&
                         medicalPlanFields
                           .map((fieldMetadataItem, index) => (
                             <FieldContext.Provider
-                              key={record?.id + fieldMetadataItem.id}
+                              key={
+                                (medicalPlans[0] as any).id +
+                                fieldMetadataItem.id
+                              }
                               value={{
-                                entityId: record?.id ?? '',
+                                entityId: (medicalPlans[0] as any).id ?? '',
                                 maxWidth: 272,
                                 recoilScopeId:
-                                  record?.id + fieldMetadataItem.id,
+                                  (medicalPlans[0] as any).id +
+                                  fieldMetadataItem.id,
                                 isLabelIdentifier: false,
                                 fieldDefinition:
                                   formatFieldMetadataItemAsColumnDefinition({
@@ -322,14 +339,22 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                                     labelWidth: 160,
                                   }),
                                 useUpdateRecord:
-                                  useUpdateOneObjectRecordMutation,
+                                  useUpdateMedicalPlanObjectRecordMutation,
                                 hotkeyScope: InlineCellHotkeyScope.InlineCell,
                               }}
                             >
                               <RecordInlineCell />
                             </FieldContext.Provider>
                           ))
-                          .slice(0, 4)}
+                          .slice(0, 4)
+                      ) : (
+                        <Button
+                          Icon={IconPlus}
+                          title="Add Medical Plan"
+                          variant="secondary"
+                          onClick={handleCreateMedicalPlan}
+                        />
+                      )}
                     </>
                   </StyledPlanColumn>
                 </PropertyBox>
@@ -371,11 +396,14 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                       <RecordItemDropdown
                         dropdownTitle={
                           <FieldContext.Provider
-                            key={record?.id + section.id}
+                            key={
+                              (medicalPlans[0] as any)?.id ?? '' + section.id
+                            }
                             value={{
-                              entityId: record?.id ?? '',
+                              entityId: (medicalPlans[0] as any)?.id ?? '',
                               maxWidth: 272,
-                              recoilScopeId: record?.id + section.id,
+                              recoilScopeId:
+                                (medicalPlans[0] as any)?.id ?? '' + section.id,
                               isLabelIdentifier: false,
                               fieldDefinition:
                                 formatFieldMetadataItemAsColumnDefinition({
@@ -385,7 +413,8 @@ export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
                                   showLabel: true,
                                   labelWidth: 160,
                                 }),
-                              useUpdateRecord: useUpdateOneObjectRecordMutation,
+                              useUpdateRecord:
+                                useUpdateMedicalPlanObjectRecordMutation,
                               hotkeyScope: InlineCellHotkeyScope.InlineCell,
                             }}
                           >

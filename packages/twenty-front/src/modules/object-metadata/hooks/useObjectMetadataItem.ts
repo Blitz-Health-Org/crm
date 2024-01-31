@@ -51,7 +51,6 @@ export const useObjectMetadataItem = (
   );
 
   let objectMetadataItems = useRecoilValue(objectMetadataItemsState);
-  console.log('object', objectMetadataItems);
 
   if (!currentWorkspace) {
     objectMetadataItem =

@@ -114,7 +114,7 @@ export const PageHeader = ({
         duration: theme.animation.duration.normal,
       }}
     >
-      <button
+      <button //TODO BLUME URGENT: Make this an actual fucking button
         onClick={() => {
           setIsHeaderOpen(!isHeaderOpen);
         }}

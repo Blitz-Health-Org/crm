@@ -16,6 +16,9 @@ export const useTextField = () => {
 
   const fieldName = fieldDefinition.metadata.fieldName;
 
+  if (fieldName === 'currentRate1ES')
+    console.log('CHECKDISPLAY', entityId, fieldName);
+
   const [fieldValue, setFieldValue] = useRecoilState<string>(
     entityFieldsFamilySelector({
       entityId: entityId,

@@ -81,6 +81,8 @@ export class TypeMapperService {
     const numberScalar =
       numberScalarMode === 'float' ? FloatFilterType : IntFilterType;
 
+    console.log('LOGLOGLOG', fieldMetadataType);
+
     // LINK and CURRENCY are handled in the factories because they are objects
     const typeFilterMapping = new Map<
       FieldMetadataType,
