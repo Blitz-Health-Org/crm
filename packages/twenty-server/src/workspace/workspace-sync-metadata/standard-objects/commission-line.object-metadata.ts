@@ -100,6 +100,114 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
   })
   enrolledEmployees: string;
 
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'January',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  jan: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'February',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  feb: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'March',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  mar: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'April',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  apr: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'May',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  may: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'June',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  jun: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'July',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  jul: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'August',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  aug: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'September',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  sep: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'October',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  oct: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'November',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  nov: string;
+
+  @FieldMetadata({
+    type: FieldMetadataType.TEXT,
+    label: 'December',
+    description: 'Payment for January',
+    icon: 'IconLink',
+    defaultValue: { value: '' },
+  })
+  dec: string;
+
   //Relations
   @FieldMetadata({
     type: FieldMetadataType.RELATION,
