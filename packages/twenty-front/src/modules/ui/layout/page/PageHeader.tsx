@@ -114,48 +114,47 @@ export const PageHeader = ({
 
   return (
     <StyledComplete>
-    
-    {!isMobile && !isNavigationDrawerOpen && (
-          <StyledTopBarButtonContainer>
-            <NavigationDrawerCollapseButton direction="right" />
-          </StyledTopBarButtonContainer>
-        )}
-        {hasBackButton && (
-          <IconButton
-            Icon={IconChevronLeft}
-            size="small"
-            onClick={() => navigate(-1)}
-            variant="tertiary"
-          />
-        )}
-    
-    <IconButton
-    Icon={isHeaderOpen ? IconChevronUp : IconChevronDown}
-    size="small"
-    onClick={() => setIsHeaderOpen(!isHeaderOpen)}
-    variant="tertiary"
-  />
-    <StyledTopBarMotionContainer
-      isHeaderOpen={isHeaderOpen}
-      initial={false}
-      animate={{
-        height: isMobile ? mobileHeight : desktopHeight,
-        opacity: isHeaderOpen ? 1 : 0,
-      }}
-      transition={{
-        duration: theme.animation.duration.normal,
-      }}
-    >
-      <StyledLeftContainer>
-        <StyledTopBarIconStyledTitleContainer>
-          {Icon && <Icon size={theme.icon.size.md} />}
-          <StyledTitleContainer data-testid="top-bar-title">
-            <OverflowingTextWithTooltip text={title} />
-          </StyledTitleContainer>
-        </StyledTopBarIconStyledTitleContainer>
-      </StyledLeftContainer>
-      <StyledPageActionContainer>{children}</StyledPageActionContainer>
-    </StyledTopBarMotionContainer>
+      {!isMobile && !isNavigationDrawerOpen && (
+        <StyledTopBarButtonContainer>
+          <NavigationDrawerCollapseButton direction="right" />
+        </StyledTopBarButtonContainer>
+      )}
+      {hasBackButton && (
+        <IconButton
+          Icon={IconChevronLeft}
+          size="small"
+          onClick={() => navigate(-1)}
+          variant="tertiary"
+        />
+      )}
+
+      <IconButton
+        Icon={isHeaderOpen ? IconChevronUp : IconChevronDown}
+        size="small"
+        onClick={() => setIsHeaderOpen(!isHeaderOpen)}
+        variant="tertiary"
+      />
+      <StyledTopBarMotionContainer
+        isHeaderOpen={isHeaderOpen}
+        initial={false}
+        animate={{
+          height: isMobile ? mobileHeight : desktopHeight,
+          opacity: isHeaderOpen ? 1 : 0,
+        }}
+        transition={{
+          duration: theme.animation.duration.normal,
+        }}
+      >
+        <StyledLeftContainer>
+          <StyledTopBarIconStyledTitleContainer>
+            {Icon && <Icon size={theme.icon.size.md} />}
+            <StyledTitleContainer data-testid="top-bar-title">
+              <OverflowingTextWithTooltip text={title} />
+            </StyledTitleContainer>
+          </StyledTopBarIconStyledTitleContainer>
+        </StyledLeftContainer>
+        <StyledPageActionContainer>{children}</StyledPageActionContainer>
+      </StyledTopBarMotionContainer>
     </StyledComplete>
   );
 };

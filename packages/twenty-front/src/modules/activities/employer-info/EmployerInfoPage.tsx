@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useSetRecoilState } from 'recoil';
 
+import { useDownloadEmployerReport } from '@/activities/download-employer/utils/downloadReport';
 import { AttachmentDropdown } from '@/activities/files/components/AttachmentDropdown';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
@@ -16,7 +17,6 @@ import { useFindOneRecord } from '@/object-record/hooks/useFindOneRecord';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
 import { RecordInlineCell } from '@/object-record/record-inline-cell/components/RecordInlineCell';
 import { InlineCellHotkeyScope } from '@/object-record/record-inline-cell/types/InlineCellHotkeyScope';
-import { isFieldMetadataItemAvailable } from '@/object-record/utils/isFieldMetadataItemAvailable';
 
 const StyledEmployerInfoContainer = styled.div`
   align-items: flex-start;
@@ -41,14 +41,13 @@ const StyledContainer = styled.div`
 
 const StyledPlanColumn = styled.div`
   background: ${({ theme }) => theme.background.secondary};
-  border: 1px solid ${({ theme }) => theme.border.color.medium}; /* Two columns per row */
+  border: 1px solid ${({ theme }) => theme.border.color.medium};
   border-radius: ${({ theme }) => theme.border.radius.sm}; /* Horizontal gap */
   display: grid; /* Vertical gap */
   gap: ${({ theme }) =>
     theme.spacing(2)}; /* Adjust the max-width percentage as needed */
   grid-column-gap: 12px; /* Set a minimum width as needed */
   grid-row-gap: 12px; /* Enable horizontal overflow scrolling */
-  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 12px;
   max-width: 80vw;
   min-width: 300px;
@@ -121,21 +120,21 @@ export const EmployerInfoPage = () => {
     setEntityFields(record);
   }, [record, setEntityFields]);
 
-  const availableFieldMetadataItems = objectMetadataItem.fields
-    .filter(
-      (fieldMetadataItem) =>
-        isFieldMetadataItemAvailable(fieldMetadataItem) &&
-        fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id,
-    )
-    // .filter(
-    //   (fieldMetadataItem) =>
-    //       displayedEmployerInfoFields.includes(
-    //         fieldMetadataItem?.description ?? '',
-    //       ),
-    // )
-    .sort((fieldMetadataItemA, fieldMetadataItemB) =>
-      fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
-    );
+  const availableFieldMetadataItems = objectMetadataItem.fields;
+  // .filter(
+  //   (fieldMetadataItem) =>
+  //     isFieldMetadataItemAvailable(fieldMetadataItem) &&
+  //     fieldMetadataItem.id !== labelIdentifierFieldMetadata?.id,
+  // )
+  // .filter(
+  //   (fieldMetadataItem) =>
+  //       displayedEmployerInfoFields.includes(
+  //         fieldMetadataItem?.description ?? '',
+  //       ),
+  // )
+  // .sort((fieldMetadataItemA, fieldMetadataItemB) =>
+  //   fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
+  // );
   const { updateOneRecord } = useUpdateOneRecord({ objectNameSingular });
 
   const useUpdateOneObjectRecordMutation: RecordUpdateHook = () => {
@@ -152,6 +151,24 @@ export const EmployerInfoPage = () => {
     return;
   }
 
+  console.log(
+    'availableFieldMetadataItems',
+    availableFieldMetadataItems.map((item) => item.label),
+  );
+
+  const acceptedLabelList = [
+    'Name',
+    'Related Accounts',
+    'Account Owner',
+    'Cobra Eligible',
+    'People',
+    'State Continutation Eligible',
+    'Tax ID',
+    'General Agent',
+    'Email',
+    'Lines of Commission',
+  ];
+
   return (
     <StyledEmployerInfoContainer>
       <StyledContainer>
@@ -159,6 +176,18 @@ export const EmployerInfoPage = () => {
           <StyledPlanColumn>
             Employer Summary
             {availableFieldMetadataItems
+              .filter((item) => {
+                return acceptedLabelList.includes(item.label);
+              })
+              .sort((fieldMetadataItemA, fieldMetadataItemB) => {
+                const posA = acceptedLabelList.findIndex(
+                  (label) => label === fieldMetadataItemA.label,
+                );
+                const posB = acceptedLabelList.findIndex(
+                  (label) => label === fieldMetadataItemB.label,
+                );
+                return posA - posB;
+              })
               .map((fieldMetadataItem, index) => (
                 <StyledLeftContent>
                   <FieldContext.Provider
@@ -185,13 +214,14 @@ export const EmployerInfoPage = () => {
                 </StyledLeftContent>
               ))
               .slice(0, 10)}
+            ...
           </StyledPlanColumn>
         </StyledPropertyBox>
         <StyledRightContent>
           <AttachmentDropdown
             scopeKey={'standin'}
             onDownload={() => {
-              //   useDownloadEmployerReport(availableFieldMetadataItems);
+              useDownloadEmployerReport(availableFieldMetadataItems);
             }}
             allowDelete={false}
           />
