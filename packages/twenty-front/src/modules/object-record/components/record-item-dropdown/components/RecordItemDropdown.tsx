@@ -11,6 +11,7 @@ export type RecordItemDropdownProps = {
   children: React.ReactNode;
   dropdownTitle: any;
   defaultOpen?: boolean;
+  initialRows?: React.ReactNode;
 };
 
 const StyledContainer = styled.div`
@@ -24,6 +25,7 @@ const StyledContainer = styled.div`
 export const RecordItemDropdown = ({
   dropdownTitle,
   defaultOpen = false,
+  initialRows,
   children,
 }: RecordItemDropdownProps) => {
   const [isRecordItemMenuUnfolded, setIsRecordItemMenuUnfolded] =
@@ -42,6 +44,7 @@ export const RecordItemDropdown = ({
           >
             {dropdownTitle}
           </DropdownMenuHeader>
+          {initialRows}
         </PropertyBox>
       ) : (
         <>

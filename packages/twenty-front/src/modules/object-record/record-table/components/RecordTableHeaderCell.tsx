@@ -185,8 +185,6 @@ export const RecordTableHeaderCell = ({
     onMouseUp: handleResizeHandlerEnd,
   });
 
-  console.log('check commissions', visibleTableColumns.length, column.position);
-
   const isLastVisibleColumn =
     column.position === visibleTableColumns.length - 1;
 

@@ -21,4 +21,7 @@ export enum CoreObjectNameSingular {
   Webhook = 'webhook',
   WorkspaceMember = 'workspaceMember',
   CommissionLine = 'commissionLine',
+  MedicalPlan = 'medicalPlan',
+  DentalPlan = 'dentalPlan',
+  VisionPlan = 'visionPlan',
 }

@@ -13,7 +13,7 @@ import { CreateWorkspace } from '~/pages/auth/CreateWorkspace';
 import { PlanRequired } from '~/pages/auth/PlanRequired';
 import { SignInUp } from '~/pages/auth/SignInUp';
 import { VerifyEffect } from '~/pages/auth/VerifyEffect';
-import { CommissionTrackerPage } from '~/pages/commission-tracker/CommissionTrackerPage';
+// import { CommissionTrackerPage } from '~/pages/commission-tracker/CommissionTrackerPage';
 import { ImpersonateEffect } from '~/pages/impersonate/ImpersonateEffect';
 import { NotFound } from '~/pages/not-found/NotFound';
 import { Opportunities } from '~/pages/opportunities/Opportunities';
@@ -62,10 +62,10 @@ export const App = () => {
           <Route path={AppPath.OpportunitiesPage} element={<Opportunities />} />
           <Route path={AppPath.RecordTablePage} element={<RecordTablePage />} />
           <Route path={AppPath.RecordShowPage} element={<RecordShowPage />} />
-          <Route
+          {/* <Route
             path={AppPath.CommissionTrackerPage}
             element={<CommissionTrackerPage />}
-          />
+          /> */}
 
           <Route
             path={AppPath.SettingsCatchAll}

@@ -36,7 +36,7 @@ export class ApiRestQueryBuilderFactory {
     private readonly environmentService: EnvironmentService,
   ) {}
 
-  async getObjectMetadata(request: Request): Promise<{
+  async(request: Request): Promise<{
     objectMetadataItems: ObjectMetadataEntity[];
     objectMetadataItem: ObjectMetadataEntity;
   }> {

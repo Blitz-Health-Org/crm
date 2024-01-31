@@ -77,7 +77,7 @@ export const ShowPageRightContainer = ({
     {
       id: 'planDetails',
       title: 'Plan Details',
-      Icon: IconLayoutKanban, //fix
+      Icon: IconLayoutKanban, //TODO BLUME: fix icon
       hide: !planDetails,
     },
     {
@@ -137,7 +137,7 @@ export const ShowPageRightContainer = ({
       )}
       {/* {activeTabId === 'emails' && <Threads entity={targetableObject} />} */}
       {activeTabId === 'planDetails' && (
-        <PlanDetails /> //targetable object
+        <PlanDetails targetableObject={targetableObject} /> //targetable object
       )}
       {activeTabId === 'employerInfo' && (
         <EmployerInfoPage /> //targetable object

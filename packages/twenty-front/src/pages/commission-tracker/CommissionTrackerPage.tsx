@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // import styled from '@emotion/styled';
 // import React, { useState } from 'react';
 // import { useIsMobile } from '@/ui/utilities/responsive/hooks/useIsMobile';

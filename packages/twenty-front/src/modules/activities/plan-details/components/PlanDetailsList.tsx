@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { ActivityTargetableObject } from '@/activities/types/ActivityTargetableEntity';
+import { useMedicalPlans } from '@/medical-plan/hooks/useMedicalPlans';
+import { MedicalPlan } from '@/medical-plan/types/MedicalPlan';
 import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadataItem';
+import { objectMetadataItemsState } from '@/object-metadata/states/objectMetadataItemsState';
+import { CoreObjectNameSingular } from '@/object-metadata/types/CoreObjectNameSingular';
 import { formatFieldMetadataItemAsColumnDefinition } from '@/object-metadata/utils/formatFieldMetadataItemAsColumnDefinition';
 import { RecordItemDropdown } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdown';
-import { RecordItemDropdownTruncated } from '@/object-record/components/record-item-dropdown/components/RecordItemDropdownTruncated';
 import {
   FieldContext,
   RecordUpdateHook,
@@ -86,7 +90,11 @@ const StyledPlanColumn = styled.div`
   overflow-x: scroll; /* Enable horizontal overflow scrolling */
 `;
 
-export const PlanDetailsList = () => {
+type PlanDetailsListProps = {
+  targetableObject: ActivityTargetableObject;
+};
+
+export const PlanDetailsList = ({ targetableObject }: PlanDetailsListProps) => {
   const { objectNameSingular, objectRecordId } = useParams<{
     objectNameSingular: string;
     objectRecordId: string;
@@ -96,6 +104,8 @@ export const PlanDetailsList = () => {
     throw new Error(`Object name is not defined`);
   }
 
+  const objectMetadataItems = useRecoilValue(objectMetadataItemsState);
+
   const {
     objectMetadataItem,
     labelIdentifierFieldMetadata,
@@ -103,6 +113,13 @@ export const PlanDetailsList = () => {
   } = useObjectMetadataItem({
     objectNameSingular,
   });
+
+  const { medicalPlans } = useMedicalPlans(targetableObject);
+
+  const { updateOneRecord: updateOneMedicalPlan } =
+    useUpdateOneRecord<MedicalPlan>({
+      objectNameSingular: CoreObjectNameSingular.MedicalPlan,
+    });
 
   // const { favorites, createFavorite, deleteFavorite } = useFavorites();
 
@@ -201,6 +218,23 @@ export const PlanDetailsList = () => {
       fieldMetadataItemA.name.localeCompare(fieldMetadataItemB.name),
     );
 
+  const medicalPlanId = availableFieldMetadataItems.find((company) => {
+    return company.label === 'Medical_Plan';
+  })?.fromRelationMetadata?.toObjectMetadata?.id;
+
+  const { record: medicalPlanRecord } = useFindOneRecord({
+    objectRecordId: medicalPlanId,
+    objectNameSingular: 'medicalPlan',
+  });
+
+  console.log('medicalPlanrecord', medicalPlanRecord);
+
+  const medicalPlanMetadataItem = objectMetadataItems.find(
+    (objectMetadataItem) => objectMetadataItem.id === medicalPlanId,
+  );
+
+  const medicalPlanFields = medicalPlanMetadataItem?.fields;
+
   // const inlineFieldMetadataItems = availableFieldMetadataItems.filter(
   //   (fieldMetadataItem) =>
   //     fieldMetadataItem.type !== FieldMetadataType.Relation ||
@@ -214,6 +248,8 @@ export const PlanDetailsList = () => {
   //     !fieldMetadataItem.description?.includes('plan_name') &&
   //     !fieldMetadataItem.description?.includes('group_plan'),
   // );
+
+  console.log('medicalplanfields', medicalPlanFields);
 
   const getPlanNameItems = availableFieldMetadataItems.filter(
     (fieldMetadataItem) => {
@@ -237,18 +273,15 @@ export const PlanDetailsList = () => {
     });
   };
 
-  const getCategorySpecificItems = (category: any) => {
-    return availableFieldMetadataItems.filter((fieldMetadataItem) => {
-      return (
-        fieldMetadataItem.description?.includes(
-          `${category.toLowerCase()}_plan`,
-        ) &&
-        !fieldMetadataItem.description?.includes(`group_plan`) &&
-        !fieldMetadataItem.description?.includes(`plan_name`)
-      );
-    });
-  };
+  const getPlanCategorySpecificItems = (category: any) => {
+    const planCategoryFields = availableFieldMetadataItems.find(
+      (fieldMetadataItem) => {
+        return fieldMetadataItem.label === `${category.toUpperCase()}_Plan`;
+      },
+    );
 
+    return planCategoryFields;
+  };
   //   const getSpecificItemsPlan = (index: any) => {
   //     return availableFieldMetadataItems.filter((fieldMetadataItem) => {
   //       return (
@@ -263,14 +296,14 @@ export const PlanDetailsList = () => {
       <StyledDropdownContainer>
         <>
           {['Medical', 'Dental', 'Vision'].map((category) => (
-            <PropertyBox>
-              <RecordItemDropdownTruncated
-                dropdownTitle={<>{category}</>}
-                initialRows={
-                  <PropertyBox>
-                    <StyledPlanColumn>
-                      <>
-                        {getCategorySpecificItems(category)
+            <RecordItemDropdown
+              dropdownTitle={category}
+              initialRows={
+                <PropertyBox>
+                  <StyledPlanColumn>
+                    <>
+                      {medicalPlanFields &&
+                        medicalPlanFields
                           .map((fieldMetadataItem, index) => (
                             <FieldContext.Provider
                               key={record?.id + fieldMetadataItem.id}
@@ -297,14 +330,14 @@ export const PlanDetailsList = () => {
                             </FieldContext.Provider>
                           ))
                           .slice(0, 4)}
-                      </>
-                    </StyledPlanColumn>
-                  </PropertyBox>
-                }
-              >
-                <PropertyBox>
-                  <StyledPlanColumn>
-                    {getCategorySpecificItems(category).map(
+                    </>
+                  </StyledPlanColumn>
+                </PropertyBox>
+              }
+            >
+              <PropertyBox>
+                <StyledPlanColumn>
+                  {/* {getCategorySpecificItems(category).map(
                       (fieldMetadataItem, index) => (
                         <FieldContext.Provider
                           key={record?.id + fieldMetadataItem.id}
@@ -328,10 +361,11 @@ export const PlanDetailsList = () => {
                           <RecordInlineCell />
                         </FieldContext.Provider>
                       ),
-                    )}
-                  </StyledPlanColumn>
+                    )} */}
+                </StyledPlanColumn>
 
-                  {getPlanNameItems.map((section, index) => (
+                {medicalPlanFields &&
+                  medicalPlanFields.map((section, index) => (
                     <>
                       <StyledSeparator />
                       <RecordItemDropdown
@@ -421,9 +455,8 @@ export const PlanDetailsList = () => {
                       </RecordItemDropdown>
                     </>
                   ))}
-                </PropertyBox>
-              </RecordItemDropdownTruncated>
-            </PropertyBox>
+              </PropertyBox>
+            </RecordItemDropdown>
           ))}
         </>
       </StyledDropdownContainer>
