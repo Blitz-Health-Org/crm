@@ -8,6 +8,7 @@ import { RelationMetadataType } from 'src/metadata/relation-metadata/relation-me
 import { MedicalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/medical-plan.object-metadata';
 import { DentalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/dental-plan.object-metadata';
 import { IsNullable } from 'src/workspace/workspace-sync-metadata/decorators/is-nullable.decorator';
+import { VisionPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/vision-plan.object-metadata';
 
 @ObjectMetadata({
   namePlural: 'commissions',
@@ -17,15 +18,6 @@ import { IsNullable } from 'src/workspace/workspace-sync-metadata/decorators/is-
   icon: 'IconMessageCircle', //TODO BLUME: fix all icons, figure out how they're referenced later on
 })
 export class CommissionLineObjectMetadata extends BaseObjectMetadata {
-  @FieldMetadata({
-    type: FieldMetadataType.TEXT, //change to relation at some point
-    label: 'Client',
-    description: 'Client served',
-    icon: 'IconLink',
-    joinColumn: 'companyId',
-  })
-  client: CompanyObjectMetadata;
-
   //TODO BLUME: Make the fieldmetadatatype not just text,more specific, ie. FieldMetadata.DATE_TIME
   @FieldMetadata({
     type: FieldMetadataType.TEXT,
@@ -252,5 +244,15 @@ export class CommissionLineObjectMetadata extends BaseObjectMetadata {
     //TODO BLUME: Extend this to all medical plans
   })
   @IsNullable()
-  visionPlan: DentalPlanObjectMetadata;
+  visionPlan: VisionPlanObjectMetadata;
+
+  @FieldMetadata({
+    type: FieldMetadataType.RELATION,
+    label: 'Client',
+    description: 'Client for line of commission',
+    icon: 'IconBuildingSkyscraper',
+    joinColumn: 'companyId',
+  })
+  @IsNullable()
+  company: CompanyObjectMetadata;
 }

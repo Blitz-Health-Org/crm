@@ -27,6 +27,7 @@ export type ViewBarProps = {
   className?: string;
   optionsDropdownButton: ReactNode;
   optionsDropdownScopeId: string;
+  groupByDropdownButton?: ReactNode;
   onViewSortsChange?: (sorts: ViewSort[]) => void | Promise<void>;
   onViewFiltersChange?: (filters: ViewFilter[]) => void | Promise<void>;
   onViewFieldsChange?: (fields: ViewField[]) => void | Promise<void>;
@@ -37,6 +38,7 @@ export const ViewBar = ({
   className,
   optionsDropdownButton,
   optionsDropdownScopeId,
+  groupByDropdownButton,
   onViewFieldsChange,
   onViewFiltersChange,
   onViewSortsChange,
@@ -95,6 +97,7 @@ export const ViewBar = ({
               }}
             />
             {optionsDropdownButton}
+            {groupByDropdownButton}
           </>
         }
         bottomComponent={

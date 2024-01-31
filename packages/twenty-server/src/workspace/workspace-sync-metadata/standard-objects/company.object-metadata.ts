@@ -9,6 +9,7 @@ import { RelationMetadata } from 'src/workspace/workspace-sync-metadata/decorato
 import { ActivityTargetObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/activity-target.object-metadata';
 import { AttachmentObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/attachment.object-metadata';
 import { BaseObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/base.object-metadata';
+import { CommissionLineObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/commission-line.object-metadata';
 import { DentalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/dental-plan.object-metadata';
 import { FavoriteObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/favorite.object-metadata';
 import { MedicalPlanObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/medical-plan.object-metadata';
@@ -456,4 +457,17 @@ export class CompanyObjectMetadata extends BaseObjectMetadata {
   })
   @IsNullable()
   attachments: AttachmentObjectMetadata[];
+
+  @FieldMetadata({
+    type: FieldMetadataType.RELATION,
+    label: 'Lines of Commission',
+    description: 'All lines of commission linked to the company.',
+    icon: 'IconFileImport', //TODO BLUME: fix icons
+  })
+  @RelationMetadata({
+    type: RelationMetadataType.ONE_TO_MANY,
+    objectName: 'commissionLine',
+  })
+  @IsNullable()
+  commissionLines: CommissionLineObjectMetadata[];
 }

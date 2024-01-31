@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { LightButton } from 'tsup.ui.index';
 
 import { useSpreadsheetCompanyImport } from '@/companies/hooks/useSpreadsheetCompanyImport';
 import { useColumnDefinitionsFromFieldMetadata } from '@/object-metadata/hooks/useColumnDefinitionsFromFieldMetadata';
@@ -6,12 +7,19 @@ import { useObjectMetadataItem } from '@/object-metadata/hooks/useObjectMetadata
 import { useObjectNameSingularFromPlural } from '@/object-metadata/hooks/useObjectNameSingularFromPlural';
 import { RecordUpdateHookParams } from '@/object-record/field/contexts/FieldContext';
 import { useUpdateOneRecord } from '@/object-record/hooks/useUpdateOneRecord';
+import { FiltersHotkeyScope } from '@/object-record/object-filter-dropdown/types/FiltersHotkeyScope';
+import { ObjectGroupByDropdownId } from '@/object-record/object-sort-dropdown/constants/ObjectSortDropdownId';
+import { useSortDropdown } from '@/object-record/object-sort-dropdown/hooks/useSortDropdown';
 import { RecordTableWithWrappers } from '@/object-record/record-table/components/RecordTableWithWrappers';
 import { TableOptionsDropdownId } from '@/object-record/record-table/constants/TableOptionsDropdownId';
 import { useRecordTable } from '@/object-record/record-table/hooks/useRecordTable';
 import { TableOptionsDropdown } from '@/object-record/record-table/options/components/TableOptionsDropdown';
 import { useSpreadsheetPersonImport } from '@/people/hooks/useSpreadsheetPersonImport';
 import { SpreadsheetImportProvider } from '@/spreadsheet-import/provider/components/SpreadsheetImportProvider';
+import { useIcons } from '@/ui/display/icon/hooks/useIcons';
+import { Dropdown } from '@/ui/layout/dropdown/components/Dropdown';
+import { DropdownMenuItemsContainer } from '@/ui/layout/dropdown/components/DropdownMenuItemsContainer';
+import { useDropdown } from '@/ui/layout/dropdown/hooks/useDropdown';
 import { ViewBar } from '@/views/components/ViewBar';
 import { mapViewFieldsToColumnDefinitions } from '@/views/utils/mapViewFieldsToColumnDefinitions';
 import { mapViewFiltersToFilters } from '@/views/utils/mapViewFiltersToFilters';
@@ -60,6 +68,15 @@ export const RecordTableContainer = ({
     recordTableId,
   });
 
+  const { isSortSelected } = useSortDropdown({
+    sortDropdownId: 'view-group-by',
+  });
+
+  const { toggleDropdown } = useDropdown(ObjectGroupByDropdownId);
+
+  const handleButtonClick = () => {
+    toggleDropdown();
+  };
   const updateEntity = ({ variables }: RecordUpdateHookParams) => {
     updateOneRecord?.({
       idToUpdate: variables.where.id as string,
@@ -75,6 +92,8 @@ export const RecordTableContainer = ({
     openImport();
   };
 
+  const { getIcon } = useIcons();
+
   return (
     <StyledContainer>
       <SpreadsheetImportProvider>
@@ -87,6 +106,41 @@ export const RecordTableContainer = ({
                 ['companies', 'people'].includes(recordTableId)
                   ? handleImport
                   : undefined
+              }
+            />
+          }
+          groupByDropdownButton={
+            <Dropdown
+              dropdownId="groupby-dropdown"
+              dropdownHotkeyScope={{
+                scope: FiltersHotkeyScope.ObjectGroupByDropdownButton,
+              }}
+              // dropdownOffset={{ x: 0, y: -28 }}
+              clickableComponent={
+                <LightButton
+                  title="Group By"
+                  active={isSortSelected}
+                  onClick={handleButtonClick}
+                />
+              }
+              dropdownComponents={
+                <>
+                  <DropdownMenuItemsContainer>
+                    {
+                      [] /* {[] //TODO BLUME URGENT: ...availableSortDefinitions provide client and carrier groupby options
+                      .sort((a, b) => a.label.localeCompare(b.label))
+                      .map((availableSortDefinition, index) => (
+                        <MenuItem
+                          testId={`select-sort-${index}`}
+                          key={index}
+                          onClick={() => handleAddSort(availableSortDefinition)}
+                          LeftIcon={getIcon(availableSortDefinition.iconName)}
+                          text={availableSortDefinition.label}
+                        />
+                      ))} */
+                    }
+                  </DropdownMenuItemsContainer>
+                </>
               }
             />
           }
